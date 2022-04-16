@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main>
+ <div id="infoHoteles" data-hotels="{{hoteles|serialize('json', { groups: 'hotel'})}}"></div>
+<div id="ids" class="d-flex flex-row bg-light" style="position: relative;">
+   <div class="divHoteles" id="divH">
+    
+     <button type="button" class="btn btn-light" id="boton" style="width: 3rem; float-right">X</button>
+     <div class=" p-4" id="mensajes">
+      <h4 class="fw-bold text-secondary">Mas de un numero indefinido de Hoteles</h4>
+      <hr style="width: 100%;">
+      {% for hotel in hoteles %}
+      <div class=" " style="width: 100%; ">
+      
+      
+      <a class="d-flex flex-column flex-md-row col-12 justify-content-center align-items-center gap-4" href="{{ path('alojamiento', {'alojamiento':hotel.getNombre()})}}" style="text-decoration:none">
+        <div class="">
+          <div>
+          <img class="img-fluid " style="border-radius: 15px; height: 200px; width: 300px;" src="https://revistatraveling.com/wp-content/uploads/2020/11/gran-via-alcala.jpg">
+          </div>
+          <div style="width: 400px;">
+            <h4 class="fw-light">{{hotel.getNombre()}}</h4>
+            <hr style="width: 50px;">
+            <div>
+            <p class="fw-light text-secondary">Este acogedor y luminoso apartamento (45m2) se encuentra en el centro de La Coruña. Con capacidad hasta para 2 huéspedes, aquí encontraréis todo lo necesario para tener una estancia inmejorable.</p>
+            <div class="d-flex justify-content-end gap-2" style="float:right" >
+              <span>{{hotel.getUbicacion().getProvincia()}}</span>
+              <span>{{hotel.getPrecio()}}€/noche</span>
+            </div>
+          </div>
+          </div>
+          </a>
+
+          <!--
+<h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+          -->
+          
+        </div>
+      
+         
+      </div>
+      {% endfor %}
+    </div>
+    </div>
+    <div id="map"></div>
+  </div>
+  </main>
+{% endblock %}
+
+  

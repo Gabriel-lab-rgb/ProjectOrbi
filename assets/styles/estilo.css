@@ -1,0 +1,89 @@
+/* Set the size of the div element that contains the map */
+html, body {  
+    margin:0px;  
+    height:100%;  
+  }  
+  main{
+    margin-top: 56px;
+  }
+
+#map {
+    height: 100%;
+    /* The height is 400 pixels */
+   width: 100%;
+   float:left;
+    /* The width is the width of the web page */
+    overflow: hidden;
+}
+
+#ids{
+  height: 800px;
+
+}
+.divHoteles{
+  
+  width: 1800px;
+  border-right:  40px ;
+  transition:all 300ms linear ;
+  
+}
+
+#mensajes{
+
+  height: 100%;
+  
+}
+
+.divHoteles.responsive{
+
+   width: 0px;
+}
+
+#boton{
+
+margin-top: 2rem;
+  float: right;
+  margin-right: -75px;
+  position: relative; 
+  top: 10px; left: 10px; z-index: 99;
+
+
+}
+
+ .gm-style-iw.gm-style-iw-c{
+
+    height: fit-content;
+    width: fit-content;
+    padding: 0px;   
+    border-radius: 20px; 
+}
+
+
+.gm-style-iw-d{
+
+    
+     border-radius: 20px; 
+     overflow: hidden !important;
+     
+    
+}
+
+@media (max-width:1000px){
+
+
+  #map {
+   display:none;
+    /* The width is the width of the web page*/ 
+    
+}
+
+.divHoteles{
+
+  width: 100%;
+}
+#boton{
+
+  display: none;
+}
+
+}

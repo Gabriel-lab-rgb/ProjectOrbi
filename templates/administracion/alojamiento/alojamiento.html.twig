@@ -1,0 +1,44 @@
+{% extends 'baseIndex.html.twig' %}
+
+{% block title %}Hello AdministracionController!{% endblock %}
+
+{% block body %}
+
+<a href="{{path('HotelCreate')}}"><button type="button" class="btn btn-danger" style="float:right; width: 120px; border-radius: 20px">+ Crear</button></a>
+
+     <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">telefono</th>
+      <th scope="col">actividad</th>
+      <th scope="col">caracteristicas</th>
+      <th scope="col">descripcion</th>
+      <th scope="col">precio</th>
+      <th scope="col">precio</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for hotel in hoteles %}
+    <tr>
+      <th scope="row">{{hotel.getId()}}</th>
+      <td>{{hotel.getNombre()}}</td>
+      <td>{{hotel.getTelefono()}}</td>
+      <td>{{hotel.getActividad()}}</td>
+      <td>{{hotel.getCaracteristicas()}}</td>
+      <td>{{hotel.getDescripcion()}}</td>
+      <td>{{hotel.getPrecio()}}</td>
+      <td>
+         <a href="{{ path('HotelDetails', {'id':hotel.getId()})}}" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons">detalles</i></a>
+         <a href="{{ path('HotelEdit', {'id':hotel.getId()})}}" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons">editar</i></a>
+         <a href="{{ path('HotelDelete', {'id':hotel.getId()})}}" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons">borrar</i></a>
+      </td>
+    </tr>
+     {% endfor %}
+  </tbody>
+</table>
+
+
+
+{% endblock %}
