@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<a href="{{path('HotelCreate')}}"><button type="button" class="btn btn-danger" style="float:right; width: 120px; border-radius: 20px">+ Crear</button></a>
+<a href="{{path('AlojamientoCreate')}}"><button type="button" class="btn btn-danger" style="float:right; width: 120px; border-radius: 20px">+ Crear</button></a>
 
      <table class="table table-hover">
   <thead>
@@ -24,15 +24,15 @@
     <tr>
       <th scope="row">{{hotel.getId()}}</th>
       <td>{{hotel.getNombre()}}</td>
-      <td>{{hotel.getTelefono()}}</td>
+     
       <td>{{hotel.getActividad()}}</td>
       <td>{{hotel.getCaracteristicas()}}</td>
       <td>{{hotel.getDescripcion()}}</td>
       <td>{{hotel.getPrecio()}}</td>
       <td>
-         <a href="{{ path('HotelDetails', {'id':hotel.getId()})}}" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons">detalles</i></a>
-         <a href="{{ path('HotelEdit', {'id':hotel.getId()})}}" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons">editar</i></a>
-         <a href="{{ path('HotelDelete', {'id':hotel.getId()})}}" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons">borrar</i></a>
+         <a href="{{ path('AlojamientoDetails', {'id':hotel.getId()})}}" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons">detalles</i></a>
+         <a href="{{ path('AlojamientoEdit', {'id':hotel.getId()})}}" class="edit" title="" data-toggle="tooltip" data-original-title="Edit"><i class="material-icons">editar</i></a>
+         <a href="{{ path('AlojamientoDelete', {'id':hotel.getId()})}}" class="delete" title="" data-toggle="tooltip" data-original-title="Delete"><i class="material-icons">borrar</i></a>
       </td>
     </tr>
      {% endfor %}

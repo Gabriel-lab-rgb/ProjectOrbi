@@ -32,6 +32,16 @@ class Reserva
      */
     private $total;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fecha;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $huespedes = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Reserva
     public function setTotal(string $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getFecha(): ?\DateTimeInterface
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTimeInterface $fecha): self
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    public function getHuespedes(): ?array
+    {
+        return $this->huespedes;
+    }
+
+    public function setHuespedes(array $huespedes): self
+    {
+        $this->huespedes = $huespedes;
 
         return $this;
     }

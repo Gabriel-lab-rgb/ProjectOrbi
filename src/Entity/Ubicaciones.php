@@ -30,29 +30,34 @@ class Ubicaciones
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"hotel", "list_hotel"})
+     * 
      */
     private $provincia;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"hotel", "list_hotel"})
+     * 
      */
     private $comunidad;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=8)
      * @Groups({"hotel", "list_hotel"})
+     * 
      */
     private $latitud;
 
     /**
      * @ORM\Column(type="decimal", precision=11, scale=8)
      * @Groups({"hotel", "list_hotel"})
+     * 
      */
     private $longitud;
 
     /**
      * @ORM\OneToOne(targetEntity=Hotel::class, mappedBy="ubicacion", cascade={"persist", "remove"})
+     *
      */
     private $hotel;
 
@@ -126,7 +131,7 @@ class Ubicaciones
 
         return $this;
     }
-/*
+
     public function getHotel(): ?Hotel
     {
         return $this->hotel;
@@ -143,6 +148,6 @@ class Ubicaciones
 
         return $this;
     }
-*/
+
     
 }

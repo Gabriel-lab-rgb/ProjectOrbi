@@ -7,14 +7,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Hotel;
 use App\Entity\Ubicaciones;
 use App\Entity\User;
+use App\Entity\Images;
+use App\Form\CreateFormType;
+use Symfony\Component\HttpFoundation\File\File;
 
 class AdministracionController extends AbstractController
 {
     /**
-     * @Route("/administracion", name="app_administracion")
+     * @Route("/admin", name="app_administracion")
      */
     public function index(): Response
     {
@@ -23,7 +27,7 @@ class AdministracionController extends AbstractController
         ]);
     }
     /**
-     * @Route("/administracion/alojamiento", name="alojamientos")
+     * @Route("/admin/alojamientos", name="alojamientos")
      */
 
     public function Alojamiento(ManagerRegistry $doctrine): Response
@@ -33,70 +37,74 @@ class AdministracionController extends AbstractController
     }
 
   /**
-     * @Route("/administracion/alojamiento/create", name="HotelCreate")
+     * @Route("/admin/alojamientos/create", name="AlojamientoCreate")
      */
 
-    public function CreateAlojamiento(): Response
+    public function CreateAlojamiento(Request $request,EntityManagerInterface $entityManager,ManagerRegistry $doctrine): Response
     {
-        
-        return $this->render('administracion/alojamiento/Create.html.twig');
-    }
-
-     /**
-     * @Route("/administracion/alojamiento/Formcreate", name="FormHotel")
-     */
-
-    public function FormCreateAlojamiento(ManagerRegistry $doctrine,Request $request): Response
-    {
-
-        $entityManager=$this->getDoctrine()->getManager();
-
-      
-        $nombre=$_POST['nombre'];
-        $telefono=$_POST['telefono'];
-        $actividad=$_POST['actividad'];
-        $precio=$_POST['precio'];
-        $caracteristicas=$_POST['caracteristicas'];
-        $descripcion=$_POST['descripcion'];
-        $direccion=$_POST['direccion'];
-        $comunidad=$_POST['comunidad'];
-        $provincia=$_POST['provincia'];
-        $latitud=$_POST['latitud'];
-        $longitud=$_POST['longitud'];
-
-
-
+        $hotel = new Hotel();
         $ubicacion=new Ubicaciones();
-
-        $ubicacion->setDireccion($direccion);
-        $ubicacion->setComunidad($comunidad);
-        $ubicacion->setProvincia($provincia);
-        $ubicacion->setLatitud($latitud);
-        $ubicacion->setLongitud($longitud); 
-        $hotel=new Hotel();
-        $hotel->setNombre($nombre);
-        $hotel->setTelefono($telefono);
-        $hotel->setActividad($actividad);
-        $hotel->setCaracteristicas($caracteristicas);
-        $hotel->setDescripcion($descripcion);
-        $hotel->setPrecio($precio);
-        $hotel->setUbicacion($ubicacion);
         
-       
+        $form = $this->createForm(CreateFormType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imagenes=$form['Alojamiento']['images'];
+            $images=$imagenes->getData();
 
-        $entityManager->persist($ubicacion);   
-        $entityManager->persist($hotel);
+            foreach($images as $image){
 
-        $entityManager->flush();
+                $newFilename = md5(uniqid()).'.'.$image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename);
+
+                    $img=new Images();
+                    $img->setImageName($newFilename);
+                    $hotel->addImage($img);
+            }
+
+            $ubi=$form['Ubicaciones'];
+            $alo=$form['Alojamiento'];
+            
+
+            $ubicacion->setDireccion($ubi->get('direccion')->getData());
+            $ubicacion->setComunidad($ubi->get('comunidad')->getData());
+            $ubicacion->setProvincia($ubi->get('provincia')->getData());
+            $ubicacion->setLatitud($ubi->get('latitud')->getData());
+            $ubicacion->setLongitud($ubi->get('longitud')->getData());
+
+
+            $hotel->setNombre($alo->get('nombre')->getData());
+            $hotel->setActividad($alo->get('actividad')->getData());
+            $hotel->setCaracteristicas($alo->get('caracteristicas')->getData());
+            $hotel->setDescripcion($alo->get('descripcion')->getData());
+            $hotel->setPrecio($alo->get('precio')->getData());
+            $hotel->setUbicacion($ubicacion);
+            
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($ubicacion);   
+            $entityManager->persist($hotel);
+            
+    
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('alojamientos');
+        }
+      
  
-        return $this->RedirectToRoute('alojamientos');
+
         
-       
+        
+        return $this->render('administracion/alojamiento/Create.html.twig',['CreateForm' => $form->createView(),]);
     }
 
+   
 
      /**
-     * @Route("/administracion/alojamiento/details/{id}", name="HotelDetails")
+     * @Route("/admin/alojamiento/details/{id}", name="AlojamientoDetails")
      */
 
     public function DAlojamiento(ManagerRegistry $doctrine,int $id): Response
@@ -106,17 +114,19 @@ class AdministracionController extends AbstractController
     }
 
       /**
-     * @Route("/administracion/alojamiento/edit/{id}", name="HotelEdit")
+     * @Route("/admin/alojamiento/edit/{id}", name="AlojamientoEdit")
      */
 
     public function EditAlojamiento(ManagerRegistry $doctrine,int $id): Response
     {
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
+
+        
         return $this->render('administracion/alojamiento/Edit.html.twig', ['hotel'=>$hotel]);
     }
 
       /**
-     * @Route("/administracion/alojamiento/editH/{id}", name="EditH")
+     * @Route("/admin/alojamiento/FormEdit/{id}", name="FormEditAlojamiento")
      */
 
     public function EditH(ManagerRegistry $doctrine,int $id): Response
@@ -133,6 +143,23 @@ class AdministracionController extends AbstractController
        $provincia=$_POST['provincia'];
        $latitud=$_POST['latitud'];
        $longitud=$_POST['longitud'];
+
+       $target_path="img/";
+
+       $imagenes=$_FILES['images'];
+
+       for($i=0;i<count($imagenes);$i++){
+
+          $imagen=new Images();
+          
+
+         $imagen->setImageType($imagenes['i']['type']);
+         $tamaño->setImageSize($imagenes['i']['size']);
+           
+
+       }
+
+       
 
        $hotel->setNombre($nombre);
        $hotel->setTelefono($telefono);
@@ -158,7 +185,7 @@ class AdministracionController extends AbstractController
     }
 
       /**
-     * @Route("/administracion/alojamiento/delete/{id}", name="HotelDelete")
+     * @Route("/admin/alojamiento/delete/{id}", name="AlojamientoDelete")
      */
 
     public function DeleteAlojamiento(ManagerRegistry $doctrine,int $id): Response
@@ -174,7 +201,7 @@ class AdministracionController extends AbstractController
 **/
 
  /**
-     * @Route("/administracion/usuarios", name="usuarios")
+     * @Route("/admin/usuarios", name="usuarios")
      */
 
     public function Usuarios(ManagerRegistry $doctrine): Response
@@ -195,7 +222,7 @@ class AdministracionController extends AbstractController
     }
 
      /**
-     * @Route("/administracion/usuario/edit/{id}", name="UsuarioEdit")
+     * @Route("/admin/usuario/edit/{id}", name="UsuarioEdit")
      */
 
     public function EditUsuario(ManagerRegistry $doctrine,int $id): Response
@@ -206,7 +233,7 @@ class AdministracionController extends AbstractController
 
 
      /**
-     * @Route("/administracion/usuario/details/{id}", name="UsuarioDetails")
+     * @Route("/admin/usuario/details/{id}", name="UsuarioDetails")
      */
 
     public function DetailsUsuario(ManagerRegistry $doctrine,int $id): Response
@@ -217,7 +244,7 @@ class AdministracionController extends AbstractController
 
 
      /**
-     * @Route("/administracion/usuario/delete/{id}", name="UsuarioDelete")
+     * @Route("/admin/usuario/delete/{id}", name="UsuarioDelete")
      */
 
     public function DeleteUsuario(ManagerRegistry $doctrine,int $id): Response

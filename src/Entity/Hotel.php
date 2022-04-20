@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\HotelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=HotelRepository::class)
  */
@@ -22,19 +25,14 @@ class Hotel
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"hotel", "list_hotel"})
+     * 
      */
     private $Nombre;
-
-
-    /**
-     * @ORM\Column(type="string", length=9, nullable=true)
-     * @Groups({"hotel", "list_hotel"})
-     */
-    private $Telefono;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Groups({"hotel", "list_hotel"})
+     *  
      */
     private $Actividad;
 
@@ -42,23 +40,38 @@ class Hotel
      * @ORM\OneToOne(targetEntity=Ubicaciones::class, inversedBy="hotel", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"hotel", "list_hotel"})
+     *  
      */
     private $ubicacion;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *  
      */
     private $caracteristicas;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *  
      */
     private $descripcion;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
+     * 
      */
     private $precio;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="alojamiento", orphanRemoval=true, cascade={"persist"})
+     * 
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     
 
@@ -75,19 +88,6 @@ class Hotel
     public function setNombre(string $Nombre): self
     {
         $this->Nombre = $Nombre;
-
-        return $this;
-    }
-
-
-    public function getTelefono(): ?string
-    {
-        return $this->Telefono;
-    }
-
-    public function setTelefono(?string $Telefono): self
-    {
-        $this->Telefono = $Telefono;
 
         return $this;
     }
@@ -148,6 +148,36 @@ class Hotel
     public function setPrecio(string $precio): self
     {
         $this->precio = $precio;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAlojamiento($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAlojamiento() === $this) {
+                $image->setAlojamiento(null);
+            }
+        }
 
         return $this;
     }
