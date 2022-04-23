@@ -117,72 +117,68 @@ class AdministracionController extends AbstractController
      * @Route("/admin/alojamiento/edit/{id}", name="AlojamientoEdit")
      */
 
-    public function EditAlojamiento(ManagerRegistry $doctrine,int $id): Response
+    public function EditAlojamiento(Request $request,ManagerRegistry $doctrine,int $id): Response
     {
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
 
         
-        return $this->render('administracion/alojamiento/Edit.html.twig', ['hotel'=>$hotel]);
+        $form = $this->createForm(CreateFormType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imagenes=$form['Alojamiento']['images'];
+            $images=$imagenes->getData();
+
+            foreach($images as $image){
+
+                $newFilename = md5(uniqid()).'.'.$image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename);
+
+                    $img=new Images();
+                    $img->setImageName($newFilename);
+                    $hotel->addImage($img);
+
+            }
+               
+            $ubi=$form['Ubicaciones'];
+            $alo=$form['Alojamiento'];
+            
+
+            $hotel->setNombre($alo->get('nombre')->getData());
+            $hotel->setActividad($alo->get('actividad')->getData());
+            $hotel->setCaracteristicas($alo->get('caracteristicas')->getData());
+            $hotel->setDescripcion($alo->get('descripcion')->getData());
+            $hotel->setPrecio($alo->get('precio')->getData());
+            
+            $ubicacion=$doctrine->getRepository(Ubicaciones::class)->find($hotel->getUbicacion()->getId());
+            $ubicacion->setDireccion($ubi->get('direccion')->getData());
+            $ubicacion->setComunidad($ubi->get('comunidad')->getData());
+            $ubicacion->setProvincia($ubi->get('provincia')->getData());
+            $ubicacion->setLatitud($ubi->get('latitud')->getData());
+            $ubicacion->setLongitud($ubi->get('longitud')->getData());
+
+
+
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($ubicacion);   
+            $entityManager->persist($hotel);
+            
+    
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('alojamientos');
+        }
+
+
+        
+        return $this->render('administracion/alojamiento/Edit.html.twig', ['hotel'=>$hotel,'CreateForm' => $form->createView()]);
     }
 
-      /**
-     * @Route("/admin/alojamiento/FormEdit/{id}", name="FormEditAlojamiento")
-     */
-
-    public function EditH(ManagerRegistry $doctrine,int $id): Response
-    {
-        $entityManager=$this->getDoctrine()->getManager();
-       $hotel=$doctrine->getRepository(Hotel::class)->find($id);
-       $nombre=$_POST['nombre'];
-       $telefono=$_POST['telefono'];
-       $actividad=$_POST['actividad'];
-       $caracteristicas=$_POST['caracteristicas'];
-       $descripcion=$_POST['descripcion'];
-       $direccion=$_POST['direccion'];
-       $comunidad=$_POST['comunidad'];
-       $provincia=$_POST['provincia'];
-       $latitud=$_POST['latitud'];
-       $longitud=$_POST['longitud'];
-
-       $target_path="img/";
-
-       $imagenes=$_FILES['images'];
-
-       for($i=0;i<count($imagenes);$i++){
-
-          $imagen=new Images();
-          
-
-         $imagen->setImageType($imagenes['i']['type']);
-         $tamaño->setImageSize($imagenes['i']['size']);
-           
-
-       }
-
-       
-
-       $hotel->setNombre($nombre);
-       $hotel->setTelefono($telefono);
-       $hotel->setActividad($actividad);
-       $hotel->setCaracteristicas($caracteristicas);
-       $hotel->setDescripcion($descripcion);
-       $ubicacion=$doctrine->getRepository(Ubicaciones::class)->find($hotel->getUbicacion()->getId());
-       $ubicacion->setDireccion($direccion);
-       $ubicacion->setComunidad($comunidad);
-       $ubicacion->setProvincia($provincia);
-       $ubicacion->setLatitud($latitud);
-       $ubicacion->setLongitud($longitud);
-
-
-       
-       
-       $entityManager->persist($hotel);
-       $entityManager->persist($ubicacion);
-       $entityManager->flush();
-
-       return $this->RedirectToRoute('alojamientos');
-       
-    }
+     
 
       /**
      * @Route("/admin/alojamiento/delete/{id}", name="AlojamientoDelete")
@@ -190,7 +186,10 @@ class AdministracionController extends AbstractController
 
     public function DeleteAlojamiento(ManagerRegistry $doctrine,int $id): Response
     {
+
+        
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
+        
         return $this->render('administracion/alojamiento/Delete.html.twig', ['hotel'=>$hotel]);
     }
 

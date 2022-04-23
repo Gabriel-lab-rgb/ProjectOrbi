@@ -38,10 +38,40 @@ class Reserva
     private $fecha;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="integer")
      */
-    private $huespedes = [];
+    private $adultos;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $ninos;
+
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     */
+    private $bebes;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mascotas;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Hotel::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $hotel;
+
+   
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -95,15 +125,79 @@ class Reserva
         return $this;
     }
 
-    public function getHuespedes(): ?array
+    public function getAdultos(): ?int
     {
-        return $this->huespedes;
+        return $this->adultos;
     }
 
-    public function setHuespedes(array $huespedes): self
+    public function setAdultos(int $adultos): self
     {
-        $this->huespedes = $huespedes;
+        $this->adultos = $adultos;
 
         return $this;
     }
+
+    public function getNinos(): ?int
+    {
+        return $this->ninos;
+    }
+
+    public function setNinos(?int $ninos): self
+    {
+        $this->ninos = $ninos;
+
+        return $this;
+    }
+
+    public function getBebes(): ?int
+    {
+        return $this->bebes;
+    }
+
+    public function setBebes(int $bebes): self
+    {
+        $this->bebes = $bebes;
+
+        return $this;
+    }
+
+    public function getMascotas(): ?bool
+    {
+        return $this->mascotas;
+    }
+
+    public function setMascotas(?bool $mascotas): self
+    {
+        $this->mascotas = $mascotas;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getHotel(): ?Hotel
+    {
+        return $this->hotel;
+    }
+
+    public function setHotel(?Hotel $hotel): self
+    {
+        $this->hotel = $hotel;
+
+        return $this;
+    }
+
+   
+
+  
 }

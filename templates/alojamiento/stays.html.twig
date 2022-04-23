@@ -5,4 +5,36 @@
 {% block body %}
 
 <p>hola</p>
+{{ form_start(form)  }}
+  <div class="row">
+    <div class="col">
+       {{ form_widget(form.llegada,{'value': formGet.llegada}) }}
+       {{ form_widget(form.salida,{'value': formGet.salida}) }}
+    </div>
+     <div class="col">
+      {{ form_label(form.adultos) }}
+       {{ form_widget(form.adultos,{'type':'number','value': formGet.adultos}) }}
+    </div>
+    <div class="col">
+      {{ form_label(form.ninos) }}
+       {{ form_widget(form.ninos,{'type':'number' ,'value': formGet.ninos}) }}
+    </div>
+    <div class="col">
+      {{ form_label(form.bebes) }}
+       {{ form_widget(form.bebes ,{'type':'number' ,'value': formGet.bebes}) }}
+    </div>
+    <div class="col">
+      {{ form_label(form.mascotas) }}
+       {{ form_widget(form.mascotas,{'type':'number' ,'value': formGet.mascotas}) }}
+    </div>
+  </div>
+  {% if  app.user %}
+   <button type="submit" class="btn btn-primary" name="reservar">confirmar</button>
+   {% else %}
+   <a href="{{path('login')}}"><button type="button" class="btn btn-primary" name="reservar">Iniciar sesion</button></a>
+   {% endif %}
+{{ form_end(form) }}
+<p>{{precio}} x {{dias}}</p>
+<p>{{total}}</p>
+
 {% endblock %}
