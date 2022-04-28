@@ -18,40 +18,30 @@ html, body {
 
 #ids{
   height: 800px;
-
 }
 .divHoteles{
-  
   width: 1800px;
   border-right:  40px ;
   transition:all 300ms linear ;
-  
 }
 
 #mensajes{
-
   height: 100%;
-  
 }
 
 .divHoteles.responsive{
-
    width: 0px;
 }
 
 #boton{
-
 margin-top: 2rem;
   float: right;
   margin-right: -75px;
   position: relative; 
   top: 10px; left: 10px; z-index: 99;
-
-
 }
 
  .gm-style-iw.gm-style-iw-c{
-
     height: fit-content;
     width: fit-content;
     padding: 0px;   
@@ -59,13 +49,10 @@ margin-top: 2rem;
 }
 
 
-.gm-style-iw-d{
-
-    
+.gm-style-iw-d{ 
      border-radius: 20px; 
      overflow: hidden !important;
-     
-    
+  
 }
 
 @media (max-width:1000px){

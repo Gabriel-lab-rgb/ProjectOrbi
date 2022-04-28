@@ -6,8 +6,9 @@ console.log(info)
 let array=JSON.parse(info);
 console.log(array);
 
-var map, marker, i;
-
+var map,i;
+var infowindow=[];
+var markers=[];
 
 function initMap() {
   const valencia = {
@@ -30,17 +31,19 @@ function initMap() {
 
    for (i = 0; i < array.length; i++) {
 
-      marker = new google.maps.Marker({
+      markers[i] = new google.maps.Marker({
       position: new google.maps.LatLng(array[i]['ubicacion'].latitud, array[i]['ubicacion'].longitud),
       map:map,
       icon: image
     });
 
-    var infowindow = new google.maps.InfoWindow({
+    infowindow[i] = new google.maps.InfoWindow({
       content:'<a href="#hola"><img style="margin:0px" src="img/tropical.png" width="250px" /><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light">Alojamiento entero: piso. Anfitrión: Paula</h5><span class=>250 €</span></span></div></a>' });
-  google.maps.event.addListener(marker, 'click', (function() { 
-  infowindow.open(map,marker); 
-  }));
+  google.maps.event.addListener(markers[i], 'click', function(valor) { 
+    return function(){ 
+    infowindow[valor].open(map,markers[valor]); 
+  }
+  }(i));
   
 }
 
