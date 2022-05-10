@@ -16,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use App\Entity\Persona;
 
 class RegistrationController extends AbstractController
 {
@@ -32,19 +33,34 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+
+            $usuario=$form['user'];
+            $p=$form['persona'];
+            $user->setUserName($usuario->get('username')->getData());
+            $user->setEmail($usuario->get('email')->getData());
+            $user->setRoles(['ROLE_USER']);
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $usuario->get('plainPassword')->getData()
                 )
             );
+            $persona=new Persona();
+            $persona->setNombre($p->get('nombre')->getData());
+            $persona->setApellidos($p->get('apellidos')->getData());
+            $persona->setTelefono($p->get('telefono')->getData());
+            $persona->setFechaNacimiento($p->get('FechaNacimiento')->getData());
+            $persona->setCodigoPostal($p->get('CodigoPostal')->getData());
+            $persona->setUser($user);
+
 
             $entityManager->persist($user);
+            $entityManager->persist($persona);
             $entityManager->flush();
 
             // generate a signed url and email it to the user

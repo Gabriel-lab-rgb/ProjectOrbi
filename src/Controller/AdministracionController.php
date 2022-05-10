@@ -10,9 +10,11 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Hotel;
 use App\Entity\Ubicaciones;
+use App\Entity\Persona;
 use App\Entity\User;
 use App\Entity\Images;
 use App\Form\CreateFormType;
+use App\Form\Type\PersonaType;
 use Symfony\Component\HttpFoundation\File\File;
 
 class AdministracionController extends AbstractController
@@ -224,10 +226,34 @@ class AdministracionController extends AbstractController
      * @Route("/admin/usuario/edit/{id}", name="UsuarioEdit")
      */
 
-    public function EditUsuario(ManagerRegistry $doctrine,int $id): Response
+    public function EditUsuario(Request $request,ManagerRegistry $doctrine,int $id): Response
     {
         $usuario=$doctrine->getRepository(User::class)->find($id);
-        return $this->render('administracion/usuarios/Edit.html.twig', ['usuario'=>$usuario]);
+        $persona=$doctrine->getRepository(Persona::class)->findOneBy(array('user'=>$usuario));
+        
+        $form = $this->createForm(PersonaType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $persona->setNombre($form->get('nombre')->getData());
+            $persona->setApellidos($form->get('apellidos')->getData());
+            $persona->setCodigoPostal($form->get('CodigoPostal')->getData());
+            $persona->setTelefono($form->get('telefono')->getData());
+            $persona->setFechaNacimiento($form->get('FechaNacimiento')->getData());
+
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($persona);   
+            
+            
+    
+            $entityManager->flush();
+            $this->addFlash('notice','datos actualizados');
+            return $this->redirectToRoute('usuarios');
+
+        }
+
+
+        return $this->render('administracion/usuarios/Edit.html.twig', ['form' => $form->createView(),'persona'=>$persona]);
     }
 
 
@@ -241,6 +267,18 @@ class AdministracionController extends AbstractController
         return $this->render('administracion/usuarios/Details.html.twig', ['usuario'=>$usuario]);
     }
 
+    /**
+     * @Route("/admin/usuario/reservas/{id}", name="UsuarioReservas")
+     */
+
+    public function ReservasUsuario(ManagerRegistry $doctrine,int $id): Response
+    {
+        $usuario=$doctrine->getRepository(User::class)->find($id);
+        $reservas=$usuario->getReservas();
+   
+        return $this->render('administracion/usuarios/reservas.html.twig', ['reservas'=>$reservas]);
+    }
+
 
      /**
      * @Route("/admin/usuario/delete/{id}", name="UsuarioDelete")
@@ -249,7 +287,7 @@ class AdministracionController extends AbstractController
     public function DeleteUsuario(ManagerRegistry $doctrine,int $id): Response
     {
         $usuario=$doctrine->getRepository(User::class)->find($id);
-        return $this->render('administracion/usuarios/Delete.html.twig', ['hotel'=>$hotel]);
+        return $this->render('administracion/usuarios/Delete.html.twig', ['usuario'=>$usuario]);
     }
 
     

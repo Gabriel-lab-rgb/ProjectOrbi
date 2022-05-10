@@ -1,4 +1,5 @@
-/* Set the size of the div element that contains the map */
+/*
+/* Set the size of the div element that contains the map 
 html, body {  
     margin:0px;  
     height:100%;  
@@ -9,10 +10,10 @@ html, body {
 
 #map {
     height: 100%;
-    /* The height is 400 pixels */
+    /* The height is 400 pixels 
    width: 100%;
    float:left;
-    /* The width is the width of the web page */
+    /* The width is the width of the web page 
     overflow: hidden;
 }
 
@@ -60,7 +61,7 @@ margin-top: 2rem;
 
   #map {
    display:none;
-    /* The width is the width of the web page*/ 
+    /* The width is the width of the web page
     
 }
 
@@ -73,4 +74,312 @@ margin-top: 2rem;
   display: none;
 }
 
+}*/
+
+
+/*login y registro*/
+
+
+.img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
+
+.ftco-section {
+    padding: 7em 0;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+    display: block;
+}
+
+.heading-section {
+    font-size: 38px;
+    color: #fff;
+}
+
+
+*,
+::before,
+::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.login-wrap{
+
+ h3 {
+    font-weight: 300;
+    color: #fff;
+}
+}
+
+.form-control {
+  background: transparent;
+  border: none;
+  height: 50px;
+  color: black !important;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, .08);
+  border-radius: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+
+
+.btn-round {
+    background: #6347F9 !important;
+    border: 1px solid #6347F9 !important;
+    color: #ffff !important;
+}
+
+.login-wrap {
+    position: relative;
+    color: rgba(255, 255, 255, .9);
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+
+.checkbox-primary {
+    color: #fff;
+}
+
+.checkbox-wrap {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/*Index y pagian de detalles*/
+
+.default__btn {
+  padding-inline: 30px;
+  line-height: 56px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background: #7c4dff;
+  color: #fff;
+  /*box-shadow: 0px 6px 24px rgba(99, 71, 249, 0.4);*/
+  text-transform: capitalize;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+
+.tour__info {
+  box-shadow: 0px 6px 24px #E4E2EE;
+  border-radius: 14px;
+  padding: 30px;
+}
+
+.destination-single-gallery-img {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.destination-single-gallery-img {
+  
+  img {
+  border-radius: 15px;
+  width: 100%;
+  
+}
+}
+.tour-single-img {
+
+ img {
+  border-radius: 15px;
+}
+}
+
+
+@media (max-width: 767px) {
+
+  .tour-single-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.tour-single-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.tour-single-meta {
+padding-top: 18px;
+padding-bottom: 25px;
+border-top: 1px solid rgb(236, 238, 239);
+}
+
+.tour-single-price {
+
+  span {
+
+    color:#FF0143;
+    font-size: 28px;
+    font-weight: 700;
+  }
+}
+
+.padding--bottom {
+  padding-bottom: 80px;
+}
+
+.padding--top {
+  padding-top: 75px;
+}
+
+.section__header {
+  margin-bottom: 30px;
+}
+
+
+#map {
+
+  height: 450px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -ms-border-radius: 14px;
+  -o-border-radius: 14px;
+  border-radius: 14px;
+}
+
+.packege__content h4,
+.packege__content h4,
+.packege.hotel .packege__content h5,
+.travel__thumb,
+.tour__thumb .thumb,
+.tour__content--accordion,
+.account__social ul li a,
+.team--style2 .team__inner,
+.team__thumb,
+.video__thumb,
+.blog__thumb,
+.blog__inner,
+.gallery__thumb,
+.packege--style3 .packege__inner,
+.packege.hotel .packege__inner,
+.packege__thumb,
+.feature__inner,
+.footer__top--gallery ul li a,
+.sidebar__post--body ul li .thumb {
+  overflow: hidden;
+}
+
+
+
+.packege__thumb img {
+  width: 100%;
+}
+
+.tour__location--details iframe,
+.tour__info--list .right p span,
+.account__another .default__btn,
+.account__social ul li a,
+.account__top a,
+.team--single .team__content .ratting,
+.team__thumb a,
+.blog__content span,
+.blog__thumb a,
+.packege__thumb a,
+.footer__top--gallery ul li a,
+.sidebar__offer--thumb a,
+.sidebar__post--body ul li .thumb a,
+.header__wrapper .logo a {
+  display: block;
+}
+
+.packege.hotel .packege__inner {
+  background: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -ms-border-radius: 14px;
+  -o-border-radius: 14px;
+  border-radius: 14px;
+
+
+}
+
+.travel--single .travel__content p,
+.travel__thumb,
+.tour__location--title,
+.tour__content--details .accordion .accordion-item,
+.tour__info--title,
+.about__content ul,
+.about__content .section__header,
+.blog--blogpage .blog__content p,
+.footer__top--about p,
+.section__header {
+  margin-bottom: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

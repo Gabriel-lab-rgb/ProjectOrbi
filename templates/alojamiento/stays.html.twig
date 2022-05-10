@@ -19,14 +19,7 @@
       {{ form_label(form.ninos) }}
        {{ form_widget(form.ninos,{'type':'number' ,'value': formGet.ninos}) }}
     </div>
-    <div class="col">
-      {{ form_label(form.bebes) }}
-       {{ form_widget(form.bebes ,{'type':'number' ,'value': formGet.bebes}) }}
-    </div>
-    <div class="col">
-      {{ form_label(form.mascotas) }}
-       {{ form_widget(form.mascotas,{'type':'number' ,'value': formGet.mascotas}) }}
-    </div>
+    
   </div>
   {% if  app.user %}
    <button type="submit" class="btn btn-primary" name="reservar">confirmar</button>

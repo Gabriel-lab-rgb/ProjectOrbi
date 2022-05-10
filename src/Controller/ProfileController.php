@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Form\ProfileFormType;
+use App\Form\SecurityFormType;
+use App\Entity\User;
+use App\Entity\Persona;
+
+class ProfileController extends AbstractController
+{
+    /**
+     * @Route("/profile", name="app_profile")
+     */
+    public function index(Request $request,ManagerRegistry $doctrine): Response
+    {
+        $persona=$doctrine->getRepository(Persona::class)->findOneBy(array('user'=> $this->getUser()));
+        $form = $this->createForm(ProfileFormType::class);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $p=$form['Persona'];
+            $persona->setNombre($p->get('nombre')->getData());
+            $persona->setApellidos($p->get('apellidos')->getData());
+            $persona->setCodigoPostal($p->get('CodigoPostal')->getData());
+            $persona->setTelefono($p->get('telefono')->getData());
+            $persona->setFechaNacimiento($p->get('FechaNacimiento')->getData());
+
+
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($persona);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_profile');
+        }
+
+
+        return $this->render('profile/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/security", name="security")
+     */
+
+    public function security(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $usuario=$this->getUser();
+       
+        $form = $this->createForm(SecurityFormType::class);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+       
+        $usuario->setPassword(
+            $userPasswordHasher->hashPassword(
+                    $usuario,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+        $usuario->setUsername($form->get('username')->getData());
+        $usuario->setEmail($form->get('email')->getData());
+
+        $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($usuario);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_profile');
+
+        }
+
+
+        return $this->render('profile/security.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+}

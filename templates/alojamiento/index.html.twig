@@ -5,31 +5,165 @@
 {% block body %}
 
 
-{{ form_start(form, {'action': path('stays',{'id':alojamiento.getId()}), 'method': 'GET'})  }}
-  <div class="row">
-    <div class="col">
-       {{ form_widget(form.llegada) }}
-       {{ form_widget(form.salida) }}
+
+
+
+<div class="container ">
+
+
+
+
+
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="row g-4 row-cols-1">
+          <div class="col">
+
+            <div class="tour-single-img">
+              <img class="img-fluid" src="{{asset('/img/alojamientos/' ~ alojamiento.Images[0].ImageName)}}" alt="">
+            </div>
+
+            <div class="tour-single-header">
+              <div class="tour-single-content">
+                <div class="tour-single-info">
+                  <h3>{{alojamiento.getNombre()}}</h3>
+                  <div class="tour-single-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(25 Reviews)</span>
+                  </div>
+                </div>
+                <div class="tour-single-price">
+                  <span>{{alojamiento.getPrecio()}} €</span>
+                  <p>Por Noche</p>
+                </div>
+              </div>
+              <div class="tour-single-meta">
+                <ul>
+                  <li><i class="far fa-user"></i>{{alojamiento.getActividad()}}</li>
+                  <li><i class="far fa-bookmark"></i>{{alojamiento.getUbicacion().getDireccion()}}</li>
+                  <li><i class="far fa-map-marker-alt"></i>{{alojamiento.getUbicacion().getProvincia()}},{{alojamiento.getUbicacion().getComunidad()}}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div id="descipcion">
+              <h4>Descripcion</h3>
+                <p class="">{{alojamiento.getDescripcion()}}</p>
+
+            </div>
+            <div class="servicios mb-5">
+              <h4>Servicios</h4>
+              <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio ducimus facere
+                maiores repellat deleniti suscipit explicabo voluptatum, quaerat quasi beatae necessitatibus, porro
+                ipsum inventore, velit ipsam ipsa quia amet ullam.</p>
+
+            </div>
+
+            <div class="destination-single-gallery">
+              <h3>Galeria</h3>
+              <p class="mt-10">
+              </p>
+              <div class="row mt-20 popup-gallery">
+                <div class="col-md-8">
+                  <div class="destination-single-gallery-img">
+                    <img src="{{asset('/img/alojamientos/' ~ alojamiento.Images[0].ImageName)}}" alt="">
+                    <a class="popup-img" href=""><i
+                        class="far fa-plus"></i></a>
+                  </div>
+                </div>
+                {% for image in alojamiento.Images %}
+
+                <div class="col-md-4">
+                  <div class="destination-single-gallery-img">
+                    <img src="{{asset('/img/alojamientos/' ~ image.ImageName)}}" alt="">
+                    <a class="popup-img" href="https://live.themewild.com/travelox/assets/img/destination/16.jpg"><i
+                        class="far fa-plus"></i></a>
+                  </div>
+                </div>
+                {% endfor %}
+                
+                
+                
+              </div>
+            </div>
+
+
+            <div class=" ">
+              <div>
+                <h3 class="">
+                  ¿Donde te vas a quedar?</h3>
+              </div>
+              <div>
+                <div id="map"></div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="col-lg-4">
+
+        <div class="booking-widget" >
+          
+          <div class="booking-form">
+
+          {{ form_start(form, {'action': path('stays',{'id':alojamiento.getId()}), 'method': 'GET'})  }}
+          <div class="row">
+          <div class="col-lg-6">
+          <div class="form-group">
+          <label>Llegada</label>
+          {{ form_widget(form.llegada) }}
+          </div>
+          </div>
+          <div class="col-lg-6">
+          <div class="form-group">
+          <label>Salida</label>
+            {{ form_widget(form.salida) }}
+          </div>
+          </div>
+         
+          
+          <div class="col-lg-12">
+          <div class="form-group">
+          <label>Adultos</label>
+           {{ form_widget(form.adultos,{'type':'number'}) }}
+          </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+            <label>Niños</label>
+           {{ form_widget(form.ninos,{'type':'number'}) }}
+            </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+          <button type="submit" class="form-control btn btn-primary submit mt-4">Reservar</button>
+        </div>
+          {{ form_end(form) }}
+          </div>
+          </div>
+
+
+      
+      </div>
     </div>
-     <div class="col">
-      {{ form_label(form.adultos) }}
-       {{ form_widget(form.adultos) }}
-    </div>
-    <div class="col">
-      {{ form_label(form.ninos) }}
-       {{ form_widget(form.ninos,{'type':'number'}) }}
-    </div>
-    <div class="col">
-      {{ form_label(form.bebes) }}
-       {{ form_widget(form.bebes) }}
-    </div>
-    <div class="col">
-      {{ form_label(form.mascotas) }}
-       {{ form_widget(form.mascotas) }}
-    </div>
+
   </div>
-   <button type="submit" class="btn btn-primary" name="editar">Reservar</button>
-{{ form_end(form) }}
+
+
+
 
 <div class="map">
 </div>

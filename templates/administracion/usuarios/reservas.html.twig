@@ -1,0 +1,16 @@
+{% extends 'baseIndex.html.twig' %}
+
+
+
+{% block body %}
+
+{% for reserva in reservas %}
+
+<div>
+<p>{{reserva.getAdultos()}}</p>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}

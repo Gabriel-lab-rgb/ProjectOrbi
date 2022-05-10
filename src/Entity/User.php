@@ -59,6 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $reservas;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Persona::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $persona;
+
     public function __construct()
     {
         $this->reservas = new ArrayCollection();
@@ -210,6 +215,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reserva->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPersona(): ?Persona
+    {
+        return $this->persona;
+    }
+
+    public function setPersona(Persona $persona): self
+    {
+        // set the owning side of the relation if necessary
+        if ($persona->getUser() !== $this) {
+            $persona->setUser($this);
+        }
+
+        $this->persona = $persona;
 
         return $this;
     }
