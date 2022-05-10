@@ -191,6 +191,13 @@ class AdministracionController extends AbstractController
 
         
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
+        $ubicacion=$hotel->getUbicacion();
+
+        $entityManager=$this->getDoctrine()->getManager();
+        $entityManager->remove($ubicacion);
+        $entityManager->remove($hotel);
+
+        $entityManager->flush();
         
         return $this->render('administracion/alojamiento/Delete.html.twig', ['hotel'=>$hotel]);
     }
@@ -287,6 +294,12 @@ class AdministracionController extends AbstractController
     public function DeleteUsuario(ManagerRegistry $doctrine,int $id): Response
     {
         $usuario=$doctrine->getRepository(User::class)->find($id);
+        $persona=$doctrine->getRepository(Persona::class)->findOneBy(array('user'=>$usuario));
+        $entityManager=$this->getDoctrine()->getManager();
+        $entityManager->remove($persona);
+        $entityManager->remove($usuario);
+
+        $entityManager->flush();
         return $this->render('administracion/usuarios/Delete.html.twig', ['usuario'=>$usuario]);
     }
 

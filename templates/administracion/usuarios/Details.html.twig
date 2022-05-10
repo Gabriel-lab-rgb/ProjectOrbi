@@ -5,4 +5,39 @@
 {% block body %}
 
 
+<h1 class="mt-4">Detalles</h1>
+
+
+<div class="card">
+  <div class="card-body">
+    
+
+<h4 class="card-subtitle mb-2 text-muted"> Datos de la Cuenta</h6>
+  <h6 class="card-text">Correo Electronico</h4>
+    <p>{{usuario.getEmail()}}</p>
+
+  <h6 class="card-text">Usuario</h4>
+    <p>{{usuario.getUsername()}}</p>
+<h4 class="card-subtitle mb-2 text-muted">Datos Personales</h6>
+    <h6 class="card-text">Nombre</h4>
+    <p>{{usuario.getPersona().getNombre()}}</p>
+    
+       <h6 class="card-text">Apellidos</h4>
+    <p>{{usuario.getPersona().getApellidos()}}</p>
+    
+    <h6 class="card-text">codigo Postal</h4>
+    <p>{{usuario.getPersona().CodigoPostal}}</p>
+
+    <h6 class="card-text">Telefono</h4>
+    <p>{{usuario.getPersona().getTelefono()}}</p>
+     <h4 class="card-subtitle mb-2 text-muted">Coodernadas</h6>
+       <h6 class="card-text">Fecha de Nacimiento</h4>
+    <p>{{usuario.getPersona().getFechaNacimiento()|date('d-m-Y')}}</p>
+   
+
+
+  </div>
+</div>
+     <a href="{{path('usuarios')}}"><button class="btn btn-primary btn-lg" type="button" style="margin-left: 2rem">Volver</button></a>
+
 {% endblock %}

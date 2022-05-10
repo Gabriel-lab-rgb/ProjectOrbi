@@ -361,7 +361,70 @@ border-top: 1px solid rgb(236, 238, 239);
 }
 
 
+/*reserva,perfil....*/
+.booking-widget {
+ /* background: #fff;*/
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  /*box-shadow: 0 0 40px 5px rgb(0 0 0 / 5%);*/
+}
 
+.booking-widget-title {
+  margin-bottom: 20px;
+}
+
+
+.tour-area {
+
+.tour-item {
+  background: #fff;
+  border-radius: 15px;
+  position: relative;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 24px rgb(0 0 0 / 10%);
+}
+}
+.tour-area {
+
+
+ .tour-img {
+
+  img {
+  border-radius: 15px;
+  width: 100%;
+  -webkit-transition: all 0.3s ease-out 0s;
+  -moz-transition: all 0.3s ease-out 0s;
+  -ms-transition: all 0.3s ease-out 0s;
+  -o-transition: all 0.3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
+  height: auto;
+  }
+}
+
+} 
+
+ 
+.tour-area {
+
+
+ .tour-info {
+  padding: 0 20px;
+}
+}
+
+.tour-area{
+
+
+ .tour-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px 20px;
+  border-top: 1px solid rgba(175, 175, 175, 0.1);
+}
+}
 
 
 

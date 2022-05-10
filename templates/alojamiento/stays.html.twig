@@ -30,4 +30,120 @@
 <p>{{precio}} x {{dias}}</p>
 <p>{{total}}</p>
 
+
+<div class="container">
+        <div class="row">
+            <div class="success-notify mt-5">
+                <div class="success-icon">
+                <i class="fal fa-check-circle"></i>
+                </div>
+                <div class="success-content">
+                <h3>YOUR BOOKING CONFIRMED</h3>
+                <p>Thank you for your booking! your payment has been successful done and your booking is now confirmed.A confirmation email has been sent to your email - info@example.com.</p>
+                </div>
+                </div>
+            <div class="col-lg-8 padding--top">
+                <div class="booking-widget booking-details ">
+                    <h3 class="booking-widget-title">Confirmar y Pagar</h4>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td>Booking Id</td>
+                    <td>TRSD-WEDV-ASE</td>
+                    </tr>
+                    <tr>
+                    <td>First Name</td>
+                    <td>Marvin</td>
+                    </tr>
+                    <tr>
+                    <td>Last Name</td>
+                    <td>Pricel</td>
+                    </tr>
+                    <tr>
+                    <td>Email</td>
+                    <td>info@example.com</td>
+                    </tr>
+                    <tr>
+                    <td>Phone</td>
+                    <td>+2-123-4567-7894</td>
+                    </tr>
+                    <tr>
+                    <td>Card number</td>
+                    <td>XXX-XXXX-XX-11</td>
+                    </tr>
+                    <tr>
+                    <td>City</td>
+                    <td>New York</td>
+                    </tr>
+                    <tr>
+                    <td>Address</td>
+                    <td>45 Robson Lane, Saint Clairs, Ohio</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <div class="mt-30">
+                    <h4 class="booking-widget-title">Payment</h4>
+                    <div class="booking-payment">
+                    <p>You Payment With Master card</p>
+                    </div>
+                    </div>
+                    <div class="mt-30">
+                    <h4 class="booking-widget-title">Booking Details Link</h4>
+                    <div class="booking-link">
+                    <p><a href="#">https://www.example.com/booking-234</a></p>
+                    </div>
+                    </div>
+                    </div>
+
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="tour-area padding--top">
+        
+                    <div class="tour-item">
+                    <div class="tour-img">
+                 
+                    <img src="{{asset('/img/alojamientos/' ~ alojamiento.Images[0].ImageName)}}" alt="">
+                    <a href="#" class="tour-wish"><i class="far fa-heart"></i></a>
+                    </div>
+                    <div class="tour-meta">
+                    <h4 class="p-2">{{alojamiento.getNombre()}}</h4>
+                  
+                    </div>
+                    <div class="tour-info">
+                    
+                      <p class="p-2">{{alojamiento.getDescripcion()}}</p>
+                    
+                    </div>
+                    <div class="tour-footer">
+                    <div class="tour-price">
+                    <h5>Detalles del precio</h5>
+                    <div class="d-flex flex-row">
+                        <div class="col-6 p-2">
+                            <p class="text-left"><p>{{precio}} x {{dias}}</p></p>
+                        </div>
+                        <div class="col-6 p-2" style="text-align:end">
+                            <p class="text-right">{{total}}</p>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="d-flex flex-row">
+                    <div class="col-6 p-2">
+                        <h6 class="fw-bold">Total(EUR)</h6>
+                    </div>
+                    <div class="col-6 p-2" style="text-align:end;">
+                        <p>{{total}}</p>
+                    </div>
+
+                </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    </div>
+            </div>
+        </div>    
+        </div>
+
 {% endblock %}

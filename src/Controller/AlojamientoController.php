@@ -72,7 +72,7 @@ class AlojamientoController extends AbstractController
        }
  
 
-        return $this->render('alojamiento/stays.html.twig',['precio'=>$precio,'dias'=>$dias ,'total'=> $total,'form' => $form->createView(),'formGet' => $formGet]);
+        return $this->render('alojamiento/stays.html.twig',['precio'=>$precio,'dias'=>$dias ,'total'=> $total,  'alojamiento' =>$hotel,'form' => $form->createView(),'formGet' => $formGet]);
     }
 
      /**
