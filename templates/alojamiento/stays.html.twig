@@ -4,35 +4,15 @@
 
 {% block body %}
 
-<p>hola</p>
-{{ form_start(form)  }}
-  <div class="row">
-    <div class="col">
-       {{ form_widget(form.llegada,{'value': formGet.llegada}) }}
-       {{ form_widget(form.salida,{'value': formGet.salida}) }}
-    </div>
-     <div class="col">
-      {{ form_label(form.adultos) }}
-       {{ form_widget(form.adultos,{'type':'number','value': formGet.adultos}) }}
-    </div>
-    <div class="col">
-      {{ form_label(form.ninos) }}
-       {{ form_widget(form.ninos,{'type':'number' ,'value': formGet.ninos}) }}
-    </div>
-    
-  </div>
-  {% if  app.user %}
-   <button type="submit" class="btn btn-primary" name="reservar">confirmar</button>
-   {% else %}
-   <a href="{{path('login')}}"><button type="button" class="btn btn-primary" name="reservar">Iniciar sesion</button></a>
-   {% endif %}
-{{ form_end(form) }}
-<p>{{precio}} x {{dias}}</p>
-<p>{{total}}</p>
 
 
+ 
+
+
+{{ form_start(form)}}
 <div class="container">
         <div class="row">
+        <!--
             <div class="success-notify mt-5">
                 <div class="success-icon">
                 <i class="fal fa-check-circle"></i>
@@ -42,45 +22,36 @@
                 <p>Thank you for your booking! your payment has been successful done and your booking is now confirmed.A confirmation email has been sent to your email - info@example.com.</p>
                 </div>
                 </div>
+                --> 
             <div class="col-lg-8 padding--top">
                 <div class="booking-widget booking-details ">
                     <h3 class="booking-widget-title">Confirmar y Pagar</h4>
-                    <table class="table table-striped">
-                    <tbody>
-                    <tr>
-                    <td>Booking Id</td>
-                    <td>TRSD-WEDV-ASE</td>
-                    </tr>
-                    <tr>
-                    <td>First Name</td>
-                    <td>Marvin</td>
-                    </tr>
-                    <tr>
-                    <td>Last Name</td>
-                    <td>Pricel</td>
-                    </tr>
-                    <tr>
-                    <td>Email</td>
-                    <td>info@example.com</td>
-                    </tr>
-                    <tr>
-                    <td>Phone</td>
-                    <td>+2-123-4567-7894</td>
-                    </tr>
-                    <tr>
-                    <td>Card number</td>
-                    <td>XXX-XXXX-XX-11</td>
-                    </tr>
-                    <tr>
-                    <td>City</td>
-                    <td>New York</td>
-                    </tr>
-                    <tr>
-                    <td>Address</td>
-                    <td>45 Robson Lane, Saint Clairs, Ohio</td>
-                    </tr>
-                    </tbody>
-                    </table>
+                    <h4>Tu viaje</h4>
+                   
+<div class="d-flex flex-column">
+                
+                  
+ <div class="row">
+    <div class="col-6">
+    {{ form_label(form.llegada) }}
+       {{ form_widget(form.llegada,{'value': formGet.llegada}) }}
+       
+    </div>
+    <div class="col-6">
+    {{ form_label(form.salida) }}
+       {{ form_widget(form.salida,{'value': formGet.salida}) }}</div>
+
+    <div class="col-12 pt-2">
+      {{ form_label(form.adultos) }}
+       {{ form_widget(form.adultos,{'type':'number','value': formGet.adultos}) }}
+    </div>
+    <div class="col-12 pt-2">
+      <label>Niños</label>
+       {{ form_widget(form.ninos,{'type':'number' ,'value': formGet.ninos}) }}
+    </div>
+    </div>
+                    </div>
+                    
                     <div class="mt-30">
                     <h4 class="booking-widget-title">Payment</h4>
                     <div class="booking-payment">
@@ -88,9 +59,14 @@
                     </div>
                     </div>
                     <div class="mt-30">
-                    <h4 class="booking-widget-title">Booking Details Link</h4>
+                    <h4 class="booking-widget-title">Inicia Sesion o registrate para continuar</h4>
                     <div class="booking-link">
-                    <p><a href="#">https://www.example.com/booking-234</a></p>
+                    {% if  app.user %}
+   <button type="submit" class="btn btn-primary" name="reservar">confirmar</button>
+   {% else %}
+   <a href="{{path('login')}}"><button type="button" class="btn btn-primary" name="reservar">continuar</button></a>
+   {% endif %}
+                    
                     </div>
                     </div>
                     </div>
@@ -98,6 +74,8 @@
 
 
             </div>
+            {{ form_end(form) }}
+
             <div class="col-lg-4">
                 <div class="tour-area padding--top">
         
@@ -145,5 +123,32 @@
             </div>
         </div>    
         </div>
+
+        <script>
+let fecha=new Date();
+let anio=fecha.getFullYear();
+let dia=fecha.getDate();
+let _mes =fecha.getMonth();
+_mes=_mes +1;
+
+if(_mes < 10){
+var mes= "0" + _mes;
+
+}else{
+
+  var mes= _mes.toString;
+}
+
+let fecha_minimo= anio + '-' + mes + '-' + dia;
+fechallegada=document.getElementById("reservas_form_llegada");
+fechallegada.setAttribute('min',fecha_minimo);
+fechallegada.addEventListener('change',function(){
+
+document.getElementById("reservas_form_salida").setAttribute('min',fechallegada.value);
+})
+document.getElementById("reservas_form_salida").setAttribute('min',fechallegada.value);
+
+
+</script>
 
 {% endblock %}

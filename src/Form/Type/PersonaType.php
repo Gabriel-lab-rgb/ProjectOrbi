@@ -29,7 +29,7 @@ class PersonaType extends AbstractType{
         ->add('CodigoPostal')
         ->add('telefono')
         ->add('FechaNacimiento',DateType::class,[
-            'widget' => 'single_text',]);
+            'widget' => 'single_text']);
         
     }
 

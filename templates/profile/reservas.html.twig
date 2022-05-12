@@ -18,22 +18,5 @@
     </ul>
 </div>
 
-{{form_start(form,{'attr':{'onsubmit' :"return verificarFormulario()"}})}}
-<div>
-<button class="btn btn-primary" type="submit">Seleccionar imagen</button>
-{{form_widget(form.images)}}
-</div>
-</div>
-{{form_row(form.email,{'attr':{'value': usuario.getEmail}})}}
-{{ form_row(form.plainPassword, {
-            label: 'Password'
-        }) }}
-<button type="submit" class="btn btn-primary" name="editar">Cambiar</button>
-{{form_end(form)}}
 
-<script>
-
-
-
-</script>
 {% endblock %}

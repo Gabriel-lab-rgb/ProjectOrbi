@@ -14,11 +14,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 
 
+
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+         
             ->add('username')
             ->add('email')
             ->add('plainPassword', PasswordType::class, [

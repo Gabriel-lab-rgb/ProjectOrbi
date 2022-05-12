@@ -115,7 +115,7 @@
       </div>
       <div class="col-lg-4">
 
-        <div class="booking-widget" >
+        <div class="booking-widget" style="" >
           
           <div class="booking-form">
 
@@ -167,5 +167,33 @@
 
 <div class="map">
 </div>
+
+
+<script>
+let fecha=new Date();
+let anio=fecha.getFullYear();
+let dia=fecha.getDate();
+let _mes =fecha.getMonth();
+_mes=_mes +1;
+
+if(_mes < 10){
+var mes= "0" + _mes;
+
+}else{
+
+  var mes= _mes.toString;
+}
+
+let fecha_minimo= anio + '-' + mes + '-' + dia;
+fechallegada=document.getElementById("reservas_form_llegada");
+fechallegada.setAttribute('min',fecha_minimo);
+fechallegada.addEventListener('change',function(){
+
+document.getElementById("reservas_form_salida").setAttribute('min',fechallegada.value);
+})
+document.getElementById("reservas_form_salida").setAttribute('min',fechallegada.value);
+
+
+</script>
 
 {% endblock %}

@@ -133,7 +133,9 @@ a {
 }
 }
 
-.form-control {
+  .login-wrap {
+
+  .form-control {
   background: transparent;
   border: none;
   height: 50px;
@@ -146,6 +148,7 @@ a {
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s;
+  }
 }
 
 .form-group {
@@ -363,11 +366,11 @@ border-top: 1px solid rgb(236, 238, 239);
 
 /*reserva,perfil....*/
 .booking-widget {
- /* background: #fff;*/
+  background: #fff;
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 30px;
-  /*box-shadow: 0 0 40px 5px rgb(0 0 0 / 5%);*/
+  box-shadow: 0 0 40px 5px rgb(0 0 0 / 5%);
 }
 
 .booking-widget-title {

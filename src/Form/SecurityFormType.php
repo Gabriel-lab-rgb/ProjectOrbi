@@ -11,11 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
-
-
-
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 
 class SecurityFormType extends AbstractType{
@@ -24,14 +21,18 @@ class SecurityFormType extends AbstractType{
     {
 
         $builder
-        ->add('username')
-        ->add('email')
+        ->add('images',FileType::class,['required'=>false])
+        ->add('email',null,[
+            'required'=>false,])
         ->add('plainPassword', PasswordType::class, [
             // instead of being set onto the object directly,
             // this is read and encoded in the controller
+            'required'=>false,
             'mapped' => false,
             'attr' => ['autocomplete' => 'new-password'],
             'constraints' => [
+
+                
                 new NotBlank([
                     'message' => 'Please enter a password',
                 ]),

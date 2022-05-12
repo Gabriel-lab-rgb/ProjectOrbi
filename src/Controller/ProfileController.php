@@ -43,7 +43,7 @@ class ProfileController extends AbstractController
 
 
         return $this->render('profile/index.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(),'persona'=> $persona
         ]);
     }
 
@@ -60,6 +60,16 @@ class ProfileController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
        
+            $image=$form->get('images')->getData();
+
+            $newFilename = md5(uniqid()).'.'.$image->guessExtension();
+
+            $image->move(
+                $this->getParameter('images_usuarios'),
+                $newFilename);
+
+           $usuario->setImages($newFilename);
+              
         $usuario->setPassword(
             $userPasswordHasher->hashPassword(
                     $usuario,
@@ -79,7 +89,24 @@ class ProfileController extends AbstractController
 
 
         return $this->render('profile/security.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(),'usuario'=>$usuario
+        ]);
+    }
+
+
+
+     /**
+     * @Route("/reservas", name="reservas")
+     */
+
+    public function reservas(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $usuario=$this->getUser();
+       
+        $reservas=$doctrine->getRepository(Reservas::class)->findOneBy(array('user'=> $usuario));
+
+        return $this->render('profile/reservas.html.twig', [
+            'reservas'=>$reservas
         ]);
     }
 
