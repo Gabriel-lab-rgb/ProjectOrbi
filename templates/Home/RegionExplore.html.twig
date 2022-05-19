@@ -8,7 +8,7 @@
 
 {% block body %}
 <main>
- <div id="infoHoteles" data-hotels="{{hoteles|serialize('json', { groups: 'hotel'})}}"></div>
+ <div id="infoHoteles" data-hotels="{{alojamientos|serialize('json', { groups: 'hotel'})}}"></div>
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">filtrar</button>
@@ -31,11 +31,12 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Tipo de Alojamiento:</label>
-           <input type="checkbox" value="Hotel">Hotel</br>
-<input type="checkbox" value="Hostal">Hostal</br>
-<input type="checkbox" value="Albergue">Albergue</br>
-<input type="checkbox" value="Casa Rural">Casa Rural</br>
-<input type="checkbox" value="Propietario">Propietario</br>
+            <input type="checkbox" value="all">Todos</br>
+            <input type="checkbox" value="Hotel">Hotel</br>
+            <input type="checkbox" value="Hostal">Hostal</br>
+            <input type="checkbox" value="Albergue">Albergue</br>
+            <input type="checkbox" value="Casa Rural">Casa Rural</br>
+            <input type="checkbox" value="Propietario">Propietario</br>
           </div>
         </form>
       </div>
@@ -60,6 +61,12 @@
 
 
 <ul class="chec-radio">
+<li class="pz">
+		<label class="radio-inline">
+			<input type="radio"  id="all" name="property_type" class="pro-chx" value="constructed" checked>
+			<div class="clab">Todos</div>
+		</label>
+	</li>
 	<li class="pz">
 		<label class="radio-inline">
 			<input type="radio"  id="Hotel" name="property_type" class="pro-chx" value="constructed">
@@ -123,38 +130,7 @@
       <hr style="width: 100%;">
       <div id="alojamientos">
            <div id="alo-b">
-           {% for hotel in hoteles %}
-
-                <div class="" style="width: 100%; ">
-      
-      
-                       <a class="d-flex flex-column flex-md-row col-12 justify-content-center align-items-center gap-4" href="{{ path('alojamiento', {'nombre':hotel.getNombre()})}}" style="text-decoration:none">
-        
-                       <div>
-                        <img class="img-fluid " style="border-radius: 15px; height: 200px; width: 300px;" src="https://revistatraveling.com/wp-content/uploads/2020/11/gran-via-alcala.jpg">
-                       </div>
-                    <div style="width: 400px;">
-                        <h4 class="fw-light">{{hotel.getNombre()}}</h4>
-                        <hr style="width: 50px;">
-                           <div>
-                               <p class="fw-light text-secondary">Este acogedor y luminoso apartamento (45m2) se encuentra en el centro de La Coruña. Con capacidad hasta para 2 huéspedes, aquí encontraréis todo lo necesario para tener una estancia inmejorable.</p>
-                                       <div class="d-flex justify-content-end gap-2" style="float:right" >
-                                         <span>{{hotel.getUbicacion().getProvincia()}}</span>
-                                         <span>{{hotel.getPrecio()}}€/noche</span>
-                                         </div>
-                            </div>
-                     </div>
-                     </a>
-                  </div>
-          <!--
-<h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-          -->
-          
-       
-
-      {% endfor %}
+   
       </div>
       </div>
     </div>
@@ -173,42 +149,45 @@
   let albergue=document.querySelector('#albergue');
   let casaRural=document.querySelector('#casaRural');
   let propietario=document.querySelector('#propietario');
+  let todos=document.querySelector('#all');
   var minPrecio=document.querySelector('#minprice');
   var maxPrecio=document.querySelector('#maxprice');
   
   let hoteles=document.querySelector("#infoHoteles");
   let info=hoteles.dataset.hotels;
   var array=JSON.parse(info);
-  var cambio=new Array();
+  console.log(array);
+  
 
 
 
 
 hotel.addEventListener('click',function(){
-  
 filtrar(array,hotel.id);
 filterMarkers(hotel.id);
-sessionStorage.setItem('actividad',hotel.id);
-
+sessionStorage.setItem('Regionactividad',hotel.id);
 });
 hostal.addEventListener('click',function(){
-
   filtrar(array,hostal.id);
   filterMarkers(hostal.id);
-  sessionStorage.setItem('actividad',hostal.id);
 })
 albergue.addEventListener('click',function(){
-
   filtrar(array,albergue.id);
+    filterMarkers(albergue.id);
 })
 casaRural.addEventListener('click',function(){
-
 filtrar(array,casaRural.id);
-
+filterMarkers(casaRural.id);
 })
 propietario.addEventListener('click',function(){
-
 filtrar(array,propietario.id);
+filterMarkers(propietario.id);
+})
+
+todos.addEventListener('click',function(){
+sessionStorage.removeItem('Regionactividad'); 
+mostrarAlojamientos(array);
+mostrarTodos();
 
 })
 
@@ -217,18 +196,25 @@ document.addEventListener("DOMContentLoaded",function(){
 
 
 if(window.sessionStorage){
-let actividad=sessionStorage.getItem("actividad");
+  if(!sessionStorage.getItem('Regionactividadd')){
+
+mostrarAlojamientos(array)
+  }else{
+let actividad=sessionStorage.getItem("Regionactividad");
   console.log(actividad)
   filtrar(array,actividad);
   filterMarkers(actividad);
+  }
 
 }
+
+
   
 });
 
 function filtrar(array,actividad){
 
-
+sessionStorage.getItem('Regionactividad',actividad)
 cambio=array.filter((element) => {
  return( element.Actividad == actividad && element.precio > minPrecio.value || element.precio < maxPrecio.value)});
 if(cambio!=undefined && cambio.length >0){
@@ -283,9 +269,9 @@ let thumb=document.createElement('div');
 thumb.classList="packege__thumb";
 let enlace=document.createElement('a');
 enlace.href="/alojamiento/" + array[i]['Nombre'];
-let imagen=document.createElement('img');
-imagen.setAttribute('src','/img/alojamientos/'+ array[i]['images'][0]['imageName']);
-enlace.appendChild(imagen)
+/*let imagen=document.createElement('img');
+imagen.setAttribute('src','/img/alojamientos/'+ array[i]['images'][0]['imageName']);*/
+/*enlace.appendChild(imagen)*/
 thumb.appendChild(enlace);
 
 let content=document.createElement('div');
@@ -293,7 +279,7 @@ content.classList="packege__content";
 let aContent=document.createElement('a');
 aContent.href="/alojamiento/" + array[i]['Nombre'];
 let h5=document.createElement('h5');
-h5.textContent=array[0]['Nombre'];
+h5.textContent=array[i]['Nombre'];
 let rivew=document.createElement('div');
 rivew.classList="packege__rivew";
 let left=document.createElement('div')
@@ -352,7 +338,7 @@ function initMap() {
   });
   
   let image = {
-    url: 'img/signo.png', //ruta de la imagen
+    url: '/img/signo.png', //ruta de la imagen
     size: new google.maps.Size(60, 60), //tamaño de la imagen
     origin: new google.maps.Point(0,0), //origen de la iamgen
   //el ancla de la imagen, el punto donde esta marcando, en nuestro caso el centro inferior.
@@ -370,7 +356,7 @@ function initMap() {
 
 gmarkers.push(markers[i])
     infowindow[i] = new google.maps.InfoWindow({
-      content:'<a href="#hola"><img style="margin:0px" src="img/tropical.png" width="250px" /><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light">Alojamiento entero: piso. Anfitrión: Paula</h5><span class=>250 €</span></span></div></a>' });
+      content:'<a href="#hola"><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light">Alojamiento entero: piso. Anfitrión: Paula</h5><span class=>250 €</span></span></div></a>' });
   google.maps.event.addListener(markers[i], 'click', function(valor) { 
     return function(){ 
     infowindow[valor].open(map,markers[valor]); 
@@ -382,14 +368,14 @@ gmarkers.push(markers[i])
 
   };
 
-console.log(gmarkers);
+
 
 filterMarkers=function(actividad){
 
   for(i=0;i<gmarkers.length;i++){
     marker=gmarkers[i];
 if(marker.actividad==actividad || actividad.length ===0){
-marker.setVisible(true);
+marker.setVisible();
 
 }else{
 
@@ -399,7 +385,21 @@ marker.setVisible(true);
   }
 }
 
+ function mostrarTodos(){
 
+  for(i=0;i<gmarkers.length;i++){
+
+gmarkers[i].setVisible();
+  }
+}
+
+
+
+function moveLocation(lat,lng){
+const center=new google.maps.LatLng(lat,lng);
+window.map.panto(center);
+
+}
 
 
 /*

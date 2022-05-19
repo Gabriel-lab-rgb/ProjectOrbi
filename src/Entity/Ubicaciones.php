@@ -61,6 +61,19 @@ class Ubicaciones
      */
     private $hotel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Regiones::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
+
+    /**
+     * 
+     */
+  
+
+ 
+
     
     public function __construct()
     {
@@ -148,6 +161,20 @@ class Ubicaciones
 
         return $this;
     }
+
+    public function getRegion(): ?regiones
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?regiones $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+
 
     
 }

@@ -31,6 +31,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Tipo de Alojamiento:</label>
+             <input type="checkbox" value="all">Todos</br>
            <input type="checkbox" value="Hotel">Hotel</br>
 <input type="checkbox" value="Hostal">Hostal</br>
 <input type="checkbox" value="Albergue">Albergue</br>
@@ -57,9 +58,20 @@
 </form>
 
 
+<div class="dropdown-content">
+ 
+<a href="{{path('RegionExplore',{'name':'Asturias'})}}">Asturias</a>
+
+</div>
 
 
 <ul class="chec-radio">
+<li class="pz">
+		<label class="radio-inline">
+			<input type="radio"  id="all" name="property_type" class="pro-chx" value="constructed" checked>
+			<div class="clab">Todos</div>
+		</label>
+	</li>
 	<li class="pz">
 		<label class="radio-inline">
 			<input type="radio"  id="Hotel" name="property_type" class="pro-chx" value="constructed">
@@ -160,7 +172,7 @@
     </div>
     </div>
     </div>
-    <div id="map"></div>
+  
   </div>
   </main>
 
@@ -173,6 +185,7 @@
   let albergue=document.querySelector('#albergue');
   let casaRural=document.querySelector('#casaRural');
   let propietario=document.querySelector('#propietario');
+  let todos=document.querySelector('#all');
   var minPrecio=document.querySelector('#minprice');
   var maxPrecio=document.querySelector('#maxprice');
   
@@ -187,23 +200,25 @@
 hotel.addEventListener('click',function(){
   
 filtrar(array,hotel.id);
-filterMarkers(hotel.id);
-sessionStorage.setItem('actividad',hotel.id);
+
+
 
 });
 hostal.addEventListener('click',function(){
 
   filtrar(array,hostal.id);
-  filterMarkers(hostal.id);
+  
   sessionStorage.setItem('actividad',hostal.id);
 })
 albergue.addEventListener('click',function(){
 
   filtrar(array,albergue.id);
+ 
 })
 casaRural.addEventListener('click',function(){
 
 filtrar(array,casaRural.id);
+
 
 })
 propietario.addEventListener('click',function(){
@@ -212,27 +227,37 @@ filtrar(array,propietario.id);
 
 })
 
+todos.addEventListener('click',function(){
+sessionStorage.removeItem('actividad'); 
+mostrarAlojamientos(array);
+
+})
+
+
 
 document.addEventListener("DOMContentLoaded",function(){
 
 
 if(window.sessionStorage){
+  if(!sessionStorage.getItem('actividad')){
+mostrarAlojamientos(array)
+  }else{
 let actividad=sessionStorage.getItem("actividad");
   console.log(actividad)
   filtrar(array,actividad);
-  filterMarkers(actividad);
-
-}
   
-});
+  }
+}
+})
 
 function filtrar(array,actividad){
 
-
+ sessionStorage.setItem('actividad',actividad);
 cambio=array.filter((element) => {
  return( element.Actividad == actividad && element.precio > minPrecio.value || element.precio < maxPrecio.value)});
 if(cambio!=undefined && cambio.length >0){
 mostrarAlojamientos(cambio);
+
 }else{
 mostrarMensaje();
 }
@@ -283,9 +308,9 @@ let thumb=document.createElement('div');
 thumb.classList="packege__thumb";
 let enlace=document.createElement('a');
 enlace.href="/alojamiento/" + array[i]['Nombre'];
-let imagen=document.createElement('img');
+/*let imagen=document.createElement('img');
 imagen.setAttribute('src','/img/alojamientos/'+ array[i]['images'][0]['imageName']);
-enlace.appendChild(imagen)
+enlace.appendChild(imagen)*/
 thumb.appendChild(enlace);
 
 let content=document.createElement('div');
@@ -293,7 +318,7 @@ content.classList="packege__content";
 let aContent=document.createElement('a');
 aContent.href="/alojamiento/" + array[i]['Nombre'];
 let h5=document.createElement('h5');
-h5.textContent=array[0]['Nombre'];
+h5.textContent=array[i]['Nombre'];
 let rivew=document.createElement('div');
 rivew.classList="packege__rivew";
 let left=document.createElement('div')
@@ -329,77 +354,6 @@ principal.appendChild(item);
 
 div.appendChild(divhijo);
   }
-  
-
-
-
-
-
-var map,i;
-var infowindow=[];
-var markers=[];
-var gmarkers=[];
-
-function initMap() {
-  const valencia = {
-    lat: 39.4683179,
-    lng: -0.3790023
-  };
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 13,
-    center: valencia,
-   
-  });
-  
-  let image = {
-    url: 'img/signo.png', //ruta de la imagen
-    size: new google.maps.Size(60, 60), //tamaño de la imagen
-    origin: new google.maps.Point(0,0), //origen de la iamgen
-  //el ancla de la imagen, el punto donde esta marcando, en nuestro caso el centro inferior.
-  anchor: new google.maps.Point(0, 0) 
-   };
-
-   for (i = 0; i < array.length; i++) {
-
-      markers[i] = new google.maps.Marker({
-      position: new google.maps.LatLng(array[i]['ubicacion'].latitud, array[i]['ubicacion'].longitud),
-      map:map,
-      actividad:array[i]['Actividad'],
-      icon: image
-    });
-
-gmarkers.push(markers[i])
-    infowindow[i] = new google.maps.InfoWindow({
-      content:'<a href="#hola"><img style="margin:0px" src="img/tropical.png" width="250px" /><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light">Alojamiento entero: piso. Anfitrión: Paula</h5><span class=>250 €</span></span></div></a>' });
-  google.maps.event.addListener(markers[i], 'click', function(valor) { 
-    return function(){ 
-    infowindow[valor].open(map,markers[valor]); 
-  }
-  }(i));
-  
-}
-
-
-  };
-
-console.log(gmarkers);
-
-filterMarkers=function(actividad){
-
-  for(i=0;i<gmarkers.length;i++){
-    marker=gmarkers[i];
-if(marker.actividad==actividad || actividad.length ===0){
-marker.setVisible(true);
-
-}else{
-
-  marker.setVisible(false);
-}
-
-  }
-}
-
-
 
 
 /*

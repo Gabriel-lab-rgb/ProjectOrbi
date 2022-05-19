@@ -12,10 +12,14 @@ use App\Entity\Hotel;
 use App\Entity\Ubicaciones;
 use App\Entity\Persona;
 use App\Entity\User;
+use App\Entity\Regiones;
 use App\Entity\Images;
 use App\Form\CreateFormType;
 use App\Form\Type\PersonaType;
+use App\Form\Type\RegionType;
 use Symfony\Component\HttpFoundation\File\File;
+
+
 
 class AdministracionController extends AbstractController
 {
@@ -200,6 +204,109 @@ class AdministracionController extends AbstractController
         $entityManager->flush();
         
         return $this->render('administracion/alojamiento/Delete.html.twig', ['hotel'=>$hotel]);
+    }
+
+
+
+    
+/** 
+*
+*
+*
+**/
+
+ /**
+     * @Route("/admin/regiones", name="region")
+     */
+    public function regiones(ManagerRegistry $doctrine): Response
+    {
+        $regiones=$doctrine->getRepository(regiones::class)->findAll();
+        return $this->render('administracion/regiones/regiones.html.twig', array('regiones'=>$regiones));
+    }
+
+
+/**
+     * @Route("/admin/regiones/create", name="regionCreate")
+     */
+    public function regionesCreate(ManagerRegistry $doctrine,Request $request): Response
+    {
+        $region = new Regiones();
+        
+        $form = $this->createForm(RegionType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+           
+            $region->setNombre($form->get('nombre')->getData());
+            $region->setLatitud($form->get('latitud')->getData());
+            $region->setLongitud($form->get('longitud')->getData());
+            $region->setDescripcion($form->get('descripcion')->getData());
+            
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($region);   
+ 
+            
+    
+            $entityManager->flush();
+
+            return $this->redirectToRoute('region');
+        }
+
+        return $this->render('administracion/regiones/Create.html.twig', array('CreateForm' => $form->createView()));
+    }
+    
+    /**
+     * @Route("/admin/regiones/edit/{id}", name="regionEdit")
+     */
+    public function regionesEdit(ManagerRegistry $doctrine,Request $request,int $id): Response
+    {
+
+
+        $region=$doctrine->getRepository(Regiones::class)->find($id);
+
+        
+        $form = $this->createForm(RegionType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $region->setNombre($form->get('nombre')->getData());
+            $region->setLatitud($form->get('latitud')->getData());
+            $region->setLongitud($form->get('longitud')->getData());
+            $region->setDescripcion($form->get('descripcion')->getData());
+            
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($region);   
+     
+
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('region');
+        }
+        
+        return $this->render('administracion/regiones/Edit.html.twig', ['region'=> $region,'form'=> $form->createView()]);
+    }
+
+
+     /**
+     * @Route("/admin/regiones/details/{id}", name="regionDetails")
+     */
+    public function regionesDetails(ManagerRegistry $doctrine,int $id): Response
+    {
+        $region=$doctrine->getRepository(Regiones::class)->find($id);
+        return $this->render('administracion/regiones/Details.html.twig', array('region'=>$region));
+    }
+
+
+     /**
+     * @Route("/admin/regiones/delete/{id}", name="regionDelete")
+     */
+    public function regionesDelete(ManagerRegistry $doctrine): Response
+    {
+        $usuarios=$doctrine->getRepository(regiones::class)->findAll();
+        return $this->render('administracion/regiones/delete.html.twig', array('usuarios'=>$usuarios));
     }
 
 /** 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
@@ -23,8 +24,8 @@ class Images
 
     /**
      * @ORM\Column(type="string")
-     * 
      * @var string
+     * @Groups({"hotel", "list_hotel"})
      */
     private $imageName;
 

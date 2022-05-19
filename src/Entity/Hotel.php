@@ -46,25 +46,25 @@ class Hotel
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *  
+     *  @Groups({"hotel", "list_hotel"})
      */
     private $caracteristicas;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *  
+     *  @Groups({"hotel", "list_hotel"})
      */
     private $descripcion;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
-     * 
+     * @Groups({"hotel", "list_hotel"})
      */
     private $precio;
 
     /**
      * @ORM\OneToMany(targetEntity=Images::class, mappedBy="alojamiento", orphanRemoval=true, cascade={"persist"})
-     * 
+     * @Groups({"hotel", "list_hotel"})
      */
     private $images;
 
