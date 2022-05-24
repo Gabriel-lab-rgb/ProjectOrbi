@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Hotel;
 use App\Entity\Reserva;
+use App\Entity\PedidoReserva;
+
 
 
 
@@ -25,8 +27,8 @@ class AlojamientoController extends AbstractController
        
          $hotel=$doctrine->getRepository(Hotel::class)->findOneBy(array('Nombre'=> $nombre));
        
-         $reserva =new Reserva();
-         $form = $this->createForm(ReservasFormType::class,$reserva);
+         
+         $form = $this->createForm(ReservasFormType::class);
          
         
 
@@ -40,24 +42,26 @@ class AlojamientoController extends AbstractController
      * 
      */
 
-    public function stays(Request $request,int $id,EntityManagerInterface $entityManager,ManagerRegistry $doctrine): Response
+    public function stays(Request $request,int $id,EntityManagerInterface $entityManager,ManagerRegistry $doctrine,CartManager $cartManager): Response
     {
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
         $precio=$hotel->getPrecio();
-        $formGet=$request->get('reservas_form');
-        $salida=new \DateTime($formGet['salida']);
+
+
+        
+        $ite=$request->get('reservas_form');
+        /*$salida=new \DateTime($formGet['salida']);
         $llegada=new \DateTime($formGet['llegada']);
         $comparacion=$salida->diff($llegada);
         $dias=$comparacion->days;
         $total= $precio*$dias;
-        $reserva =new Reserva();
-        $form = $this->createForm(ReservasFormType::class,$reserva);
-        
+        $reserva =new Reserva();*/
+        $form = $this->createForm(ReservasFormType::class);
         $form->handleRequest($request);
        if($form->isSubmitted() && $form->isValid()){
        
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
-        $fecha = new \DateTime();
+       /* $fecha = new \DateTime();
         $usuario=$this->getUser();
         $reserva->setUser($usuario);
         $reserva->setFecha($fecha);
@@ -66,13 +70,23 @@ class AlojamientoController extends AbstractController
      
         $entityManager=$this->getDoctrine()->getManager();
         $entityManager->persist($reserva);   
-        $entityManager->flush();
+        $entityManager->flush();*/
+
+        $item=$form->getData();
+        $item->setAlojamiento($hotel);
+
+        $cart = $cartManager->getCurrentCart();
+        $cart
+            ->addItem($item)
+            ->setUpdateAt(new \DateTime())
+            ->setUsuario($this->getUser());
+        $cartManager->save($cart);
 
          return $this->redirectToRoute('confirmacion');
        }
  
 
-        return $this->render('alojamiento/stays.html.twig',['precio'=>$precio,'dias'=>$dias ,'total'=> $total,  'alojamiento' =>$hotel,'form' => $form->createView(),'formGet' => $formGet]);
+        return $this->render('alojamiento/stays.html.twig',['precio'=>$precio/*'dias'=>$dias'total'=> $total,*/ ,  'alojamiento' =>$hotel,'form' => $form->createView(),'formGet' => $ite]);
     }
 
      /**

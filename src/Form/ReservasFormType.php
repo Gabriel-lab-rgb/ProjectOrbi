@@ -3,13 +3,13 @@
 namespace App\Form;
 
 
-use App\Entity\Reserva;
+use App\Entity\PedidoReserva;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 
 
@@ -27,7 +27,7 @@ class ReservasFormType extends AbstractType{
         ->add('salida',DateType::class,[
             'widget' => 'single_text',
         ])
-        ->add('adultos')
+        ->add('adultos',NumberType::class) 
         ->add('ninos');
         
         
@@ -39,7 +39,7 @@ class ReservasFormType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Reserva::class,
+            'data_class' => PedidoReserva::class,
             
         ]);
     }

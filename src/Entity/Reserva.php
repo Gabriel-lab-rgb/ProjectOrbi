@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReservaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,57 +19,45 @@ class Reserva
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $llegada;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $salida;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
      */
-    private $total;
+    private $total =0;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $fecha;
+    private $createAt;
 
+   
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $adultos;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $ninos;
-
-    /**
-     * @ORM\Column(type="integer",nullable=true)
-     */
-    private $bebes;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $mascotas;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="reservas")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservas")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $usuario;
+
+   
 
     /**
-     * @ORM\ManyToOne(targetEntity=Hotel::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $hotel;
+    private $status = self::STATUS_CART;
+    const STATUS_CART='pendiente';
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $updateAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PedidoReserva::class, cascade={"persist","remove"}, mappedBy="pedido", orphanRemoval=true)
+     */
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
    
 
@@ -77,33 +67,18 @@ class Reserva
         return $this->id;
     }
 
-    public function getLlegada(): ?\DateTimeInterface
+   
+
+    public function getTotal(): float
     {
-        return $this->llegada;
-    }
+        
+        $total=0;
+       foreach($this->getItems() as $item){
 
-    public function setLlegada(\DateTimeInterface $llegada): self
-    {
-        $this->llegada = $llegada;
-
-        return $this;
-    }
-
-    public function getSalida(): ?\DateTimeInterface
-    {
-        return $this->salida;
-    }
-
-    public function setSalida(\DateTimeInterface $salida): self
-    {
-        $this->salida = $salida;
-
-        return $this;
-    }
-
-    public function getTotal(): ?string
-    {
-        return $this->total;
+              $total+=$item->getTotal();
+              $this->total=$total;
+            }
+    return $this->total;
     }
 
     public function setTotal(string $total): self
@@ -113,91 +88,97 @@ class Reserva
         return $this;
     }
 
-    public function getFecha(): ?\DateTimeInterface
+    public function getCreateAt(): ?\DateTimeInterface
     {
-        return $this->fecha;
+        return $this->createAt;
     }
 
-    public function setFecha(\DateTimeInterface $fecha): self
+    public function setCreateAt(\DateTimeInterface $createAt): self
     {
-        $this->fecha = $fecha;
+        $this->createAt = $createAt;
 
         return $this;
     }
 
-    public function getAdultos(): ?int
+    
+
+    public function getUsuario(): ?user
     {
-        return $this->adultos;
+        return $this->usuario;
     }
 
-    public function setAdultos(int $adultos): self
+    public function setUsuario(?user $usuario): self
     {
-        $this->adultos = $adultos;
+        $this->usuario = $usuario;
 
         return $this;
     }
 
-    public function getNinos(): ?int
+    public function getStatus(): ?string
     {
-        return $this->ninos;
+        return $this->status;
     }
 
-    public function setNinos(?int $ninos): self
+    public function setStatus(string $status): self
     {
-        $this->ninos = $ninos;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getBebes(): ?int
+    public function getUpdateAt(): ?\DateTimeInterface
     {
-        return $this->bebes;
+        return $this->updateAt;
     }
 
-    public function setBebes(int $bebes): self
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
     {
-        $this->bebes = $bebes;
+        $this->updateAt = $updateAt;
 
         return $this;
     }
 
-    public function getMascotas(): ?bool
+    /**
+     * @return Collection<int, pedidoReserva>
+     */
+    public function getItems(): Collection
     {
-        return $this->mascotas;
+        return $this->items;
     }
 
-    public function setMascotas(?bool $mascotas): self
+    public function addItem(pedidoReserva $item): self
     {
-        $this->mascotas = $mascotas;
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setPedido($this);
+        }
 
         return $this;
     }
 
-    public function getUser(): ?user
+    public function removeItem(pedidoReserva $item): self
     {
-        return $this->user;
-    }
-
-    public function setUser(?user $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getHotel(): ?Hotel
-    {
-        return $this->hotel;
-    }
-
-    public function setHotel(?Hotel $hotel): self
-    {
-        $this->hotel = $hotel;
+        if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getPedido() === $this) {
+                $item->setPedido(null);
+            }
+        }
 
         return $this;
     }
 
    
+    public function removeItems():self{
 
+
+        foreach($this->getItems() as $item){
+            $this->removeItem($item);
+        }
+        return $this;
+    }
+
+    
+    
   
 }

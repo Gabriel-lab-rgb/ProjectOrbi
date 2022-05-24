@@ -23,8 +23,9 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class AdministracionController extends AbstractController
 {
+    
     /**
-     * @Route("/admin", name="app_administracion")
+     * @Route("/admin2", name="app_administracion")
      */
     public function index(): Response
     {
@@ -32,8 +33,9 @@ class AdministracionController extends AbstractController
             'controller_name' => 'AdministracionController',
         ]);
     }
+    
     /**
-     * @Route("/admin/alojamientos", name="alojamientos")
+     * @Route("/admin2/alojamientos", name="alojamientos")
      */
 
     public function Alojamiento(ManagerRegistry $doctrine): Response
@@ -43,7 +45,7 @@ class AdministracionController extends AbstractController
     }
 
   /**
-     * @Route("/admin/alojamientos/create", name="AlojamientoCreate")
+     * @Route("/admin2/alojamientos/create", name="AlojamientoCreate")
      */
 
     public function CreateAlojamiento(Request $request,EntityManagerInterface $entityManager,ManagerRegistry $doctrine): Response
@@ -110,7 +112,7 @@ class AdministracionController extends AbstractController
    
 
      /**
-     * @Route("/admin/alojamiento/details/{id}", name="AlojamientoDetails")
+     * @Route("/admin2/alojamiento/details/{id}", name="AlojamientoDetails")
      */
 
     public function DAlojamiento(ManagerRegistry $doctrine,int $id): Response
@@ -120,7 +122,7 @@ class AdministracionController extends AbstractController
     }
 
       /**
-     * @Route("/admin/alojamiento/edit/{id}", name="AlojamientoEdit")
+     * @Route("/admin2/alojamiento/edit/{id}", name="AlojamientoEdit")
      */
 
     public function EditAlojamiento(Request $request,ManagerRegistry $doctrine,int $id): Response
@@ -187,7 +189,7 @@ class AdministracionController extends AbstractController
      
 
       /**
-     * @Route("/admin/alojamiento/delete/{id}", name="AlojamientoDelete")
+     * @Route("/admin2/alojamiento/delete/{id}", name="AlojamientoDelete")
      */
 
     public function DeleteAlojamiento(ManagerRegistry $doctrine,int $id): Response
@@ -216,7 +218,7 @@ class AdministracionController extends AbstractController
 **/
 
  /**
-     * @Route("/admin/regiones", name="region")
+     * @Route("/admin2/regiones", name="region")
      */
     public function regiones(ManagerRegistry $doctrine): Response
     {
@@ -226,7 +228,7 @@ class AdministracionController extends AbstractController
 
 
 /**
-     * @Route("/admin/regiones/create", name="regionCreate")
+     * @Route("/admin2/regiones/create", name="regionCreate")
      */
     public function regionesCreate(ManagerRegistry $doctrine,Request $request): Response
     {
@@ -256,7 +258,7 @@ class AdministracionController extends AbstractController
     }
     
     /**
-     * @Route("/admin/regiones/edit/{id}", name="regionEdit")
+     * @Route("/admin2/regiones/edit/{id}", name="regionEdit")
      */
     public function regionesEdit(ManagerRegistry $doctrine,Request $request,int $id): Response
     {
@@ -291,7 +293,7 @@ class AdministracionController extends AbstractController
 
 
      /**
-     * @Route("/admin/regiones/details/{id}", name="regionDetails")
+     * @Route("/admin2/regiones/details/{id}", name="regionDetails")
      */
     public function regionesDetails(ManagerRegistry $doctrine,int $id): Response
     {
@@ -301,7 +303,7 @@ class AdministracionController extends AbstractController
 
 
      /**
-     * @Route("/admin/regiones/delete/{id}", name="regionDelete")
+     * @Route("/admin2/regiones/delete/{id}", name="regionDelete")
      */
     public function regionesDelete(ManagerRegistry $doctrine): Response
     {
@@ -316,7 +318,7 @@ class AdministracionController extends AbstractController
 **/
 
  /**
-     * @Route("/admin/usuarios", name="usuarios")
+     * @Route("/admin2/usuarios", name="usuarios")
      */
 
     public function Usuarios(ManagerRegistry $doctrine): Response
@@ -337,7 +339,7 @@ class AdministracionController extends AbstractController
     }
 
      /**
-     * @Route("/admin/usuario/edit/{id}", name="UsuarioEdit")
+     * @Route("/admin2/usuario/edit/{id}", name="UsuarioEdit")
      */
 
     public function EditUsuario(Request $request,ManagerRegistry $doctrine,int $id): Response
@@ -372,7 +374,7 @@ class AdministracionController extends AbstractController
 
 
      /**
-     * @Route("/admin/usuario/details/{id}", name="UsuarioDetails")
+     * @Route("/admin2/usuario/details/{id}", name="UsuarioDetails")
      */
 
     public function DetailsUsuario(ManagerRegistry $doctrine,int $id): Response
@@ -382,7 +384,7 @@ class AdministracionController extends AbstractController
     }
 
     /**
-     * @Route("/admin/usuario/reservas/{id}", name="UsuarioReservas")
+     * @Route("/admin2/usuario/reservas/{id}", name="UsuarioReservas")
      */
 
     public function ReservasUsuario(ManagerRegistry $doctrine,int $id): Response
@@ -395,7 +397,7 @@ class AdministracionController extends AbstractController
 
 
      /**
-     * @Route("/admin/usuario/delete/{id}", name="UsuarioDelete")
+     * @Route("/admin2/usuario/delete/{id}", name="UsuarioDelete")
      */
 
     public function DeleteUsuario(ManagerRegistry $doctrine,int $id): Response
