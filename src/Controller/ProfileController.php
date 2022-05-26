@@ -10,9 +10,11 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Form\ProfileFormType;
+use App\Controller\CartManager;
 use App\Form\SecurityFormType;
 use App\Entity\User;
 use App\Entity\Persona;
+use App\Form\ReservaType;
 
 class ProfileController extends AbstractController
 {
@@ -99,14 +101,27 @@ class ProfileController extends AbstractController
      * @Route("/reservas", name="reservas")
      */
 
-    public function reservas(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function reservas(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher ,SessionCesta $cesta): Response
     {
-        $usuario=$this->getUser();
-       
-        $reservas=$doctrine->getRepository(Reservas::class)->findOneBy(array('user'=> $usuario));
+      
+/*
+        $cart = $cartManager->getCurrentCart();
+        $form = $this->createForm(ReservaType::class, $cart);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cart->setUpdateAt(new \DateTime());
+            $cartManager->saveSession($cart);
+
+            return $this->redirectToRoute('reservas');
+            
+        }*/
+    
         return $this->render('profile/reservas.html.twig', [
-            'reservas'=>$reservas
+            /*'cart' => $cart,*/
+           /* 'form' => $form->createView()*/
+           'cesta'=> $cesta->getAlojamientos()
+        
         ]);
     }
 

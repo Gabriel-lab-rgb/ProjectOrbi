@@ -19,52 +19,54 @@
 
     </form>   
 -->
-<section class="ftco-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-6 text-center mb-5">
-                        <h2 class="heading-section">Iniciar Sesion</h2>
-                    </div>
+ <div class="container-fluid px-3">
+        <div class="row min-vh-100 ">
+          <div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">
+            <div class="w-100 py-5 px-md-5 px-xxl-6 position-relative ">
+              <div class="mb-5"><img class="img-fluid mb-3" src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/logo-square.svg" alt="..." style="max-width: 4rem;">
+                <h2>Bienvenido</h2>
+              </div>
+              <form action="{{ path('login') }}" method="post">
+                <div class="mb-4">
+                  <label class="form-label" for="loginUsername"> Correo Electronico</label>
+                  <input class="form-control" id="username" name="_username" value="" type="email" placeholder="ejemplo@gmail.com"  required="" >
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="login-wrap p-0">
-
-                            <form action="{{ path('login') }}" class="signin-form" method="post">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username" name="_username" required="">
-                                </div>
-                                <div class="form-group">
-                                    <input id="password-field" type="password" name="_password" class="form-control"
+                <div class="mb-4">
+                  <div class="row">
+                    <div class="col">
+                      <label class="form-label" for="contraseña">Contraseña</label>
+                    </div>
+                    <div class="col-auto"><a class="form-text small text-primary" href="{{path('app_forgot_password_request')}}">¿Olvido su contraseña?</a></div>
+                  </div>
+                   <input id="password-field" type="password" name="_password" class="form-control"
                                         placeholder="Password" required="">
                                     <span toggle="#password-field"
                                         class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="form-control  btn-round submit px-3">Iniciar
-                                        Sesion</button>
-                                </div>
-                                <div class="form-group d-md-flex">
-                                    <div class="w-50">
-                                        <label class="checkbox-wrap checkbox-primary">Remember Me
-                                            <input type="checkbox" checked="">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="w-50 text-md-right">
-                                        <a href="{{path('app_forgot_password_request')}}" style="color: #fff">Forgot Password</a>
-                                    </div>
-                                </div>
-                            </form>
-                            <h3 class="mb-4 text-center">¿No tienes una Cuenta?</h3>
-                            <a href="{{path('app_register')}}"><button type="buttom" class="form-control  btn-round submit px-3">Crear una
-                                Cuenta</button></a>
-                        </div>
-                    </div>
                 </div>
+                <div class="mb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" id="loginRemember" type="checkbox">
+                    <label class="form-check-label text-muted" for="loginRemember"> <span class="text-sm">Recordarme</span></label>
+                  </div>
+                </div>
+                <!-- Submit-->
+                <div class="d-grid">
+                  <button class="btn btn-lg btn-primary">Sign in</button>
+                </div>
+                <hr class="my-3 " data-content="OR">
+               
+            
+                <p class="text-center"><small class="text-muted text-center">¿No tienes una cuenta? <a href="{{path('app_register')}}">Registrarse</a></small></p>
+              </form><a class=" me-md-5 me-xl-5 pt-5" href="index.html"> 
+                </a>
             </div>
-
-        </section>
+          </div>
+          <div class="col-md-4 col-lg-6 col-xl-7 d-none d-md-block">
+            <!-- Image-->
+            <div class="bg-cover h-100 " style="background-image: url(https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/photo-1497436072909-60f360e1d4b1.jpg);"></div>
+          </div>
+        </div>
+      </div>
 
 
 

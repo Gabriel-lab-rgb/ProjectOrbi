@@ -16,7 +16,7 @@ class HotelController extends AbstractController
 
 
  /**
-     * @Route("", name="app_home",methods={"GET","HEAD"})
+     * @Route("/index", name="app_home",methods={"GET","HEAD"})
      */
    
     public function Home(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
@@ -29,6 +29,18 @@ class HotelController extends AbstractController
     array('hoteles' => $hoteles));
     }
 
+/**
+     * @Route("/contact", name="app_contact",methods={"GET","HEAD"})
+     */
+   
+    public function Contact(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
+    {
+        
+        
+       // $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
+       // echo $jsonContent;
+        return $this->render('Home/contact.html.twig');
+    }
 
 
 

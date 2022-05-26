@@ -13,7 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class CartManager
 {
-    /**
+
+     /**
      * @var SessionCesta
      */
     private $SessionCesta;
@@ -36,35 +37,18 @@ class CartManager
      * @param ReservaFactory $ReservaFactory
      * 
      */
-    public function __construct(SessionCesta $cesta,ReservaFactory $ReservaFactory, EntityManagerInterface $entityManager) {
+    public function __construct(SessionCesta $cesta, EntityManagerInterface $entityManager) {
         $this->SessionCesta = $cesta;
-        $this->cartFactory = $ReservaFactory;
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * Gets the current cart.
-     * 
-     * @return Reserva
-     */
-    public function getCurrentCart(): Reserva
-    {
-        $cart = $this->SessionCesta->getCart();
 
-        if (!$cart) {
-            $cart = $this->cartFactory->create();
-        }
+    public function addCart(): void {
 
-        return $cart;
-    }
-
-
-    public function save(Reserva $cart): void
-    {
-        // Persist in database
-        $this->entityManager->persist($cart);
-        $this->entityManager->flush();
-        // Persist in session
-        $this->SessionCesta->setCart($cart);
+        $producto = $doctrine->getRepository(Productos::class)->find($id);
+        $unidades = $_POST['unidades'];
+        $cesta->carga_articulo($producto);
+        $cesta->guardar_cesta();
+        
     }
 }

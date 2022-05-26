@@ -44,6 +44,10 @@ class PedidoReserva
      */
     private $ninos;
 
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2)
+     */
+    private $precio =0;
 
     /**
      * @ORM\ManyToOne(targetEntity=Reserva::class, inversedBy="items")
@@ -86,6 +90,14 @@ class PedidoReserva
         return $this->salida;
     }
 
+    public function setSalida(\DateTimeInterface $salida): self
+    {
+        $this->salida = $salida;
+
+        return $this;
+    }
+
+
     public function getAdultos(): ?int
     {
         return $this->adultos;
@@ -110,12 +122,27 @@ class PedidoReserva
         return $this;
     }
 
-    public function setSalida(\DateTimeInterface $salida): self
-    {
-        $this->salida = $salida;
+    
+
+    public function getPrecio():float{
+        $comparacion=$this->getSalida()->diff($this->getLlegada());
+        $dias=$comparacion->days;
+
+        return $this->getAlojamiento()->getPrecio()*$dias;
+    }
+
+    public function setPrecio(string $precio): self
+      {
+
+        $this->precio = $precio;
 
         return $this;
-    }
+      }
+
+      public function getPedido(): ?Reserva
+      {
+          return $this->pedido;
+      }
 
     public function setPedido(?Reserva $pedido): self
     {
@@ -125,17 +152,16 @@ class PedidoReserva
     }
 
 
+    
+
+
     public function equals(PedidoReserva $item):bool{
 
         return $this->getAlojamiento->getId()===$item->getAlojamiento()->getId();
     }
 
- public function getTotal():float{
-    $comparacion=$this->salida()->diff($this->llegada());
-    $dias=$comparacion->days;
-
-    return $this->getAlojamiento()->getPrecio()*$dias;
- }
+     
+    
 
 }
 

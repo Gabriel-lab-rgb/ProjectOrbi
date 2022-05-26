@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Hotel;
 use App\Entity\Reserva;
 use App\Entity\PedidoReserva;
-
+use App\Controller\SesionCesta;
 
 
 
@@ -42,7 +42,7 @@ class AlojamientoController extends AbstractController
      * 
      */
 
-    public function stays(Request $request,int $id,EntityManagerInterface $entityManager,ManagerRegistry $doctrine,CartManager $cartManager): Response
+    public function stays(Request $request,int $id,EntityManagerInterface $entityManager,ManagerRegistry $doctrine,SessionCesta $cesta): Response
     {
         $hotel=$doctrine->getRepository(Hotel::class)->find($id);
         $precio=$hotel->getPrecio();
@@ -60,7 +60,7 @@ class AlojamientoController extends AbstractController
         $form->handleRequest($request);
        if($form->isSubmitted() && $form->isValid()){
        
-        $hotel=$doctrine->getRepository(Hotel::class)->find($id);
+       
        /* $fecha = new \DateTime();
         $usuario=$this->getUser();
         $reserva->setUser($usuario);
@@ -72,16 +72,25 @@ class AlojamientoController extends AbstractController
         $entityManager->persist($reserva);   
         $entityManager->flush();*/
 
-        $item=$form->getData();
-        $item->setAlojamiento($hotel);
+    
+        $Fsalida=$form->get('salida')->getData();
+        $Fllegada=$form->get('llegada')->getData();
+        $salida = $Fsalida->format('Y-m-d H:i:s');
+        $llegada = $Fllegada->format('Y-m-d H:i:s');
 
+        $adultos=$form->get('adultos')->getData();
+        $ninos=$form->get('ninos')->getData();
+
+        $cesta->carga_articulo($hotel,$salida,$llegada,$adultos);
+        $cesta->guardar_cesta();
+/*
         $cart = $cartManager->getCurrentCart();
         $cart
             ->addItem($item)
             ->setUpdateAt(new \DateTime())
             ->setUsuario($this->getUser());
         $cartManager->save($cart);
-
+*/
          return $this->redirectToRoute('confirmacion');
        }
  

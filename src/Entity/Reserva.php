@@ -75,7 +75,7 @@ class Reserva
         $total=0;
        foreach($this->getItems() as $item){
 
-              $total+=$item->getTotal();
+              $total+=$item->getPrecio();
               $this->total=$total;
             }
     return $this->total;

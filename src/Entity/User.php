@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reserva::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Reserva::class, mappedBy="usuario", orphanRemoval=true)
      */
     private $reservas;
 
