@@ -67,33 +67,19 @@
           <h2 class="h4 text-center mb-5">Formulario de Contacto</h2>
           <div class="row d-flex justify-content-center align-items-center ">
             <div class=" col-md-7 mb-5 mb-md-0">
-              <form class="form" id="contact-form" method="post" action="contact.php">
+              {{form_start(form)}}
                 <div class="controls">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="mb-4">
-                        <label class="form-label" for="nombre">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Introduce o cambia el nombre" required="required">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="mb-4">
-                        <label class="form-label" for="apellidos">Apellidos</label>
-                        <input class="form-control" type="text" name="apellidos" id="apellidos" placeholder="Introduce o cambia el apellido" required="required">
-                      </div>
-                    </div>
-                  </div>
                   <div class="mb-4">
-                    <label class="form-label" for="email">Correo Electronico</label>
-                    <input class="form-control" type="email" name="email" id="email"  required="required">
+                    <label class="form-label" for="email">Asunto</label>
+                   {{form_widget(form.asunto)}}
                   </div>
                   <div class="mb-4">
                     <label class="form-label" for="mensaje">Mensaje</label>
-                    <textarea class="form-control" rows="4" name="mensaje" id="mensaje" placeholder="Escribe un mensaje" required="required"></textarea>
+                    {{form_widget(form.mensaje)}}
                   </div>
                   <button class="btn btn-outline-primary" type="submit">Enviar</button>
                 </div>
-              </form>
+              {{form_end(form)}}
             </div>
          
           </div>

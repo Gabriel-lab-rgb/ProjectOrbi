@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 
 class HotelCrudController extends AbstractCrudController
 {
@@ -26,6 +27,7 @@ class HotelCrudController extends AbstractCrudController
             TextField::new('caracteristicas'),
             TextField::new('descripcion'),
             TextField::new('precio'),
+            //CollectionField::new('ubicacion')
             
           
         ];

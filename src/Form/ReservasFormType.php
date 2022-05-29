@@ -27,8 +27,8 @@ class ReservasFormType extends AbstractType{
         ->add('salida',DateType::class,[
             'widget' => 'single_text',
         ])
-        ->add('adultos',NumberType::class) 
-        ->add('ninos');
+        ->add('huespedes',NumberType::class) ;
+        
         
         
 

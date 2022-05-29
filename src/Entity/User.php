@@ -64,9 +64,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $persona;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Contacto::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->reservas = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +238,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->persona = $persona;
+
+        return $this;
+    }
+
+
+    public function __toString(){
+
+        return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Contacto>
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(Contacto $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Contacto $user): self
+    {
+        if ($this->user->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getUser() === $this) {
+                $user->setUser(null);
+            }
+        }
 
         return $this;
     }

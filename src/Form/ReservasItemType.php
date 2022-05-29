@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 class ReservasItemType extends AbstractType{
@@ -27,12 +27,10 @@ class ReservasItemType extends AbstractType{
         ->add('salida',DateType::class,[
             'widget' => 'single_text',
         ])
-        ->add('adultos',NumberType::class) 
-        ->add('ninos')
+    
+        ->add('huespedes',NumberType::class) 
         ->add('remove', SubmitType::class);
         
-
-  
        
     }      
 

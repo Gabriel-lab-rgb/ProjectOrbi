@@ -61,6 +61,12 @@ class Ubicaciones
      */
     private $hotel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Regiones::class, inversedBy="ubicaciones")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
+
 
 
     
@@ -168,6 +174,18 @@ class Ubicaciones
         return $this;
     }
 */
+
+public function getRegion(): ?regiones
+{
+    return $this->region;
+}
+
+public function setRegion(?regiones $region): self
+{
+    $this->region = $region;
+
+    return $this;
+}
    
 
 

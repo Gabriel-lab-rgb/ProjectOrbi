@@ -11,6 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Hotel;
 use App\Entity\User;
 use App\Entity\Regiones;
+use App\Entity\Reserva;
+use App\Entity\Persona;
+use App\Entity\ResetPasswordRequest;
+use App\Entity\Images;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -39,8 +43,16 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Alojamientos', 'fas fa-list', Hotel::class);
-        yield MenuItem::linkToCrud('Usuarios', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Regiones', 'fas fa-list', Regiones::class);
+        yield MenuItem::linkToCrud('Reservas', 'fas fa-list', Reserva::class);
+        yield MenuItem::section('Alojamientos');
+        yield MenuItem::linkToCrud('Alojamientos', 'fas fa-list', Hotel::class);
+        yield MenuItem::linkToCrud('Imagenes', 'fas fa-list', Images::class);
+
+        yield MenuItem::section('Users');
+        yield MenuItem::linkToCrud('Usuarios', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('info Usuarios', 'fas fa-list', Persona::class);
+        yield MenuItem::linkToCrud('Contraseñas Recuperadas', 'fas fa-list', ResetPasswordRequest::class);
+        
     }
 }

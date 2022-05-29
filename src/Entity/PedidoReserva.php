@@ -37,13 +37,9 @@ class PedidoReserva
      /**
      * @ORM\Column(type="integer")
      */
-    private $adultos;
+    private $huespedes;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $ninos;
-
+   
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
      */
@@ -98,29 +94,18 @@ class PedidoReserva
     }
 
 
-    public function getAdultos(): ?int
+    public function getHuespedes(): ?int
     {
-        return $this->adultos;
+        return $this->huedepedes;
     }
 
-    public function setAdultos(int $adultos): self
+    public function setHuespedes(int $huespedes): self
     {
-        $this->adultos = $adultos;
+        $this->huespedes = $huespedes;
 
         return $this;
     }
 
-    public function getNinos(): ?int
-    {
-        return $this->ninos;
-    }
-
-    public function setNinos(?int $ninos): self
-    {
-        $this->ninos = $ninos;
-
-        return $this;
-    }
 
     
 

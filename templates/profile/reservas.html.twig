@@ -5,15 +5,15 @@
 {% block body %}
 <div class="col-md-8">
    
-    {% for producto in cesta %}
-                <tr>
-                    <td>{{producto['alojamiento'].getNombre()}} </td>
-                    <td>{{producto['alojamiento'].getPrecio()}}</td>
-                    <td>
-                        
-                    </td>
+   
+                   
+                    {{ form_start(form)}}
+                   
+                    
+                    {{ form_end(form)}}
+                    
                 </tr>
-            {% endfor %}
+          
         </ul>
     </div>
   

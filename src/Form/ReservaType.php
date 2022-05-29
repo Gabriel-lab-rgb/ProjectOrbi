@@ -11,17 +11,23 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\CallbackTransformer;
 
 class ReservaType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $optionszz)
     {
+        
         $builder
             ->add('items', CollectionType::class, [
                 'entry_type' => ReservasItemType::class
             ])
+
             ->add('save', SubmitType::class)
             ->add('clear', SubmitType::class);
+
+            
+            
 
         $builder->addEventSubscriber(new RemoveCartItemListener());
         $builder->addEventSubscriber(new ClearCartListener());

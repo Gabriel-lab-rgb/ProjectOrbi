@@ -39,6 +39,11 @@ class Regiones
      */
     private $descripcion;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ubicaciones::class, mappedBy="region", orphanRemoval=true)
+     */
+    private $ubicaciones;
+
    
 
     public function __construct()
@@ -95,6 +100,36 @@ class Regiones
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ubicaciones>
+     */
+    public function getUbicaciones(): Collection
+    {
+        return $this->ubicaciones;
+    }
+
+    public function addUbicacione(Ubicaciones $ubicacione): self
+    {
+        if (!$this->ubicaciones->contains($ubicacione)) {
+            $this->ubicaciones[] = $ubicacione;
+            $ubicacione->setRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUbicacione(Ubicaciones $ubicacione): self
+    {
+        if ($this->ubicaciones->removeElement($ubicacione)) {
+            // set the owning side to null (unless already changed)
+            if ($ubicacione->getRegion() === $this) {
+                $ubicacione->setRegion(null);
+            }
+        }
 
         return $this;
     }

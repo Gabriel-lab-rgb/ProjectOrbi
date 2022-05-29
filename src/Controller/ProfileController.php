@@ -16,6 +16,7 @@ use App\Entity\User;
 use App\Entity\Persona;
 use App\Form\ReservaType;
 
+
 class ProfileController extends AbstractController
 {
     /**
@@ -101,29 +102,55 @@ class ProfileController extends AbstractController
      * @Route("/reservas", name="reservas")
      */
 
-    public function reservas(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher ,SessionCesta $cesta): Response
+    public function reservas(Request $request,ManagerRegistry $doctrine,CartManager $cartManager): Response
     {
       
-/*
-        $cart = $cartManager->getCurrentCart();
-        $form = $this->createForm(ReservaType::class, $cart);
+       
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $cart->setUpdateAt(new \DateTime());
-            $cartManager->saveSession($cart);
 
-            return $this->redirectToRoute('reservas');
+ 
+            $cart = $cartManager->getCurrentCart();
+            $form = $this->createForm(ReservaType::class, $cart);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $cart->setUpdateAt(new \DateTime());
+                $cartManager->save($cart);
+                return $this->redirectToRoute('reservas');
+                
             
-        }*/
+        }
     
+        return $this->render('profile/reservas.html.twig', [
+            'cart' => $cart,
+            'form' => $form->createView(),
+           /*'cesta'=> $cesta->getAlojamientos()*/
+        
+        ]);
+
+
+    }
+
+    /**
+     * @Route("/eliminar", name="eliminar")
+     */
+
+    public function eliminar(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher ,SessionCesta $cesta): Response
+    {
+      
+
+        
+
         return $this->render('profile/reservas.html.twig', [
             /*'cart' => $cart,*/
            /* 'form' => $form->createView()*/
            'cesta'=> $cesta->getAlojamientos()
         
         ]);
+
+
     }
+
+
 
 
 }

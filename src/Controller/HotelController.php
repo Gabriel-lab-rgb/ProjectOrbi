@@ -9,7 +9,9 @@ use App\Entity\Ubicaciones;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use App\Entity\Contacto;
+use App\Form\ContactoFormType;
+use Symfony\Component\HttpFoundation\Request;
 
 class HotelController extends AbstractController
 {
@@ -30,16 +32,33 @@ class HotelController extends AbstractController
     }
 
 /**
-     * @Route("/contact", name="app_contact",methods={"GET","HEAD"})
+     * @Route("/contact", name="app_contact")
      */
    
-    public function Contact(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
+    public function Contact(Request $request,ManagerRegistry $doctrine,SerializerInterface $serializer): Response
     {
         
-        
-       // $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
-       // echo $jsonContent;
-        return $this->render('Home/contact.html.twig');
+        $contacto=new Contacto();
+  
+
+        $form = $this->createForm(ContactoFormType::class, $contacto);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $contacto = $form->getData();
+            $contacto->setUser($this->getUser());
+
+            // ... perform some action, such as saving the task to the database
+
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($contacto);   
+
+            $entityManager->flush();
+            return $this->redirectToRoute('app_contact');
+        }
+        return $this->render('Home/contact.html.twig',array('form'=>$form->CreateView()));
     }
 
 

@@ -39,4 +39,4 @@ class ClearCartListener implements EventSubscriberInterface
         // Clears the cart
         $cart->removeItems();
     }
-}
+} 

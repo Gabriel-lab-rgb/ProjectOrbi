@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
             $persona->setApellidos($p->get('apellidos')->getData());
             $persona->setTelefono($p->get('telefono')->getData());
             $persona->setFechaNacimiento($p->get('FechaNacimiento')->getData());
-            $persona->setCodigoPostal($p->get('CodigoPostal')->getData());
+            $persona->setDni($p->get('dni')->getData());
             $persona->setUser($user);
 
 
@@ -73,7 +73,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('hotel');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('registration/register.html.twig', [

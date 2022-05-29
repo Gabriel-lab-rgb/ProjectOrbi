@@ -28,9 +28,9 @@ class Persona
     private $Apellidos;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Codigo_Postal;
+    private $dni;
 
     /**
      * @ORM\Column(type="string", length=9, nullable=true)
@@ -77,14 +77,14 @@ class Persona
         return $this;
     }
 
-    public function getCodigoPostal(): ?int
+    public function getDni(): ?string
     {
-        return $this->Codigo_Postal;
+        return $this->dni;
     }
 
-    public function setCodigoPostal(?int $Codigo_Postal): self
+    public function setDni(string $dni): self
     {
-        $this->Codigo_Postal = $Codigo_Postal;
+        $this->dni = $dni;
 
         return $this;
     }

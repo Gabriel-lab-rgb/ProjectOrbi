@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GestionReservaController!{% endblock %}
+
+{% block body %}
+
+
+<div class="">
+ 
+ {% for pedido in pedidos %}
+hola
+ <p>{{pedido.getLlegada()|date('d-m-Y')}}</p>
+ <p>{{pedido.getsalida()|date('d-m-Y')}}</p>
+    This friendly message is coming from:
+<a href="{{path('deleteItem',{'id':pedido.getId()})}}"><button class="btn btn-primary">Quitar</button></a>  
+    
+    {%  endfor %}
+</div>
+{% endblock %}

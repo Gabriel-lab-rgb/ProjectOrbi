@@ -29,12 +29,6 @@ class Hotel
      */
     private $Nombre;
 
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups({"hotel", "list_hotel"})
-     *  
-     */
-    private $Actividad;
 
     /**
      * @ORM\OneToOne(targetEntity=Ubicaciones::class, inversedBy="hotel", cascade={"persist", "remove"})
@@ -68,6 +62,17 @@ class Hotel
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Actividad::class, inversedBy="hotels")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $actividad;
+
+    /**
+     * @ORM\Column(type="string", length=9, nullable=true)
+     */
+    private $telefono;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -92,17 +97,7 @@ class Hotel
         return $this;
     }
 
-    public function getActividad(): ?string
-    {
-        return $this->Actividad;
-    }
-
-    public function setActividad(?string $Actividad): self
-    {
-        $this->Actividad = $Actividad;
-
-        return $this;
-    }
+  
 
     public function getUbicacion(): ?Ubicaciones
     {
@@ -178,6 +173,30 @@ class Hotel
                 $image->setAlojamiento(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActividad(): ?actividad
+    {
+        return $this->actividad;
+    }
+
+    public function setActividad(?actividad $actividad): self
+    {
+        $this->actividad = $actividad;
+
+        return $this;
+    }
+
+    public function getTelefono(): ?string
+    {
+        return $this->telefono;
+    }
+
+    public function setTelefono(?string $telefono): self
+    {
+        $this->telefono = $telefono;
 
         return $this;
     }

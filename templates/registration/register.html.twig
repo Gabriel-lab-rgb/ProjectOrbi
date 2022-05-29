@@ -1,24 +1,111 @@
-{% extends 'base.html.twig' %}
+{% extends 'loginBase.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Orbi|Registro{% endblock %}
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+ 
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.user.username) }}
-        {{ form_row(registrationForm.user.email) }}
-        {{ form_row(registrationForm.user.plainPassword, {
+
+
+<div class="container px-3">
+
+ <div class="row ">
+
+<div class="col-lg-4 d-flex flex-column justify-content-center aligns-items-center">
+<img class="img-fluid" src="{{asset('/img/registro.png')}}" alt="" style="width: 600px;" >
+
+</div>
+
+
+   <div class="col-lg-8">
+   <h1 class="h2 mt-5 text-center" style="float:bottom">Formulario de registro</h1>
+  
+
+
+ {{ form_start(registrationForm,{'attr': {'class': 'row p-5 '}}) }}
+ 
+
+  <div class="col-md-6">
+    <label for="validationCustom03" class="form-label">Email</label>
+    {{ form_widget(registrationForm.user.email) }}
+   
+  </div>
+  <div class="col-md-6">
+    <label for="validationCustomUsername" class="form-label">Username</label>
+    <div class="input-group has-validation">
+
+      {{ form_widget(registrationForm.user.username) }}
+    
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <label for="validationCustomUsername" class="form-label">Contraseña</label>
+    <div class="input-group has-validation">
+
+      {{ form_widget(registrationForm.user.plainPassword, {
             label: 'Password'
         }) }}
-    {{ form_row(registrationForm.persona.nombre) }}
+     
+    </div>
+  </div>
 
-        {{ form_row(registrationForm.agreeTerms) }}
+<h3 class="mt-3">Datos Personales</h3>
+  <div class="col-md-6">
+    <label for="validationCustom01" class="form-label">Nombre</label>
+   {{ form_widget(registrationForm.persona.nombre) }}
+  
+  </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+
+  <div class="col-md-6">
+    <label for="validationCustom02" class="form-label">Apellidos</label>
+   {{ form_widget(registrationForm.persona.apellidos) }}
+  </div>
+
+
+   <div class="col-md-4">
+    <label for="validationCustomUsername" class="form-label">Dni</label>
+    <div class="input-group has-validation">
+
+       {{ form_widget(registrationForm.persona.dni) }}
+     
+    </div>
+  </div>
+
+   <div class="col-md-4">
+    <label for="validationCustomUsername" class="form-label">Fecha de Nacimiento</label>
+    <div class="input-group has-validation">
+
+       {{ form_widget(registrationForm.persona.FechaNacimiento) }}
+      
+    </div>
+  </div>
+
+
+   <div class="col-md-4">
+    <label for="validationCustomUsername" class="form-label">Telefono</label>
+    <div class="input-group has-validation">
+
+       {{ form_widget(registrationForm.persona.telefono) }}
+      
+    </div>
+  </div>
+
+  <div class="pt-3">
+  {{ form_row(registrationForm.agreeTerms) }}
+  </div>
+  
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Registrarse</button>
+  </div>
+{{ form_end(registrationForm) }}
+</div>
+ </div>
+ </div>
+ </div>
 {% endblock %}

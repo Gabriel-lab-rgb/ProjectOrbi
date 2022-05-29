@@ -38,8 +38,8 @@ class SaveCartListener implements EventSubscriberInterface
             return;
         }
 
-        $cart->setStatus('finalizado');
-        
-       
+        $cart->setStatus('aceptado');
+
+
     }
-}
+} 
