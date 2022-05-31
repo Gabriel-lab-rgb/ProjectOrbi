@@ -187,7 +187,10 @@ public function setRegion(?regiones $region): self
     return $this;
 }
    
+public function __toString(){
 
+    return $this->direccion;
+}
 
     
 }

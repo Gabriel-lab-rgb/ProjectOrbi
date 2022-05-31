@@ -10,6 +10,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use App\Form\Type\ImagesType;
+//use App\Form\ImagesFormType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+
 
 class HotelCrudController extends AbstractCrudController
 {
@@ -21,16 +27,42 @@ class HotelCrudController extends AbstractCrudController
     
     public function configureFields(string $pageName): iterable
     {
-        return [
+
+        //$imageFile = ImageField::new('images')->setFormType(ImagesType::class);
+       // $image = ImageField::new('images')->setBasePath('public/img/alojamientos');
+        
+        $fields= [
            
             TextField::new('nombre'),
+            AssociationField::new('actividad'),
             TextField::new('caracteristicas'),
             TextField::new('descripcion'),
-            TextField::new('precio'),
+            TextField::new('telefono'),
+            IntegerField::new('precio'),
+            AssociationField::new('ubicacion'),
+            //CollectionField::new('images')
+           
+           // ->setEntryType(ImagesFormType::class),
+            //->setUploadDir('/public/img/alojamientos'),
+
+          //  AssociationField::new('actividad'),
+          //  IntegerField::new('precio'),
+           
             //CollectionField::new('ubicacion')
             
           
         ];
+
+
+       // if($pageName==Crud::PAGE_INDEX){
+       // $fields[]=$image;
+
+       // }else{
+
+        //    $fields[]=$imageFile;
+        //}
+
+        return $fields;
     }
     
 }

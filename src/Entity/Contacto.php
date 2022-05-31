@@ -23,7 +23,7 @@ class Contacto
     private $asunto;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string",length="255")
      */
     private $mensaje;
 

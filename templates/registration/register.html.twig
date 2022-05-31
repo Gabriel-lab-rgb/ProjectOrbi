@@ -100,11 +100,17 @@
   {{ form_row(registrationForm.agreeTerms) }}
   </div>
   
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit">Registrarse</button>
+  <div class="d-grid">
+    <button class="btn btn-lg btn-primary" type="submit">Registrarse</button>
   </div>
+     
 {{ form_end(registrationForm) }}
+<hr class="my-3 " data-content="OR">
+               
+            
+                <p class="text-center"><small class="text-muted text-center">¿Ya tienes una cuenta? <a href="{{path('login')}}">Iniciar Sesion</a></small></p>
 </div>
+
  </div>
  </div>
  </div>

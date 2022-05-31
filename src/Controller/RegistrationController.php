@@ -50,6 +50,7 @@ class RegistrationController extends AbstractController
                     $usuario->get('plainPassword')->getData()
                 )
             );
+            
             $persona=new Persona();
             $persona->setNombre($p->get('nombre')->getData());
             $persona->setApellidos($p->get('apellidos')->getData());

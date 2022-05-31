@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PedidoReservaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=PedidoReservaRepository::class)
  */
@@ -96,7 +97,7 @@ class PedidoReserva
 
     public function getHuespedes(): ?int
     {
-        return $this->huedepedes;
+        return $this->huespedes;
     }
 
     public function setHuespedes(int $huespedes): self

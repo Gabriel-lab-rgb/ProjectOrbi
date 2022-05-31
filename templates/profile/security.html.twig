@@ -1,39 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Orbi|Security{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/usuario/ProyectoOrbi/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/usuario/ProyectoOrbi/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
 
-{{form_start(form,{'attr':{'onsubmit' :"return verificarFormulario()"}})}}
-<div>
-<button class="btn btn-primary" type="submit">Seleccionar imagen</button>
-{{form_widget(form.images)}}
-</div>
-</div>
-{{form_row(form.email,{'attr':{'value': usuario.getEmail}})}}
-{{ form_row(form.plainPassword, {
-            label: 'Password'
-        }) }}
-<button type="submit" class="btn btn-primary" name="editar">Cambiar</button>
+
+
+
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3  ">
+                <div class="card border-0 shadow mb-3 ">
+                    <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block"
+                            href="#"><img class="d-block avatar avatar-xxl p-2 mb-2"
+                                src="{{asset('/img/usuarios/' ~ persona.getUser().getImages())}}"
+                                alt=""></a>
+                        <h5>{{persona.getNombre()}} {{persona.getApellidos()}}</h5>
+                        <span>{{persona.getUser().getEmail()}}</span>
+                      <ul class="list-group list-group-flush mt-5">
+                            <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
+                            <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
+                            <a class="list-group-item bg-gray-100">Borrar Cuenta</a>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+
+<section class="col-lg-9 py-5  ">
+     <ol class="breadcrumb ps-0  justify-content-start">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="user-account.html">Account</a></li>
+                    <li class="breadcrumb-item active">Personal info   </li>
+                  </ol>
+                <div class="text-block"> 
+                  <h3 class="mb-4">Login</h3>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <h6>Password</h6>
+                      
+                    </div>
+                    <div class="col text-end">
+                      <button class="btn btn-link ps-0 text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updatePassword" aria-expanded="true" aria-controls="updatePassword">Update</button>
+                    </div>
+                  </div>
+                  <div class="collapse show" id="updatePassword" style="">
+                    <div class="row mt-4">
+                      <div class="mb-4 col-12">
+                        <label class="form-label" for="password-current">Current Password</label>
+                        <input class="form-control" type="password" name="password-current" id="password-current">
+                      </div>
+                      <div class="mb-4 col-md-6">
+                        <label class="form-label" for="password-new">New Password</label>
+                        <input class="form-control" type="password" name="password-new" id="password-new">
+                      </div>
+                      <div class="mb-4 col-md-6">
+                        <label class="form-label" for="password-confirm">Confirm Password</label>
+                        <input class="form-control" type="password" name="password-confirm" id="password-confirm">
+                      </div>
+                    </div>
+                    <button class="btn btn-outline-primary">Update Password</button>
+                  </div>
+                </div>
+
+</section>
+                
+                  
+        </div>
+    </div>
+</section>
+{{form_start(form)}}
+ <button type="submit" class="btn btn-outline-primary">Update Password</button>
 {{form_end(form)}}
 
-<script>
 
 
 
-</script>
+
 {% endblock %}

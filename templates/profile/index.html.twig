@@ -1,32 +1,138 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Orbi|Profile{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/usuario/ProyectoOrbi/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/usuario/ProyectoOrbi/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
 
-{{form_start(form)}}
 
-{{form_row(form.Persona.nombre,{'attr': {'value': persona.getNombre()}})}}
-{{form_row(form.Persona.apellidos,{'attr': {'value': persona.getApellidos()}})}}
-{{form_row(form.Persona.telefono,{'attr': {'value': persona.getTelefono()}})}}
-{{form_row(form.Persona.FechaNacimiento,{'attr': {'value': persona.getFechaNacimiento()|date('d-m-Y')}})}}
-{{form_row(form.Persona.CodigoPostal,{'attr': {'value': persona.getCodigoPostal()}})}}
-<button type="submit" class="btn btn-primary "   id="btnGuardar"  disabled> Guardar cambiar</button>
-{{form_end(form)}}
+
+
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+           <div class="col-lg-3  ">
+                <div class="card border-0 shadow mb-3 ">
+                    <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block"
+                            href="#"><img class="d-block avatar avatar-xxl p-2 mb-2"
+                                src="{{asset('/img/usuarios/' ~ persona.getUser().getImages())}}"
+                                alt=""></a>
+                        <h5>{{persona.getNombre()}} {{persona.getApellidos()}}</h5>
+                        <span>{{persona.getUser().getEmail()}}</span>
+                      <ul class="list-group list-group-flush mt-5">
+                            <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
+                            <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
+                            <a class="list-group-item bg-gray-100">Borrar Cuenta</a>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <section class="col-lg-9 py-5">
+                
+                  <!-- Breadcrumbs -->
+                  <ol class="breadcrumb ps-0  justify-content-start">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="user-account.html">Account</a></li>
+                    <li class="breadcrumb-item active">Personal info   </li>
+                  </ol>
+                  <h1 class="hero-heading mb-0">info</h1>
+                  <p class="text-muted mb-5">Administre su información personal y su configuración aquí.</p>
+                  <div class="row">
+                    <div class="col-lg-12 mb-5 mb-lg-0">
+                      <div class="text-block"> 
+                        <div class="row mb-3">
+                          <div class="col-sm-9">
+                            <h5>Datos Personales</h5>
+                          </div>
+                          <div class="col-sm-3 text-end">
+                            <button class="btn btn-link ps-0 text-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#personalDetails" aria-expanded="false" aria-controls="personalDetails">Actualizar</button>
+                          </div>
+                        </div>
+                        <p class="text-sm text-muted"><i class="fa fa-id-card fa-fw me-2"></i>{{persona.getNombre()}}<br><i class="fa fa-birthday-cake fa-fw me-2"></i>{{persona.getFechaNacimiento()|date('Y-m-d')}}<br><i class="fa fa-envelope-open fa-fw me-2"></i>{{persona.getDni()}} <span class="mx-2"> | </span>  <i class="fa fa-phone fa-fw me-2"></i>{{persona.getTelefono()}}</p>
+                        <div class="collapse" id="personalDetails">
+                          {{form_start(form)}}
+                            <div class="row pt-4">
+                              <div class="mb-4 col-md-6">
+                                <label class="form-label" for="name">Name</label>
+                              {{form_widget(form.Persona.nombre,{'attr': {'value': persona.getNombre()}})}}
+                              </div>
+                               <div class="mb-4 col-md-6">
+                                <label class="form-label" for="name">Name</label>
+                              {{form_widget(form.Persona.apellidos,{'attr': {'value': persona.getApellidos()}})}}
+                              </div>
+                              <div class="mb-4 col-md-6">
+                                <label class="form-label" for="date">Date of birth</label>
+                                {{form_widget(form.Persona.FechaNacimiento,{'attr': {'value': persona.getFechaNacimiento()|date('Y-m-d')}})}}
+                              </div>
+                            
+                              <div class="mb-4 col-md-6">
+                                <label class="form-label" for="phone">Phone number</label>
+                                {{form_widget(form.Persona.telefono,{'attr': {'value': persona.getTelefono()}})}}
+                              </div>
+                               <div class="mb-4 col-md-6">
+                                <label class="form-label" for="phone">Phone number</label>
+                                {{form_widget(form.Persona.dni,{'attr': {'value': persona.getDni()}})}}
+                              </div>
+                            </div>
+                            <button class="btn btn-outline-primary mb-4" id="btnGuardar" type="submit">Guardar datos personales</button>
+                         {{form_end(form)}}
+                        </div>
+                      </div>
+
+             
+                    
+                  </div>
+                </div>
+<!--
+                <div class="text-block"> 
+                  <h3 class="mb-4">Login</h3>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <h6>Password</h6>
+                      <p class="text-sm text-muted">Last updated 3 years ago</p>
+                    </div>
+                    <div class="col text-end">
+                      <button class="btn btn-link ps-0 text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updatePassword" aria-expanded="true" aria-controls="updatePassword">Update</button>
+                    </div>
+                  </div>
+                  <div class="collapse show" id="updatePassword" style="">
+                    <div class="row mt-4">
+                      <div class="mb-4 col-12">
+                        <label class="form-label" for="password-current">Current Password</label>
+                        <input class="form-control" type="password" name="password-current" id="password-current">
+                      </div>
+                      <div class="mb-4 col-md-6">
+                        <label class="form-label" for="password-new">New Password</label>
+                        <input class="form-control" type="password" name="password-new" id="password-new">
+                      </div>
+                      <div class="mb-4 col-md-6">
+                        <label class="form-label" for="password-confirm">Confirm Password</label>
+                        <input class="form-control" type="password" name="password-confirm" id="password-confirm">
+                      </div>
+                    </div>
+                    <button class="btn btn-outline-primary">Update Password</button>
+                  </div>
+                </div>
+
+-->
+                
+              </section>
+
+
+
+
+              
+        </div>
+    </div>
+</section>
+
 
 <script>
 
@@ -34,7 +140,7 @@ let nombre=document.querySelector('#profile_form_Persona_nombre');
 let apellidos=document.querySelector('#profile_form_Persona_apellidos');
 let telefono=document.querySelector('#profile_form_Persona_telefono');
 let FechaNacimiento=document.querySelector('#profile_form_Persona_FechaNacimiento');
-let codPostal=document.querySelector('#profile_form_Persona_CodigoPostal');
+let codPostal=document.querySelector('#profile_form_Persona_dni');
 let boton=document.querySelector('#btnGuardar');
 
 nombre.addEventListener('input',function(){
@@ -42,7 +148,7 @@ nombre.addEventListener('input',function(){
     let surnames=document.getElementById('profile_form_Persona_apellidos');
     let phone=document.getElementById('profile_form_Persona_telefono');
     let date=  document.getElementById('profile_form_Persona_FechaNacimiento');
-    let CodigoPostal=document.getElementById('profile_form_Persona_CodigoPostal');
+    let CodigoPostal=document.getElementById('profile_form_Persona_dni');
     if(name.value !=nombre.value ||  surnames.value!=apellidos.value 
     ||phone.value !=telefono.value || date.value != FechaNacimiento.value || CodigoPostal.value != codPostal.value){
 
@@ -59,7 +165,7 @@ apellidos.addEventListener('input',function(){
     let surnames=document.getElementById('profile_form_Persona_apellidos');
     let phone=document.getElementById('profile_form_Persona_telefono');
     let date=  document.getElementById('profile_form_Persona_FechaNacimiento');
-    let CodigoPostal=document.getElementById('profile_form_Persona_CodigoPostal');
+    let CodigoPostal=document.getElementById('profile_form_Persona_dni');
     if(name.value !=nombre.value ||  surnames.value!=apellidos.value 
     ||phone.value !=telefono.value || date.value != FechaNacimiento.value || CodigoPostal.value != codPostal.value){
 
@@ -77,7 +183,7 @@ telefono.addEventListener('input',function(){
     let surnames=document.getElementById('profile_form_Persona_apellidos');
     let phone=document.getElementById('profile_form_Persona_telefono');
     let date=  document.getElementById('profile_form_Persona_FechaNacimiento');
-    let CodigoPostal=document.getElementById('profile_form_Persona_CodigoPostal');
+    let CodigoPostal=document.getElementById('profile_form_Persona_dni');
     if(name.value !=nombre.value ||  surnames.value!=apellidos.value 
     ||phone.value !=telefono.value || date.value != FechaNacimiento.value || CodigoPostal.value != codPostal.value){
 
@@ -94,7 +200,7 @@ FechaNacimiento.addEventListener('input',function(){
     let surnames=document.getElementById('profile_form_Persona_apellidos');
     let phone=document.getElementById('profile_form_Persona_telefono');
     let date=  document.getElementById('profile_form_Persona_FechaNacimiento');
-    let CodigoPostal=document.getElementById('profile_form_Persona_CodigoPostal');
+    let CodigoPostal=document.getElementById('profile_form_Persona_dni');
     if(name.value !=nombre.value ||  surnames.value!=apellidos.value 
     ||phone.value !=telefono.value || date.value != FechaNacimiento.value || CodigoPostal.value != codPostal.value){
 
@@ -111,7 +217,7 @@ codPostal.addEventListener('input',function(){
     let surnames=document.getElementById('profile_form_Persona_apellidos');
     let phone=document.getElementById('profile_form_Persona_telefono');
    let date=  document.getElementById('profile_form_Persona_FechaNacimiento');
-   let CodigoPostal=document.getElementById('profile_form_Persona_CodigoPostal');
+   let CodigoPostal=document.getElementById('profile_form_Persona_dni');
     if(name.value !=nombre.value ||  surnames.value!=apellidos.value 
     ||phone.value !=telefono.value || date.value != FechaNacimiento.value || CodigoPostal.value != codPostal.value){
 

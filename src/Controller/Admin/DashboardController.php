@@ -15,6 +15,9 @@ use App\Entity\Reserva;
 use App\Entity\Persona;
 use App\Entity\ResetPasswordRequest;
 use App\Entity\Images;
+use App\Entity\Actividad;
+use App\Entity\Contacto;
+use App\Entity\Ubicaciones;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -37,7 +40,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ProyectoOrbi');
+            ->setTitle('AdminOrbi');
     }
 
     public function configureMenuItems(): iterable
@@ -45,7 +48,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Regiones', 'fas fa-list', Regiones::class);
         yield MenuItem::linkToCrud('Reservas', 'fas fa-list', Reserva::class);
+        yield MenuItem::linkToCrud('Contactos', 'fas fa-list', Contacto::class);
         yield MenuItem::section('Alojamientos');
+        yield MenuItem::linkToCrud('Actividad', 'fas fa-list', Actividad::class);
+        yield MenuItem::linkToCrud('Ubicaciones', 'fas fa-list', Ubicaciones::class);
         yield MenuItem::linkToCrud('Alojamientos', 'fas fa-list', Hotel::class);
         yield MenuItem::linkToCrud('Imagenes', 'fas fa-list', Images::class);
 

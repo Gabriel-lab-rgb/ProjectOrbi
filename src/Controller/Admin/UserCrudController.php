@@ -33,7 +33,7 @@ class UserCrudController extends AbstractCrudController
             BooleanField::new('is_verified'),
             ArrayField::new('roles'),
             ImageField::new('images')->setUploadDir('/public/img/usuarios')->setLabel('Photo')
-            
+           
         ];
     }
 
