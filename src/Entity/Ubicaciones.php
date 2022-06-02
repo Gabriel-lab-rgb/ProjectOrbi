@@ -64,6 +64,7 @@ class Ubicaciones
     /**
      * @ORM\ManyToOne(targetEntity=Regiones::class, inversedBy="ubicaciones")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $region;
 
