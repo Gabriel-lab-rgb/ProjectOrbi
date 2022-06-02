@@ -11,21 +11,19 @@
 
 
 
-<div class="container px-3">
+<div class="container-fluid px-3">
 
- <div class="row ">
+ <div class="row min-vh-100 ">
 
-<div class="col-lg-4 d-flex flex-column justify-content-center aligns-items-center">
-<img class="img-fluid" src="{{asset('/img/registro.png')}}" alt="" style="width: 600px;" >
+<div class="col-lg-5 d-flex flex-column justify-content-center aligns-items-center">
 
+ <div class="bg-cover h-100 " style="background-image: url(http://3.bp.blogspot.com/-OqPBx9Nmj_Y/Vad9Q13nRtI/AAAAAAAAE1g/XH5q-BGXS3Y/s1600/mm8185-130321_01724_1800x1201.jpg);"></div>
 </div>
 
 
-   <div class="col-lg-8">
-   <h1 class="h2 mt-5 text-center" style="float:bottom">Formulario de registro</h1>
+   <div class="col-lg-7 d-flex  flex-column justify-content-center p-3">
+   <h1 class="h2 mt-5 text-center" style="float:bottom">Registro</h1>
   
-
-
  {{ form_start(registrationForm,{'attr': {'class': 'row p-5 '}}) }}
  
 
@@ -106,9 +104,7 @@
      
 {{ form_end(registrationForm) }}
 <hr class="my-3 " data-content="OR">
-               
-            
-                <p class="text-center"><small class="text-muted text-center">¿Ya tienes una cuenta? <a href="{{path('login')}}">Iniciar Sesion</a></small></p>
+ <p class="text-center"><small class="text-muted text-center">¿Ya tienes una cuenta? <a href="{{path('login')}}">Iniciar Sesion</a></small></p>
 </div>
 
  </div>

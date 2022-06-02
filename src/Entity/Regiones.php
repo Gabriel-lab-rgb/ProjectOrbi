@@ -6,6 +6,7 @@ use App\Repository\RegionesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RegionesRepository::class)
@@ -16,26 +17,31 @@ class Regiones
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"hotel", "list_hotel"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="decimal", precision=11, scale=8, nullable=true)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $longitud;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=8, nullable=true)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $latitud;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $descripcion;
 

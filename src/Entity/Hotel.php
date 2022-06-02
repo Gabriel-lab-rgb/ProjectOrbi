@@ -65,11 +65,13 @@ class Hotel
     /**
      * @ORM\ManyToOne(targetEntity=Actividad::class, inversedBy="hotels")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $actividad;
 
     /**
      * @ORM\Column(type="string", length=9, nullable=true)
+     * @Groups({"hotel", "list_hotel"})
      */
     private $telefono;
 

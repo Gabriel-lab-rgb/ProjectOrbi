@@ -8,55 +8,71 @@
 
 {% block body %}
 <main>
- <div id="infoHoteles" data-hotels="{{hoteles|serialize('json', { groups: 'hotel'})}}"></div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">filtrar</button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Precio:</label>
-            <input type="checkbox" value="25"> 25</br>
-            <input type="checkbox" value="50"> 50</br>
-            <input type="checkbox" value="75"> 75</br>
-            <input type="checkbox" value="150"> 150</br>
+
+
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 py-4 p-xl-5">
+          <h2 class="mb-4">Stay on Manhattan, NY</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio asperiores, consequatur odio recusandae dignissimos hic ad minima! Praesentium nobis dolorem blanditiis molestiae facilis neque accusantium voluptas. Esse ea ipsum iusto.</p>
+          <hr class="my-4">
+          <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
+            <div class="me-3">
+              <p class="mb-3 mb-md-0"><strong>12</strong> results found</p>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Tipo de Alojamiento:</label>
-           <input type="checkbox" value="Hotel">Hotel</br>
-<input type="checkbox" value="Hostal">Hostal</br>
-<input type="checkbox" value="Albergue">Albergue</br>
-<input type="checkbox" value="Casa Rural">Casa Rural</br>
-<input type="checkbox" value="Propietario">Propietario</br>
+          <div class="row p-2">
+          <div class="col-sm-6">
+            <div class="packege__item">
+                <div class="packege__inner">
+
+                    <div class="packege__thumb">
+                        <a href="tour-single.html"><img
+                                src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
+                                alt="Travel Thumb"></a>
+                        <div class="cart-right">
+                            <button tabindex="0" class="addcart-box" title="Quick shop"><i
+                                    class="ti-shopping-cart"></i></button>
+
+                        </div>
+                    </div>
+
+                    <div class="packege__content">
+                        <a href="tour-single.html">
+                            <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
+                        </a>
+                        <div class="packege__rivew">
+                            <div class="left">
+                                <span class="rating">Si crees que estÃ¡s en peligro, tienes acceso
+                                    prioritario a un equipo especializado que te atenderÃ¡ sea la hora que
+                                    sea</span>
+                            </div>
+                            <div class="right">
+                                <span class="packege__price">746 â‚¬ por noche</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+           
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+
+          
+        </div>
+   
+<div class="col-lg-6 map-side-lg pe-lg-0 " style="z-index: -3;">
+      <div class="sticky-top" style="top: 80px">
+          <div class="map "  id="map" ></div>
+        </div>
+        </div>
+      
+        
       </div>
     </div>
-  </div>
-</div>
-
-
-
-<form>
- <p>Precio</p>
-<input type="text" id="minprice" value="10">
-<input type="text" id="maxprice" value="2500">
-<input type="text" value="Gijon" id="lugar">
-</form>
-
-
 
 
 <ul class="chec-radio">
@@ -167,23 +183,57 @@
 
   <script>
   
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+ try {
+                let filas = JSON.parse(this.responseText);
+                array.push(filas);
+                console.log(filas)
+               
+            } catch (ex) {
+               
+               console.log( "no hay nada")
+               
+            }
+        }
+    };
+    xhttp.open("GET",'/responseExplore' , true);
+    xhttp.send();
   /*variables*/
   let hotel=document.querySelector('#Hotel');
   let hostal=document.querySelector('#Hostal');
   let albergue=document.querySelector('#albergue');
   let casaRural=document.querySelector('#casaRural');
   let propietario=document.querySelector('#propietario');
-  var minPrecio=document.querySelector('#minprice');
-  var maxPrecio=document.querySelector('#maxprice');
+
   
-  let hoteles=document.querySelector("#infoHoteles");
-  let info=hoteles.dataset.hotels;
-  var array=JSON.parse(info);
+  
+  var array=new Array();
   var cambio=new Array();
 
 
+var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+ try {
+                let filas = JSON.parse(this.responseText);
+                array.push(filas);
+                console.log(filas)
+               
+            } catch (ex) {
+               
+               console.log( "no hay nada")
+               
+            }
+        }
+    };
+    xhttp.open("GET",'/responseExplore' , true);
+    xhttp.send();
 
 
+
+/*
 hotel.addEventListener('click',function(){
   
 filtrar(array,hotel.id);
@@ -228,9 +278,9 @@ let actividad=sessionStorage.getItem("actividad");
 
 function filtrar(array,actividad){
 
-
+console.log(array);
 cambio=array.filter((element) => {
- return( element.Actividad == actividad && element.precio > minPrecio.value || element.precio < maxPrecio.value)});
+ return( element.Actividad.nombre == actividad )});
 if(cambio!=undefined && cambio.length >0){
 mostrarAlojamientos(cambio);
 }else{
@@ -267,7 +317,7 @@ function mostrarAlojamientos(array){
   let divhijo=document.createElement('div');
   divhijo.id="alo-b";
   
-  console.log(array);
+  
   for(let i=0;i<array.length;i++){
 
 let principal=document.createElement('div');
@@ -400,7 +450,7 @@ marker.setVisible(true);
 }
 
 
-
+*/
 
 /*
 function getGET()

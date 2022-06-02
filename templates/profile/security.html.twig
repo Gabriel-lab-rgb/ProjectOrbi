@@ -44,6 +44,7 @@
                       <h6>Password</h6>
                       
                     </div>
+                    {{form_start(form)}}
                     <div class="col text-end">
                       <button class="btn btn-link ps-0 text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updatePassword" aria-expanded="true" aria-controls="updatePassword">Update</button>
                     </div>
@@ -51,19 +52,21 @@
                   <div class="collapse show" id="updatePassword" style="">
                     <div class="row mt-4">
                       <div class="mb-4 col-12">
-                        <label class="form-label" for="password-current">Current Password</label>
-                        <input class="form-control" type="password" name="password-current" id="password-current">
+                        
+                        {{ form_row(form.oldPassword) }}
                       </div>
                       <div class="mb-4 col-md-6">
                         <label class="form-label" for="password-new">New Password</label>
-                        <input class="form-control" type="password" name="password-new" id="password-new">
+                          {{ form_row(form.password.first) }}
                       </div>
                       <div class="mb-4 col-md-6">
                         <label class="form-label" for="password-confirm">Confirm Password</label>
-                        <input class="form-control" type="password" name="password-confirm" id="password-confirm">
+                         {{ form_row(form.password.second) }}
                       </div>
                     </div>
-                    <button class="btn btn-outline-primary">Update Password</button>
+                     <button type="submit" class="btn btn-outline-primary">Update Password</button>
+                    {{form_end(form)}}
+
                   </div>
                 </div>
 
@@ -73,9 +76,8 @@
         </div>
     </div>
 </section>
-{{form_start(form)}}
- <button type="submit" class="btn btn-outline-primary">Update Password</button>
-{{form_end(form)}}
+
+
 
 
 

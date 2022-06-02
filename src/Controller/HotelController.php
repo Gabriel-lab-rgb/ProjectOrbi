@@ -78,6 +78,17 @@ class HotelController extends AbstractController
     array('hoteles' => $hoteles));
     }
 
+   /**
+     * @Route("/responseExplore",methods={"GET","HEAD"})
+     */
+   
+    public function index3(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
+    {
+        $hoteles=$doctrine->getRepository(Hotel::class)->findAll();
+        
+        $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
+        return new Response($jsonContent);
+    }
 
 
 
@@ -89,7 +100,7 @@ class HotelController extends AbstractController
     public function index2(ManagerRegistry $doctrine,SerializerInterface $serializer,string $name): Response
     {
         $alojamientos=[];
-        $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy(array('comunidad' => $name));
+        $ubicaciones=$doctrine->getRepository(Regiones::class)->findBy(array('comunidad' => $name));
 
         foreach($ubicaciones as $ubicacion){
 
