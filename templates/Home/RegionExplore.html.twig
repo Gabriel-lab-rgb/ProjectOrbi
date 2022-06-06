@@ -8,7 +8,7 @@
 
 {% block body %}
 <main>
- 
+ <div id="infoHoteles" data-hotels="{{alojamientos|serialize('json', { groups: 'hotel'})}}" style="display:none"></div>
  <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:84px">
 
     <label class="rad-label">
@@ -47,16 +47,16 @@
 
  <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 py-4 p-xl-5">
+        <div class="col-lg-6 py-4 p-xl-5" id="alojamiento">
           <h2 class="mb-4">Stay on Manhattan, NY</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio asperiores, consequatur odio recusandae dignissimos hic ad minima! Praesentium nobis dolorem blanditiis molestiae facilis neque accusantium voluptas. Esse ea ipsum iusto.</p>
           <hr class="my-4">
           <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
             <div class="me-3">
-              <p class="mb-3 mb-md-0"><strong>12</strong> results found</p>
+              <p class="mb-3 mb-md-0"><strong id="result"></strong> resultados encontrados</p>
             </div>
           </div>
-          <div class="row p-2">
+          <div class="row p-2" id="hijo">
           <div class="col-sm-6">
             <div class="packege__item">
                 <div class="packege__inner">
@@ -96,9 +96,9 @@
           
         </div>
    
-<div class="col-lg-6 map-side-lg pe-lg-0 " style="z-index: -3;">
+<div class="col-lg-6 map-side-lg pe-lg-0 " style="z-index: 0;">
       <div class="sticky-top" style="top: 80px">
-          <div class="map"  id="map" ></div>
+          <div class="map"  id="map2" ></div>
         </div>
         </div>
       
@@ -106,58 +106,31 @@
       </div>
     </div>
 
-<div id="ids" class="d-flex flex-row bg-light" style="position: relative;">
-    <div class="divHoteles" id="divH">
-    
-       <button type="button" class="btn btn-light" id="boton" style="width: 3rem; float-right">X</button>
-    <div class=" p-4" id="mensajes">
-      <h4 class="fw-bold text-secondary">Mas de un numero indefinido de Hoteles</h4>
-      <hr style="width: 100%;">
-      <div id="alojamientos">
-           <div id="alo-b">
-   
-      </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    <div id="map"></div>
-  </div>
   </main>
 
+   <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyC0tNJpXxOiglzaKtr5C2KCOT0HJvpnMzY&callback=initMap&libraries=&v=weekly'
+    asyn defer></script>
 
   <script>
   
   /*variables*/
+ 
+  
+
+
   let hotel=document.querySelector('#Hotel');
   let hostal=document.querySelector('#Hostal');
   let albergue=document.querySelector('#Albergue');
   let casaRural=document.querySelector('#CasaRural');
   let todos=document.querySelector('#all');
  
+  let hoteles=document.querySelector("#infoHoteles");
+  let info=hoteles.dataset.hotels;
+  var array=JSON.parse(info);
+  console.log(array);
 
- 
-  var array=new Array();
-  var cambio=new Array();
-
- var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
- try {
-                let filas = JSON.parse(this.responseText);
-                array=filas
-              
-               
-            } catch (ex) {
-               
-               console.log( "no hay nada")
-               
-            }
-        }
-    };
-    xhttp.open("GET",'/responseExplore' , true);
-    xhttp.send();
-
+ var cambio=new Array();
+  
 
 
 hotel.addEventListener('click',function(){
@@ -208,10 +181,10 @@ let actividad=sessionStorage.getItem("Regionactividad");
 });
 
 function filtrar(array,actividad){
-
+ console.log(array);
 sessionStorage.getItem('Regionactividad',actividad)
 cambio=array.filter((element) => {
- return( element.Actividad == actividad && element.precio > minPrecio.value || element.precio < maxPrecio.value)});
+ return( element.Actividad == actividad )});
 if(cambio!=undefined && cambio.length >0){
 mostrarAlojamientos(cambio);
 }else{
@@ -223,13 +196,13 @@ mostrarMensaje();
 
 function mostrarMensaje(){
 
-  let div=document.getElementById('alojamientos');
-  let hijo=document.getElementById('alo-b');
+  let div=document.getElementById('alojamiento');
+  let hijo=document.getElementById('hijo');
   div.removeChild(hijo);
 
 
   let divhijo=document.createElement('div');
-  divhijo.id="alo-b";
+  divhijo.id="hijo";
 
 let parrafo=document.createElement('p');
 parrafo.textContent="No hay alojamientos disponibles"
@@ -240,19 +213,24 @@ div.appendChild(divhijo);
 
 function mostrarAlojamientos(array){
 
-  let div=document.getElementById('alojamientos');
-  let hijo=document.getElementById('alo-b');
+
+
+let result=document.getElementById('result');
+result.contentText=array.length;
+  let div=document.getElementById('alojamiento');
+  let hijo=document.getElementById('hijo');
   div.removeChild(hijo);
 
 
   let divhijo=document.createElement('div');
-  divhijo.id="alo-b";
+  divhijo.id="hijo";
+  divhijo.classList="row p-2";
   
   console.log(array);
   for(let i=0;i<array.length;i++){
 
 let principal=document.createElement('div');
-principal.classList="col";
+principal.classList="col-sm-6";
 
 let item=document.createElement('div');
 item.classList="packege__item";
@@ -264,9 +242,9 @@ let thumb=document.createElement('div');
 thumb.classList="packege__thumb";
 let enlace=document.createElement('a');
 enlace.href="/alojamiento/" + array[i]['Nombre'];
-/*let imagen=document.createElement('img');
-imagen.setAttribute('src','/img/alojamientos/'+ array[i]['images'][0]['imageName']);*/
-/*enlace.appendChild(imagen)*/
+let imagen=document.createElement('img');
+imagen.setAttribute('src','/img/alojamientos/'+ array[i]['images'][0]['imageName']);
+enlace.appendChild(imagen)
 thumb.appendChild(enlace);
 
 let content=document.createElement('div');
@@ -321,16 +299,26 @@ var infowindow=[];
 var markers=[];
 var gmarkers=[];
 
+
 function initMap() {
-  const valencia = {
-    lat: 39.4683179,
-    lng: -0.3790023
+  let lat=parseFloat(array[0]['ubicacion']['region'].latitud);
+  let lng=parseFloat(array[0]['ubicacion']['region'].longitud); 
+
+
+
+  const region = {
+    lat: lat,
+    lng: lng
   };
-  map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map2"), {
     zoom: 13,
-    center: valencia,
+    center: region,
    
   });
+
+
+
+
   
   let image = {
     url: '/img/signo.png', //ruta de la imagen
@@ -351,7 +339,7 @@ function initMap() {
 
 gmarkers.push(markers[i])
     infowindow[i] = new google.maps.InfoWindow({
-      content:'<a href="#hola"><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light">Alojamiento entero: piso. Anfitrión: Paula</h5><span class=>250 €</span></span></div></a>' });
+      content:'<a href="#hola"><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light"></h5><span class=>250 €</span></span></div></a>' });
   google.maps.event.addListener(markers[i], 'click', function(valor) { 
     return function(){ 
     infowindow[valor].open(map,markers[valor]); 
@@ -369,14 +357,11 @@ filterMarkers=function(actividad){
 
   for(i=0;i<gmarkers.length;i++){
     marker=gmarkers[i];
-if(marker.actividad==actividad || actividad.length ===0){
-marker.setVisible();
-
-}else{
-
-  marker.setVisible(false);
-}
-
+       if(marker.actividad==actividad || actividad.length ===0){
+           marker.setVisible();
+      }else{
+           marker.setVisible(false);
+      }
   }
 }
 

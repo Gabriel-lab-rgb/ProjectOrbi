@@ -19,7 +19,6 @@ class ReservasFormType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
         ->add('llegada',DateType::class,[
             'widget' => 'single_text',
@@ -28,19 +27,14 @@ class ReservasFormType extends AbstractType{
             'widget' => 'single_text',
         ])
         ->add('huespedes',NumberType::class) ;
-        
-        
-        
-
-  
+    
        
     }      
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PedidoReserva::class,
-            
+            'data_class' => PedidoReserva::class 
         ]);
     }
 }

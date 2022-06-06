@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Hotel;
+use App\Entity\Regiones;
 use App\Entity\Ubicaciones;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
@@ -100,7 +101,8 @@ class HotelController extends AbstractController
     public function index2(ManagerRegistry $doctrine,SerializerInterface $serializer,string $name): Response
     {
         $alojamientos=[];
-        $ubicaciones=$doctrine->getRepository(Regiones::class)->findBy(array('comunidad' => $name));
+        $region=$doctrine->getRepository(Regiones::class)->findBy(array('nombre' => $name));
+        $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy($region);
 
         foreach($ubicaciones as $ubicacion){
 

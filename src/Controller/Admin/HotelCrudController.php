@@ -11,10 +11,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use App\Form\Type\ImagesType;
-//use App\Form\ImagesFormType;
+use App\Form\ImageFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 
 class HotelCrudController extends AbstractCrudController
@@ -28,8 +28,8 @@ class HotelCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
 
-        //$imageFile = ImageField::new('images')->setFormType(ImagesType::class);
-       // $image = ImageField::new('images')->setBasePath('public/img/alojamientos');
+        $imageFile = ImageField::new('images')->setFormType(VichImageTyoe::class);
+        $image = ImageField::new('images')->setBasePath('/img/alojamientos');
         
         $fields= [
            
@@ -40,10 +40,9 @@ class HotelCrudController extends AbstractCrudController
             TextField::new('telefono'),
             IntegerField::new('precio'),
             AssociationField::new('ubicacion'),
-            //CollectionField::new('images')
-           
-           // ->setEntryType(ImagesFormType::class),
-            //->setUploadDir('/public/img/alojamientos'),
+            CollectionField::new('images')->onlyOnForms()
+            ->setEntryType(ImageFormType::class)
+            ->onlyOnForms()
 
           //  AssociationField::new('actividad'),
           //  IntegerField::new('precio'),

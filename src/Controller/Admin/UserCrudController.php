@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -27,23 +28,29 @@ class UserCrudController extends AbstractCrudController
         $avatar = ImageField::new('images')->setBasePath('img/usuarios')->setLabel('Photo');
         $avatarTextFile = TextField::new('images');
 
-        return [
+       {
             //IdField::new('id'),
-            EmailField::new('email'),
-            BooleanField::new('is_verified'),
-            ArrayField::new('roles'),
-            ImageField::new('images')->setUploadDir('/public/img/usuarios')->setLabel('Photo')
-           
-        ];
-    }
+            yield  EmailField::new('email');
+            yield  BooleanField::new('is_verified');
+            yield  ArrayField::new('roles');
+          
+        if (Crud::PAGE_INDEX === $pageName){
+            yield ImageField::new('images')
+            ->setBasePath('img/usuarios')
+            ->setLabel('Photo');
+        } elseif (Crud::PAGE_EDIT === $pageName){
+            yield  ImageField::new('images')->setUploadDir('/public/img/usuarios')->setLabel('Photo');
+        }
+    };
 
-    public function configureFilters(Filters $filters): Filters
-    {
-        return $filters
-            ->add('roles')
-            
-            
-        ;
-    }
+}
+public function configureFilters(Filters $filters): Filters
+{
+    return $filters
+        ->add('roles')
+        ->add('isVerified');
+        
+        
     
+}
 }

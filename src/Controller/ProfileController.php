@@ -107,7 +107,7 @@ class ProfileController extends AbstractController
 
 
      /**
-     * @Route("/reservas", name="reservas")
+     * @Route("/carrito", name="carrito")
      */
 
     public function reservas(Request $request,ManagerRegistry $doctrine,CartManager $cartManager): Response
@@ -123,7 +123,7 @@ class ProfileController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $cart->setUpdateAt(new \DateTime());
                 $cartManager->save($cart);
-                return $this->redirectToRoute('reservas');
+                return $this->redirectToRoute('carrito');
                 
             
         }
