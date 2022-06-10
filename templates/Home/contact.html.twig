@@ -6,6 +6,11 @@
 
 
 {% block body %}
+{% for flash_message in app.session.flashbag.get('notice') %}
+    <div class="flash-notice alert alert-success" id="alert" role="alert" style="position:relative">
+        {{ flash_message }}
+    </div>
+{% endfor %}
 
  <section class="hero py-5 py-lg-5 text-white dark-overlay">
         <div class="container overlay-content">
@@ -67,15 +72,19 @@
           <h2 class="h4 text-center mb-5">Formulario de Contacto</h2>
           <div class="row d-flex justify-content-center align-items-center ">
             <div class=" col-md-7 mb-5 mb-md-0">
-              {{form_start(form)}}
+              {{form_start(form,{'attr': {'onsubmit': 'return verificarFormulario()'}})}}
                 <div class="controls">
                   <div class="mb-4">
                     <label class="form-label" for="email">Asunto</label>
                    {{form_widget(form.asunto)}}
+                   <div id="asunto">
+                   </div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label" for="mensaje">Mensaje</label>
                     {{form_widget(form.mensaje)}}
+                     <div id="mensaje">
+                   </div>
                   </div>
                   <button class="btn btn-outline-primary" type="submit">Enviar</button>
                 </div>

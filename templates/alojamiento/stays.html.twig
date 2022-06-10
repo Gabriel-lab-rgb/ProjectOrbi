@@ -51,6 +51,8 @@
               </div>
             </div>
           </div>
+
+          <!--
           <div class="text-block">
             <form action="#">
               <div class="d-flex justify-content-between align-items-end mb-4">
@@ -59,14 +61,13 @@
                   </i><i class="fab fa-cc-mastercard fa-2x"></i></div>
               </div>
  
+
               <select class="form-select" title="Categories" data-style="btn-form-control">
                 <option class="bs-title-option" value=""></option>
                 <option value="small">Restaurants</option>
                 <option value="medium">Hotels</option>
  
               </select>
- 
- 
               <button class="btn btn-link btn-collapse ps-0 text-muted" type="button" data-bs-toggle="collapse"
                 data-bs-target="#addNewCard" aria-expanded="false" aria-controls="addNewCard" data-expanded-text="Close"
                 data-collapsed-text="Add a new card">Add a new card</button>
@@ -94,7 +95,7 @@
               </div>
             </form>
           </div>
- 
+ -->
           
           <div class="row form-block flex-column flex-sm-row">
             <div class="col text-center text-sm-start">
@@ -109,43 +110,56 @@
           </div>
         </div>
         <div class="col-lg-5 ps-xl-5">
-          <div class="card border-0 shadow">
-            <div class="card-body p-4">
-              <div class="text-block pb-3">
-                <div class="d-flex align-items-center">
-                  <div>
-                    <h6> <a class="text-reset" href="detail-rooms.html">{{alojamiento.getNombre()}}</a></h6>
-                    <p class="text-muted text-sm mb-0">Entire home in New York</p>
-                    <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i
-                        class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i
-                        class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
+              <div class="card border-0 shadow">
+                <div class="card-body p-4">
+                  <div class="text-block pb-3">
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <h6> <a class="text-reset" href="detail-rooms.html">Modern Apt - Vibrant Neighborhood</a></h6>
+                        <p class="text-muted text-sm mb-0">Entire home in New York</p>
+                        <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
+                        </div>
+                      </div><a class="flex-shrink-0" href="detail-rooms.html"><img class="ms-3 rounded" src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="" width="100"></a>
                     </div>
-                  </div><a class="flex-shrink-0" href="detail-rooms.html"></a>
+                  </div>
+                  <div class="text-block py-3">
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-3" ><i class="fas fa-users fa-fw text-muted me-2"></i><span id="huespedes">{{formGet.huespedes}}</span> huespedes</li>
+                      <div class="d-flex flex-row">
+                      <li class="mb-0" ><i class="far fa-calendar fa-fw text-muted me-2"></i><span id="llegada">{{formGet.llegada}}</span></li>
+                      <li class="mb-0" ><i class="fas fa-arrow-right fa-fw text-muted mx-3"></i><span  id="salida">{{formGet.salida}}</span></li>
+                      </div>
+                    </ul>
+                  </div>
+                  <div class="text-block pt-3 pb-0">
+                    <table class="w-100">
+                      <tbody>
+                        <tr>
+                          <th class="fw-normal py-2"><span id="base" title={{precio}}>{{precio}}</span> x <span id="dias">{{dias}}</span> noches</th>
+                          <td class="text-end py-2"><span id="precio">{{total}}</span> €</td>
+                        </tr>
+                        <tr>
+                          <th class="fw-normal pt-2 pb-3">extras</th>
+                          <td class="text-end pt-2 pb-3">00.00 €</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr class="border-top">
+                          <th class="pt-3">Total</th>
+                          <td class="fw-bold text-end pt-3"><span id="total">{{total}}</span><span> €</span></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <div class="text-block py-3">
-                <ul class="list-unstyled mb-0">
-                  <li class="mb-3"><i class="fas fa-users fa-fw text-muted me-2"></i>{{formGet.huespedes}} Huesped</li>
-                  <li class="mb-0"><i class="far fa-calendar fa-fw text-muted me-2"></i>{{formGet.llegada}} <i
-                      class="fas fa-arrow-right fa-fw text-muted mx-3"></i>{{formGet.salida}}</li>
-                </ul>
-              </div>
-              <div class="text-block pt-3 pb-0">
-                <table class="w-100">
-                  <tbody>
-                    <tr>
-                      <th class="fw-normal py-2">$432.02 x 1 night</th>
-                      <td class="text-end py-2">$432.02</td>
-                    </tr>
- 
-                  </tbody>
-                  <tfoot>
-                    <tr class="border-top">
-                      <th class="pt-3">Total</th>
-                      <td class="fw-bold text-end pt-3">$499.50</td>
-                    </tr>
-                  </tfoot>
-                </table>
+                <div class="card-footer bg-primary-light py-4 border-0">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h6 class="text-primary">Flexible – free cancellation</h6>
+                      <p class="text-sm text-primary opacity-8 mb-0">Cancel within 48 hours of booking to get a full refund. <a href="#" class="text-reset ms-3">More details</a></p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
  
@@ -177,13 +191,77 @@ var mes= "0" + _mes;
 }
 
 let fecha_minimo= anio + '-' + mes + '-' + dia;
-fechallegada=document.getElementById("reservas_form_llegada");
+let fechallegada=document.getElementById("reservas_form_llegada");
+let fechaSalida=document.getElementById("reservas_form_salida");
+let huespedes=document.getElementById("reservas_form_huespedes");
+let days=document.getElementById("dias");
 fechallegada.setAttribute('min',fecha_minimo);
+
+
+
 fechallegada.addEventListener('change',function(){
 
 document.getElementById("reservas_form_salida").setAttribute('min',fechallegada.value);
 })
 document.getElementById("reservas_form_salida").setAttribute('min',fechallegada.value);
+
+  console.log(fechallegada);
+fechallegada.addEventListener('blur',function(){
+
+  let llegada=document.getElementById('llegada');
+  console.log(llegada);
+  llegada.textContent=fechallegada.value;
+  cambiarDias(fechallegada.value,fechaSalida.value)
+})
+
+fechaSalida.addEventListener('blur',function(){
+
+  let salida=document.getElementById('salida');
+  console.log(llegada);
+  salida.textContent=fechaSalida.value;
+  cambiarDias(fechallegada.value,fechaSalida.value)
+})
+
+huespedes.addEventListener('blur',function(){
+
+  let huesped=document.getElementById('huespedes');
+  huesped.textContent=huespedes.value;
+})
+ /*let llegada=moment(fechaSalida.value);
+
+ console.log(llegada);*/
+
+
+function cambiarDias(fechallegada,fechaSalida){
+  
+var fecha_1 = new Date(fechallegada);
+var fecha_2 = new Date(fechaSalida);
+
+var day_as_milliseconds = 86400000;
+var diff_in_millisenconds = fecha_2 - fecha_1;
+var dias = diff_in_millisenconds / day_as_milliseconds;
+
+days.textContent=dias;
+
+cambiarPrecio(dias);
+
+}
+
+ function cambiarPrecio(dias){
+console.log(dias)
+let newPrice=0;
+let base=document.getElementById("base");
+let precio=document.getElementById("precio");
+let total=document.getElementById("total");
+newPrice=base.title*dias;
+
+precio.textContent=newPrice;
+precio.value=newPrice;
+total.textContent=newPrice;
+ 
+console.log(newPrice);
+
+}
 
 
 </script>

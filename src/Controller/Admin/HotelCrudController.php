@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+
 use App\Form\ImageFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -28,7 +30,7 @@ class HotelCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
 
-        $imageFile = ImageField::new('images')->setFormType(VichImageTyoe::class);
+        $imageFile = ImageField::new('images')->setFormType(VichImageType::class);
         $image = ImageField::new('images')->setBasePath('/img/alojamientos');
         
         $fields= [

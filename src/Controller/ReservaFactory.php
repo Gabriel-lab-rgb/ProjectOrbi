@@ -43,8 +43,8 @@ class ReservaFactory
         $item->setAlojamiento($Alojamiento);
         $item->setLlegada($llegada);
         $item->setLlegada($salida);
-        $item->setLlegada($adultos);
-        $item->setLlegada($ninos);
+        $item->setLlegada($huespedes);
+        
 
         return $item;
     }

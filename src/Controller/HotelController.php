@@ -24,12 +24,11 @@ class HotelController extends AbstractController
    
     public function Home(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
     {
-        $hoteles=$doctrine->getRepository(Hotel::class)->findAll();
+        $alojamientos=$doctrine->getRepository(Hotel::class)->findAll();
         
-       // $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
-       // echo $jsonContent;
+      
         return $this->render('Home/index.html.twig',
-    array('hoteles' => $hoteles));
+    array('alojamientos' => $alojamientos));
     }
 
 /**
@@ -57,6 +56,11 @@ class HotelController extends AbstractController
             $entityManager->persist($contacto);   
 
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                '¡Mensaje enviado con exito!'
+            );
             return $this->redirectToRoute('app_contact');
         }
         return $this->render('Home/contact.html.twig',array('form'=>$form->CreateView()));
@@ -73,8 +77,7 @@ class HotelController extends AbstractController
     {
         $hoteles=$doctrine->getRepository(Hotel::class)->findAll();
         
-       // $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
-       // echo $jsonContent;
+      
         return $this->render('Home/explore.html.twig',
     array('hoteles' => $hoteles));
     }
@@ -101,8 +104,9 @@ class HotelController extends AbstractController
     public function index2(ManagerRegistry $doctrine,SerializerInterface $serializer,string $name): Response
     {
         $alojamientos=[];
-        $region=$doctrine->getRepository(Regiones::class)->findBy(array('nombre' => $name));
-        $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy($region);
+        $region=$doctrine->getRepository(Regiones::class)->findOneBy(array('nombre' => $name));
+       
+        $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy(array('region' => $region));
 
         foreach($ubicaciones as $ubicacion){
 
@@ -115,6 +119,6 @@ class HotelController extends AbstractController
        // $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
        // echo $jsonContent;
         return $this->render('Home/RegionExplore.html.twig',
-    array('alojamientos' => $alojamientos));
+    array('alojamientos' => $alojamientos,'region'=> $region));
     }
 }

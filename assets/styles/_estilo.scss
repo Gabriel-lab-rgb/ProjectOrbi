@@ -334,6 +334,11 @@ margin-bottom: 1rem;
     min-height: 350px;
   }
 
+  .card-poster:hover{
+
+top:-20px
+  }
+
   .bg-gray-100 {
     background-color: #f8f9fa !important;
   }
@@ -544,3 +549,16 @@ a {
   height: 450px;
 
  }
+
+ .gm-style .gm-style-iw-c {
+  padding: 0px;
+  }
+  
+ .gm-style .gm-style-iw-c a {
+text-decoration: none;
+  }
+
+  /*.right{
+
+    float:right;
+  }*/

@@ -51,12 +51,11 @@ class AlojamientoController extends AbstractController
 
         
         $ite=$request->get('reservas_form');
-        /*$salida=new \DateTime($formGet['salida']);
-        $llegada=new \DateTime($formGet['llegada']);
+        $salida=new \DateTime($ite['salida']);
+        $llegada=new \DateTime($ite['llegada']);
         $comparacion=$salida->diff($llegada);
         $dias=$comparacion->days;
         $total= $precio*$dias;
-        $reserva =new Reserva();*/
         $form = $this->createForm(ReservasFormType::class);
         $form->handleRequest($request);
        if($form->isSubmitted() && $form->isValid()){
@@ -100,7 +99,7 @@ class AlojamientoController extends AbstractController
        }
  
 
-        return $this->render('alojamiento/stays.html.twig',['precio'=>$precio/*'dias'=>$dias'total'=> $total,*/ ,  'alojamiento' =>$hotel,'form' => $form->createView(),'formGet' => $ite]);
+        return $this->render('alojamiento/stays.html.twig',['precio'=>$precio,'dias'=>$dias,'total'=> $total ,  'alojamiento' =>$hotel,'form' => $form->createView(),'formGet' => $ite]);
     }
 
      /**

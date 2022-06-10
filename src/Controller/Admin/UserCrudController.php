@@ -50,7 +50,5 @@ public function configureFilters(Filters $filters): Filters
         ->add('roles')
         ->add('isVerified');
         
-        
-    
 }
 }

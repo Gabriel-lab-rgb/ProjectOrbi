@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GestionReservaController!{% endblock %}
+{% block title %}Orbi|Admin{% endblock %}
 
 {% block body %}
 
@@ -14,26 +14,30 @@
         <li class="breadcrumb-item active">Host view </li>
       </ol>
       <div class="d-flex justify-content-between align-items-end mb-5">
-        <h1 class="hero-heading mb-0">Reservas</h1>
+        <h1 class="hero-heading mb-0">Reservas realizadas</h1>
       </div>
       <div class="d-flex justify-content-between align-items-center flex-column flex-lg-row mb-5">
         <div class="me-3">
-          <p class="mb-3 mb-lg-0">You have <strong>12 bookings</strong> in your property</p>
+        {% set length = 0 %}
+             {% for reserva in reservas %}
+             {% if reserva.getStatus =='pendiente' %}
+                    {% set length = length + 1 %}
+              {% endif  %}        
+             {% endfor %}
+          <p class="mb-3 mb-lg-0">Hay <strong> {{length}} reservas</strong> pendientes de confirmar</p>
         </div>
        
       </div>
-      <div class="list-group shadow mb-5"><a class="list-group-item list-group-item-action p-4">
+      <div class="list-group shadow mb-5"><div class="list-group-item list-group-item-action p-4">
           
          
        {% for reserva in reservas %}
-
-
 
           <div class="row">
             <div class="col-lg-4 align-self-center mb-4 mb-lg-0">
               <div class="d-flex align-items-center mb-3">
                 <h2 class="h5 mb-0">{{reserva.getUsuario().getUsername()}}</h2><img class="avatar avatar-sm avatar-border-white ms-3"
-                  src="{{reserva.getUsuario().getImages()}}">
+                  src="{{asset('/img/usuarios/' ~ reserva.getUsuario().getImages())}}">
               </div>
               
             </div>
@@ -45,7 +49,7 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 py-3">
                   <h6 class="label-heading">Total</h6>
-                  <p class="text-sm fw-bold mb-0">{{reserva.getTotal()}}</p>
+                  <p class="text-sm fw-bold mb-0">{{reserva.getTotal()}} €</p>
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 py-3">
                   <h6 class="label-heading">Creado en </h6>
@@ -57,20 +61,22 @@
                  {% if reserva.getStatus =='aceptado' %}
     
     <p>Reserva ya aceptada</p>
+      <a href="{{path('deleteItem',{'id':reserva.getId()})}}" class="text-danger text-sm text-uppercase me-4 me-lg-0">Cancelar</a>
     {%  elseif reserva.getStatus =='cancelado' %}
      <p>Reserva cancelada</p>
       {% else %}
-                <span href="{{path('deleteItem',{'id':reserva.getId()})}}" class="text-primary text-sm text-uppercase me-4 me-lg-0">No aceptar</span>
+                <a href="{{path('deleteItem',{'id':reserva.getId()})}}" class="text-danger text-sm text-uppercase me-4 me-lg-0">No aceptar</a>
                 <br class="d-none d-lg-block">
-                <span  href="{{path('aceptar',{'id':reserva.getId()})}}" class="text-primary text-sm text-uppercase">Aceptar</span>
-                  {% endif  %}  
+                <a href="{{path('aceptar',{'id':reserva.getId()})}}" class="text-primary text-sm text-uppercase">Aceptar</a>
+                  {% endif  %} 
+                 <a href="{{path('app_gestion',{'id':reserva.getId()})}}" class="text-primary text-sm text-uppercase">detalles</a>   
                 </div>
               </div>
             </div>
           </div>
           <hr>
             {% endfor %}
-        </a>
+        </div>
      
       </div>
  

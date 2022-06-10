@@ -6,6 +6,7 @@ use App\Entity\Regiones;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 class RegionesCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -21,7 +22,7 @@ class RegionesCrudController extends AbstractCrudController
             TextField::new('nombre'),
             TextField::new('latitud'),
             TextField::new('longitud'),
-            TextEditorField::new('descripcion'),
+            TextareaField::new('descripcion'),
 
         ];
     }

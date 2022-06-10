@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'explore.html.twig' %}
 {% block stylesheets %}
 {{parent()}}
 
@@ -9,7 +9,7 @@
 {% block body %}
 <main>
  <div id="infoHoteles" data-hotels="{{alojamientos|serialize('json', { groups: 'hotel'})}}" style="display:none"></div>
- <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:84px">
+ <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:80px">
 
     <label class="rad-label">
       <input type="radio"  id="all" class="rad-input" name="rad">
@@ -45,11 +45,11 @@
   </section>
 
 
- <div class="container-fluid">
-    <div class="row">
+ <div class="container-fluid mt-5" >
+    <div class="row pt-3">
         <div class="col-lg-6 py-4 p-xl-5" id="alojamiento">
-          <h2 class="mb-4">Stay on Manhattan, NY</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio asperiores, consequatur odio recusandae dignissimos hic ad minima! Praesentium nobis dolorem blanditiis molestiae facilis neque accusantium voluptas. Esse ea ipsum iusto.</p>
+          <h2 class="mb-4">{{region.getNombre()}}</h2>
+          <p>{{region.getDescripcion()}}</p>
           <hr class="my-4">
           <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
             <div class="me-3">
@@ -211,6 +211,14 @@ div.appendChild(divhijo);
 }
 
 
+const iconos={
+
+  icon1:`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+</svg>`
+}
+
+
 function mostrarAlojamientos(array){
 
 
@@ -257,15 +265,20 @@ let rivew=document.createElement('div');
 rivew.classList="packege__rivew";
 let left=document.createElement('div')
 left.classList="left";
-let span1=document.createElement('span');
-span1.textContent='lugar';
+let p1=document.createElement('p');
+p1.classList="gx-2 m-0";
+let span1=document.createElement('span')
+span1.textContent=array[i]['ubicacion']['provincia'];
+p1.innerHTML=iconos.icon1 +span1.textContent
+
 let span2=document.createElement('span');
-span2.textContent='jiio';
+span2.textContent= array[i]['caracteristicas'] ;
+
 let right=document.createElement('div');
 right.classList="right";
 let span3=document.createElement('span');
-span3.textContent="fdfdfd";
-left.appendChild(span1);
+span3.textContent=array[i]['precio'] + '€ por noche';
+left.appendChild(p1);
 left.appendChild(span2)
 right.appendChild(span3);
 rivew.appendChild(left);
@@ -311,7 +324,7 @@ function initMap() {
     lng: lng
   };
   map = new google.maps.Map(document.getElementById("map2"), {
-    zoom: 13,
+    zoom: 8,
     center: region,
    
   });
@@ -339,7 +352,7 @@ function initMap() {
 
 gmarkers.push(markers[i])
     infowindow[i] = new google.maps.InfoWindow({
-      content:'<a href="#hola"><div style="w-100"><div class="p-4" style="width:250px"><h5 class="fw-light"></h5><span class=>250 €</span></span></div></a>' });
+      content:'<a href="/alojamiento/' +  array[i]['Nombre'] + '"><img src="/img/alojamientos/'+ array[i]['images'][1]['imageName'] + '"  style=" margin:0px;" width="250px"><div style="w-100"><div class="p-3" style="width:250px"><h5 class="fw-light">' + array[i]['Nombre']+'</h5><p>'+ array[i]['caracteristicas']+'</p><span class="">'+array[i]['precio']+ '€' +'</span></div></div></a>' });
   google.maps.event.addListener(markers[i], 'click', function(valor) { 
     return function(){ 
     infowindow[valor].open(map,markers[valor]); 

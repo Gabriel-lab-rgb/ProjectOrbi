@@ -102,12 +102,12 @@
                         <div class="h-auto px-2 "
                             style="width: 227px; margin-right: 15px;" data-swiper-slide-index="0">
                             <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a
-                                    class="tile-link" href="category.html"></a><img class="bg-image"
-                                    src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/barcelona.jpg"
-                                    alt="Card image">
+                                    class="tile-link" href="{{path('RegionExplore',{'name':'Asturias'})}}"><img class="bg-image "
+                                    src="https://comerviajarynadamas.com/wp-content/uploads/2A249676-A61F-4DBE-894F-31281F0440EF.jpeg"
+                                    alt="Card image"></a>
                                 <div class="card-body overlay-content " style="position: relative;
                                 z-index: 20;">
-                                    <h6 class="card-title text-shadow text-uppercase">New York</h6>
+                                    <h6 class="card-title text-shadow text-uppercase">Aturias</h6>
                                     <p class="card-text text-sm">The big apple</p>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                     <div class=" h-auto px-2 "
                     style="width: 227px; margin-right: 15px;" data-swiper-slide-index="0">
                     <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a
-                            class="tile-link" href="category.html"></a><img class="bg-image"
+                            class="tile-link" href=""></a><img class="bg-image"
                             src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/barcelona.jpg"
                             alt="Card image">
                         <div class="card-body overlay-content " style="position: relative;
@@ -152,15 +152,30 @@
         </section>
 
 
-        <section class=" position-relative dark-overlay" style="padding-top: 8rem !important;
+        {% if  app.user %}
+             <section class=" position-relative dark-overlay" style="padding-top: 8rem !important;
+        padding-bottom: 8rem !important;"><img class="bg-image" src="https://www.viajacontufamilia.com/images/images/2000/grecia-con-ni%C3%B1os-1.jpg" alt="">
+            <div class="container">
+              <div class=" text-white py-lg-5" style="position: relative;
+              z-index: 20;">
+                <h3 class="display-3 fw-bold text-serif text-shadow mb-5">Configura tu cuenta</h3><a class="btn btn-light" href="{{path('app_profile')}}">Ir a perfil</a>
+              </div>
+            </div>
+          </section>
+   
+          {% else %}
+               <section class=" position-relative dark-overlay" style="padding-top: 8rem !important;
         padding-bottom: 8rem !important;"><img class="bg-image" src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/photo-1497436072909-60f360e1d4b1.jpg" alt="">
             <div class="container">
               <div class=" text-white py-lg-5" style="position: relative;
               z-index: 20;">
-                <h3 class="display-3 fw-bold text-serif text-shadow mb-5">¿Listo para tus próximas vacaciones?(</h3><a class="btn btn-light" href="category-rooms.html">Iniciar Sesion</a>
+                <h3 class="display-3 fw-bold text-serif text-shadow mb-5">¿Listo para tus próximas vacaciones?</h3><a class="btn btn-light" href="{{path('app_register')}}">Crea un cuenta</a>
               </div>
             </div>
           </section>
+
+
+           {% endif %}
 
                 <section>
                     <div class="packege p-5 bg-ash position-relative">
@@ -172,8 +187,10 @@
                                     <h2>Nuestras recomendaciones</h2>
                                 </div>
                                 <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm"
-                                        href="category.html">
-                                        ver todos<i class="fas fa-angle-double-right ms-2"></i></a>
+                                        href="{{path('explore')}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-compass-fill" viewBox="0 0 16 16">
+  <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24zm-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z"/>
+</svg>
+                                        ver todos</a>
                                     </div>
                             </div>
 
@@ -182,122 +199,45 @@
                                 style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.5s; animation-name: fadeInUp; ">
                                 <div class="row g-4  row-cols-xl-4  row-cols-sm-2 row-cols-1 " style="padding-bottom: 50px;">
                 
-                                    <div class="col">
-                                        <div class="packege__item">
-                                            <div class="packege__inner">
+                                
                 
-                                                <div class="packege__thumb">
-                                                    <a href="tour-single.html"><img
-                                                            src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
-                                                            alt="Travel Thumb"></a>
-                                                    <div class="cart-right">
-                                                        <button tabindex="0" class="addcart-box" title="Quick shop"><i
-                                                                class="ti-shopping-cart"></i></button>
                 
-                                                    </div>
-                                                </div>
+                                   {% for alojamiento in alojamientos| slice(0,10) %}
+
+
+                   
                 
-                                                <div class="packege__content">
-                                                    <a href="tour-single.html">
-                                                        <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
-                                                    </a>
-                                                    <div class="packege__rivew">
-                                                        <div class="left">
-                                                            <span class="rating">Si crees que estás en peligro, tienes acceso
-                                                                prioritario a un equipo especializado que te atenderá sea la hora que
-                                                                sea</span>
-                                                        </div>
-                                                        <div class="right">
-                                                            <span class="packege__price">746 € por noche</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                 
                 
                                     <div class="col">
                                         <div class="packege__item">
                                             <div class="packege__inner">
                                                 <div class="packege__thumb">
-                                                    <a href="tour-single.html"><img
-                                                            src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
+                                                    <a href="{{path('alojamiento',{'nombre': alojamiento.getNombre()})}}"><img
+                                                            src="{{asset('/img/alojamientos/' ~ alojamiento.images[0].ImageName)}}"
                                                             alt="Travel Thumb"></a>
                                                 </div>
                                                 <div class="packege__content">
-                                                    <a href="tour-single.html">
-                                                        <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
+                                                    <a href="{{path('alojamiento',{'nombre': alojamiento.getNombre()})}}">
+                                                        <h5 style="color:#222">{{alojamiento.getNombre()}}</h5>
                                                     </a>
                                                     <div class="packege__rivew">
-                                                        <div class="left">
-                                                            <span class="rating">Si crees que estás en peligro, tienes acceso
-                                                                prioritario a un equipo especializado que te atenderá sea la hora que
-                                                                sea</span>
+                                                        <div class="left ">
+                                                        <p class="gx-2 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>{{alojamiento.getUbicacion().getComunidad()}}</p>
+                                                         
+                                                            <span class="rating">{{alojamiento.getCaracteristicas()}}</span>
+                                                                 
                                                         </div>
                                                         <div class="right">
-                                                            <span class="packege__price">746 € por noche</span>
+                                                            <span class="packege__price">{{alojamiento.getPrecio()}} €</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                
-                                    <div class="col">
-                                        <div class="packege__item">
-                                            <div class="packege__inner">
-                                                <div class="packege__thumb">
-                                                    <a href="tour-single.html"><img
-                                                            src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
-                                                            alt="Travel Thumb"></a>
-                                                </div>
-                                                <div class="packege__content">
-                                                    <a href="tour-single.html">
-                                                        <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
-                                                    </a>
-                                                    <div class="packege__rivew">
-                                                        <div class="left">
-                                                            <span class="rating">Si crees que estás en peligro, tienes acceso
-                                                                prioritario a un equipo especializado que te atenderá sea la hora que
-                                                                sea</span>
-                                                        </div>
-                                                        <div class="right">
-                                                            <span class="packege__price">746 € por noche</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                
-                                    <div class="col">
-                                        <div class="packege__item">
-                                            <div class="packege__inner">
-                                                <div class="packege__thumb">
-                                                    <a href="tour-single.html"><img
-                                                            src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
-                                                            alt="Travel Thumb"></a>
-                                                </div>
-                                                <div class="packege__content">
-                                                    <a href="tour-single.html">
-                                                        <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
-                                                    </a>
-                                                    <div class="packege__rivew">
-                                                        <div class="left">
-                                                            <span class="rating">Si crees que estás en peligro, tienes acceso
-                                                                prioritario a un equipo especializado que te atenderá sea la hora que
-                                                                sea</span>
-                                                        </div>
-                                                        <div class="right">
-                                                            <span class="packege__price">746 € por noche</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                    {% endfor %}
                 
                                 </div>
                             </div>
