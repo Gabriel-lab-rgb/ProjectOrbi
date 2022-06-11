@@ -1,4 +1,8 @@
 {% extends 'explore.html.twig' %}
+
+
+{% block title %}Orbi | {{region.getNombre()}}{% endblock %}
+
 {% block stylesheets %}
 {{parent()}}
 
@@ -12,7 +16,7 @@
  <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:80px">
 
     <label class="rad-label">
-      <input type="radio"  id="all" class="rad-input" name="rad">
+      <input type="radio"  id="all" class="rad-input" name="rad" checked>
       <div class="rad-design"></div>
       <div class="rad-text">Todos</div>
     </label>
@@ -127,7 +131,7 @@
   let hoteles=document.querySelector("#infoHoteles");
   let info=hoteles.dataset.hotels;
   var array=JSON.parse(info);
-  console.log(array);
+
 
  var cambio=new Array();
   
@@ -135,22 +139,21 @@
 
 hotel.addEventListener('click',function(){
 filtrar(array,hotel.id);
-filterMarkers(hotel.id);
-sessionStorage.setItem('Regionactividad',hotel.id);
+
 });
 hostal.addEventListener('click',function(){
   filtrar(array,hostal.id);
-  filterMarkers(hostal.id);
+  
+  
 })
 albergue.addEventListener('click',function(){
   filtrar(array,albergue.id);
-    filterMarkers(albergue.id);
+  
 })
 casaRural.addEventListener('click',function(){
 filtrar(array,casaRural.id);
-filterMarkers(casaRural.id);
-})
 
+})
 
 todos.addEventListener('click',function(){
 sessionStorage.removeItem('Regionactividad'); 
@@ -164,29 +167,27 @@ document.addEventListener("DOMContentLoaded",function(){
 
 
 if(window.sessionStorage){
-  if(!sessionStorage.getItem('Regionactividadd')){
+  if(!sessionStorage.getItem('Regionactividad')){
 
 mostrarAlojamientos(array)
   }else{
 let actividad=sessionStorage.getItem("Regionactividad");
   console.log(actividad)
   filtrar(array,actividad);
-  filterMarkers(actividad);
+ 
   }
-
 }
-
-
   
 });
 
 function filtrar(array,actividad){
- console.log(array);
-sessionStorage.getItem('Regionactividad',actividad)
+ 
+sessionStorage.setItem('Regionactividad',actividad)
 cambio=array.filter((element) => {
- return( element.Actividad == actividad )});
+ return( element.actividad.nombre == actividad )});
 if(cambio!=undefined && cambio.length >0){
 mostrarAlojamientos(cambio);
+filterMarkers(actividad);
 }else{
 mostrarMensaje();
 }
@@ -234,7 +235,7 @@ result.contentText=array.length;
   divhijo.id="hijo";
   divhijo.classList="row p-2";
   
-  console.log(array);
+
   for(let i=0;i<array.length;i++){
 
 let principal=document.createElement('div');
@@ -346,7 +347,7 @@ function initMap() {
       markers[i] = new google.maps.Marker({
       position: new google.maps.LatLng(array[i]['ubicacion'].latitud, array[i]['ubicacion'].longitud),
       map:map,
-      actividad:array[i]['Actividad'],
+      actividad:array[i]['actividad']['nombre'],
       icon: image
     });
 
@@ -364,11 +365,9 @@ gmarkers.push(markers[i])
 
   };
 
-
-
-filterMarkers=function(actividad){
-
-  for(i=0;i<gmarkers.length;i++){
+ function filterMarkers(actividad){
+   console.log(gmarkers)
+  for(let i=0;i<gmarkers.length;i++){
     marker=gmarkers[i];
        if(marker.actividad==actividad || actividad.length ===0){
            marker.setVisible();
@@ -380,7 +379,7 @@ filterMarkers=function(actividad){
 
  function mostrarTodos(){
 
-  for(i=0;i<gmarkers.length;i++){
+  for(let i=0;i<gmarkers.length;i++){
 
 gmarkers[i].setVisible();
   }

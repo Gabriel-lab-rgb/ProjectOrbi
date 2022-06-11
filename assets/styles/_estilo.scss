@@ -332,11 +332,14 @@ margin-bottom: 1rem;
     overflow: hidden;
     box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.1);
     min-height: 350px;
+    
   }
 
   .card-poster:hover{
+transform: translate(0,-20px);
 
-top:-20px
+/*top:-20px;*/
+
   }
 
   .bg-gray-100 {
@@ -561,4 +564,23 @@ text-decoration: none;
   /*.right{
 
     float:right;
+  }*/
+
+  #hijo{
+
+    opacity:0;
+    transition: opacity 2s;
+   /* animation: fadeInAnimation ease 1s;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;*/
+  }
+
+ /* @keyframes fadeInAnimation {
+
+    0%{
+      opacity: 0;
+    }
+    100% {
+      opacity:1
+    }
   }*/
