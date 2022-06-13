@@ -24,9 +24,11 @@ class HotelController extends AbstractController
    
     public function Home(ManagerRegistry $doctrine,SerializerInterface $serializer): Response
     {
-        $alojamientos=$doctrine->getRepository(Hotel::class)->findAll();
+        $alojamientos=$doctrine->getRepository(Hotel::class)->findAll(); 
+        shuffle($alojamientos);
         
-      
+ 
+        
         return $this->render('Home/index.html.twig',
     array('alojamientos' => $alojamientos));
     }

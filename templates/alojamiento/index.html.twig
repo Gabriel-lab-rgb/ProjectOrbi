@@ -3,7 +3,7 @@
 {% block title %}Orbi | {{alojamiento.getNombre()}}{% endblock %}
 
 {% block body %}
-
+<div id="infoHoteles" data-hotels="{{alojamiento|serialize('json', { groups: 'hotel'})}}" style="display:none"></div>
 <div class="container pt-5">
 
     <div class="row g-4">
@@ -132,39 +132,42 @@
                 style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.5s; animation-name: fadeInUp; ">
                 <div class="row g-4  row-cols-xl-4  row-cols-sm-2 row-cols-1 " style="padding-bottom: 50px;">
 
-                    <div class="col">
-                        <div class="packege__item">
-                            <div class="packege__inner">
+                                {% for alojamiento in alojamientos|slice(0,4) %}
 
-                                <div class="packege__thumb">
-                                    <a href="tour-single.html"><img
-                                            src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
-                                            alt="Travel Thumb"></a>
-                                    <div class="cart-right">
-                                        <button tabindex="0" class="addcart-box" title="Quick shop"><i
-                                                class="ti-shopping-cart"></i></button>
 
-                                    </div>
-                                </div>
-
-                                <div class="packege__content">
-                                    <a href="tour-single.html">
-                                        <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
-                                    </a>
-                                    <div class="packege__rivew">
-                                        <div class="left">
-                                            <span class="rating">Si crees que estÃ¡s en peligro, tienes acceso
-                                                prioritario a un equipo especializado que te atenderÃ¡ sea la hora que
-                                                sea</span>
+                   
+                
+                
+                
+                                    <div class="col">
+                                        <div class="packege__item">
+                                            <div class="packege__inner">
+                                                <div class="packege__thumb">
+                                                    <a href="{{path('alojamiento',{'nombre': alojamiento.getNombre()})}}"><img
+                                                            src="{{asset('/img/alojamientos/' ~ alojamiento.images[0].ImageName)}}"
+                                                            alt="Travel Thumb"></a>
+                                                </div>
+                                                <div class="packege__content">
+                                                    <a href="{{path('alojamiento',{'nombre': alojamiento.getNombre()})}}">
+                                                        <h5 style="color:#222">{{alojamiento.getNombre()}}</h5>
+                                                    </a>
+                                                    <div class="packege__rivew">
+                                                        <div class="left ">
+                                                        <p class="gx-2 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>{{alojamiento.getUbicacion().getComunidad()}}</p>
+                                                         
+                                                            <span class="rating">{{alojamiento.getCaracteristicas()}}</span>
+                                                                 
+                                                        </div>
+                                                        <div class="right">
+                                                            <span class="packege__price">{{alojamiento.getPrecio()}} €</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="right">
-                                            <span class="packege__price">746 â‚¬ por noche</span>
-                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                    {% endfor %}
 
 
                   
@@ -192,10 +195,21 @@
        
 
 <script>
+
+var array=new Array();
+let hoteles=document.querySelector("#infoHoteles");
+  let info=hoteles.dataset.hotels;
+  array=JSON.parse(info);
+  hoteles.remove();
+ 
+
+
 function initMap() {
+   let lat=parseFloat(array['ubicacion'].latitud);
+   let lng=parseFloat(array['ubicacion'].longitud); 
   const orbiTravel = {
-    lat: 37.3819684,
-    lng: -5.9950962
+    lat: lat,
+    lng: lng
   };
   map = new google.maps.Map(document.getElementById("map3"), {
     zoom: 17,
@@ -203,12 +217,19 @@ function initMap() {
    
   });
 
-  new google.maps.Marker({
-    position: orbiTravel,
+  new google.maps.Circle({
+    
     map,
-    title: "!Estamos Aqui!",
+    strokeColor:'#0b5345',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#0b5345',
+    fillOpacity: 0.35,
+    center: orbiTravel,
+    radius:50
   });
 }
+
 let fecha=new Date();
 let anio=fecha.getFullYear();
 let dia=fecha.getDate();

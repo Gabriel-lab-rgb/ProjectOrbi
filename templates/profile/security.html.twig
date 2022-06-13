@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'password.html.twig' %}
 
 {% block title %}Orbi|Security{% endblock %}
 
@@ -11,7 +11,7 @@
 
 
 
-<section class="py-5">
+<section class="py-5 mb-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-3  ">
@@ -25,18 +25,14 @@
                       <ul class="list-group list-group-flush mt-5">
                             <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
                             <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
-                            <a class="list-group-item bg-gray-100">Borrar Cuenta</a>
+                           
                       </ul>
                     </div>
                 </div>
             </div>
 
 <section class="col-lg-9 py-5  ">
-     <ol class="breadcrumb ps-0  justify-content-start">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="user-account.html">Account</a></li>
-                    <li class="breadcrumb-item active">Personal info   </li>
-                  </ol>
+    
                 <div class="text-block"> 
                   <h3 class="mb-4">Login</h3>
                   <div class="row">

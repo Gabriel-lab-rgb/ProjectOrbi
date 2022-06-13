@@ -1,11 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'password.html.twig' %}
 
-{% block title %}Password Reset Email Sent{% endblock %}
+{% block title %} Orbi|Restablecimiento de contraseña{% endblock %}
+
+
+
+ 
 
 {% block body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+
+<div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            
+            <div class="text-block pt-5">
+            <p class="text-center"> Si existe una cuenta que coincide con su correo electrónico, entonces se acaba de enviar un correo electrónico que contiene un enlace que puede usar para restablecer su contraseña. Este enlace caducará en {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+              <p class=" mb-5 text-center">Si no recibe un correo electrónico, verifique su correo no deseado o
+ <a href="{{ path('app_forgot_password_request') }}">intentelo de nuevo</a>.</p>
+              <p class="mb-5 text-center"><img class="img-fluid" src="{{asset('/img/email.png')}}" alt="" style="width: 400px;"></p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+   
 {% endblock %}

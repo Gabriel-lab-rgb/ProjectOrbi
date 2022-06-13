@@ -1,136 +1,93 @@
 {% extends 'reserva.html.twig' %}
 
-{% block title %}Hello AlojamientoController!{% endblock %}
+{% block title %}Orbi|Reserva{% endblock %}
 
 {% block body %}
 
-{{ form_start(form)}}
+
   <section class="py-5">
     <div class="container">
       <div class="row">
         <div class="col-lg-7">
-          <p class="subtitle text-primary">Esta es la pagina de pago</p>
-          <h1 class="h2 mb-5"> Reserva y Pagar</h1>
-          <div class="text-block">
-            <div class="alert alert-warning text-sm mb-3">
-              <div class="d-flex align-items-center">
- 
-                <div><strong>This home is on people’s minds.</strong> It’s been viewed 43 times in the past week.</div>
-              </div>
-            </div>
-          </div>
- 
-          <div class="text-block">
-            <h5 class="mb-4">1 night in London</h5>
-            <div class="row mb-3">
-              <div class="col-md-6 d-flex align-items-center mb-3 mb-md-0">
-                <div class="date-tile me-3">
-                  <div class="text-uppercase"> <span class="text-sm">Apr</span><br><strong class="text-lg">17</strong>
-                  </div>
-                </div>
-                <p class="text-sm mb-0">Fecha de llegada<br>{{ form_widget(form.llegada,{'value': formGet.llegada}) }}
-                </p>
-              </div>
-              <div class="col-md-6 d-flex align-items-center">
-                <div class="date-tile me-3">
-                  <div class="text-uppercase"> <span class="text-sm">Apr</span><br><strong class="text-lg">18</strong>
-                  </div>
-                </div>
+        {{ form_start(form)}}
+            <p class="subtitle text-primary">Esta es la pagina de pago</p>
+            <h1 class="h2 mb-5"> Reserva y Pagar</h1>
+            <div class="text-block mb-4">
+                <h5 class="mb-4"><span id="noches">1</span> noches en London</h5>
+                    <div class="row mb-3">
+                          
+                       <p class="text-sm mb-0">Fecha de llegada<br>{{ form_widget(form.llegada,{'value': formGet.llegada}) }}
+                      </p>
+                    </div>
+              
                 <p class="text-sm mb-0">Fecha de salida<br>{{ form_widget(form.salida,{'value': formGet.salida}) }}</p>
-              </div>
-            </div>
-          </div>
- 
-          <div class="text-block">
-            <label class="h5" for="form_guests">Guests</label>
-            <p class="text-sm text-muted">One morning, when Gregor Samsa woke from troubled dreams, he found himself
-              transformed in his bed in.</p>
-            <div class="row">
-              <div class="col-lg-6 mb-3">
-                {{ form_widget(form.huespedes,{'type':'number','value': formGet.huespedes}) }}
-              </div>
-            </div>
-          </div>
 
-          <!--
-          <div class="text-block">
-            <form action="#">
-              <div class="d-flex justify-content-between align-items-end mb-4">
-                <h5 class="mb-0">Pay with your card</h5>
-                <div class="text-muted"><i class="fab fa-cc-amex fa-2x me-2"> </i><i class="fab fa-cc-visa fa-2x me-2">
-                  </i><i class="fab fa-cc-mastercard fa-2x"></i></div>
-              </div>
- 
 
-              <select class="form-select" title="Categories" data-style="btn-form-control">
-                <option class="bs-title-option" value=""></option>
-                <option value="small">Restaurants</option>
-                <option value="medium">Hotels</option>
- 
-              </select>
-              <button class="btn btn-link btn-collapse ps-0 text-muted" type="button" data-bs-toggle="collapse"
-                data-bs-target="#addNewCard" aria-expanded="false" aria-controls="addNewCard" data-expanded-text="Close"
-                data-collapsed-text="Add a new card">Add a new card</button>
-              <div class="row collapse" id="addNewCard">
-                <div class="mb-4 col-md-6">
-                  <label class="form-label" for="card-name">Name on Card</label>
-                  <input class="form-control" type="text" name="card-name" placeholder="Name on card" id="card-name">
+            </div>
+                <div class="text-block mb-1">
+                    <label class="h5" for="form_guests">Huespedes</label>
+                    <p class="text-sm text-muted">Aqui podras cambiar el numero de personas </p>
+                        <div class="row">
+                              <div class="col-lg-6 mb-3">
+                                   {{ form_widget(form.huespedes,{'type':'number','value': formGet.huespedes}) }}
+                              </div>
+                        </div>
                 </div>
-                <div class="mb-4 col-md-6">
-                  <label class="form-label" for="card-number">Card Number</label>
-                  <input class="form-control" type="text" name="card-number" placeholder="Card number" id="card-number">
-                </div>
-                <div class="mb-4 col-md-4">
-                  <label class="form-label" for="expiry-date">Expiry Date</label>
-                  <input class="form-control" type="text" name="expiry-date" placeholder="MM/YY" id="expiry-date">
-                </div>
-                <div class="mb-4 col-md-4">
-                  <label class="form-label" for="cvv">CVC/CVV</label>
-                  <input class="form-control" type="text" name="cvv" placeholder="123" id="cvv">
-                </div>
-                <div class="mb-4 col-md-4">
-                  <label class="form-label" for="zip">ZIP</label>
-                  <input class="form-control" type="text" name="zip" placeholder="123" id="zip">
-                </div>
+                <div class="row form-block flex-column flex-sm-row ">
+  
+              <div class="col text-center d-grid gap-2 mt-5">
+                  {% if app.user %}
+
+                        <button type="submit" class="btn btn-primary " name="reservar">confirmar</button>
+                  {% else %}
+                  <h3 class="text-muted text-center fw-light">¡Para realizar una reserva debes iniciar Sesión!</h3>
+                  <a href="{{path('login')}}" class="btn btn-primary"
+                     name="reservar">Iniciar Sesion</a>
+                     <p class="text-center">o</p>
+                  <a href="{{path('app_register')}}" class="btn btn-danger "
+                     name="reservar">Registrarse</a>
+                  {% endif %}
               </div>
-            </form>
-          </div>
- -->
+
+              </div>
+              
           
-          <div class="row form-block flex-column flex-sm-row">
-            <div class="col text-center text-sm-start">
-            </div>
-            <div class="col text-center text-sm-end">
-               {% if app.user %}
-              <button type="submit" class="btn btn-primary" name="reservar">confirmar</button>
-              {% else %}
-              <a href="{{path('login')}}"><button type="button" class="btn btn-primary"
-                  name="reservar">continuar</button></a>
-              {% endif %}</div>
-          </div>
+           {{form_end(form)}}
         </div>
+
         <div class="col-lg-5 ps-xl-5">
               <div class="card border-0 shadow">
                 <div class="card-body p-4">
                   <div class="text-block pb-3">
                     <div class="d-flex align-items-center">
                       <div>
-                        <h6> <a class="text-reset" href="detail-rooms.html">Modern Apt - Vibrant Neighborhood</a></h6>
-                        <p class="text-muted text-sm mb-0">Entire home in New York</p>
-                        <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
-                        </div>
-                      </div><a class="flex-shrink-0" href="detail-rooms.html"><img class="ms-3 rounded" src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="" width="100"></a>
+                        <h6>{{alojamiento.getNombre()}}</h6>
+                        <p class="text-muted text-sm mb-0">{{alojamiento.getCaracteristicas()}}</p>
+                        <p class="text-muted text-sm mb-0">{{alojamiento.getUbicacion().getDireccion()}}, {{alojamiento.getUbicacion().getComunidad()}}</p>
+                            <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
+                            </div>
+                      </div>
+                     <img class="ms-auto  rounded " src="{{asset('/img/alojamientos/'  ~ alojamiento.Images[0].ImageName)}}" alt="" width="200px">
                     </div>
                   </div>
+
                   <div class="text-block py-3">
-                    <ul class="list-unstyled mb-0">
-                      <li class="mb-3" ><i class="fas fa-users fa-fw text-muted me-2"></i><span id="huespedes">{{formGet.huespedes}}</span> huespedes</li>
-                      <div class="d-flex flex-row">
-                      <li class="mb-0" ><i class="far fa-calendar fa-fw text-muted me-2"></i><span id="llegada">{{formGet.llegada}}</span></li>
-                      <li class="mb-0" ><i class="fas fa-arrow-right fa-fw text-muted mx-3"></i><span  id="salida">{{formGet.salida}}</span></li>
-                      </div>
+                    <ul class="list-unstyled mb-0 " >
+                      <li class="mb-3 " ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+  <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+  <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+</svg></i><span id="huespedes"> {{formGet.huespedes}}</span> huespedes</li>
+                         <div class="d-flex flex-row">
+                           <li class="mb-0" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date-fill" viewBox="0 0 16 16">
+  <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"/>
+  <path d="M16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-6.664-1.21c-1.11 0-1.656-.767-1.703-1.407h.683c.043.37.387.82 1.051.82.844 0 1.301-.848 1.305-2.164h-.027c-.153.414-.637.79-1.383.79-.852 0-1.676-.61-1.676-1.77 0-1.137.871-1.809 1.797-1.809 1.172 0 1.953.734 1.953 2.668 0 1.805-.742 2.871-2 2.871zm-2.89-5.435v5.332H5.77V8.079h-.012c-.29.156-.883.52-1.258.777V8.16a12.6 12.6 0 0 1 1.313-.805h.632z"/>
+</svg><span id="llegada"> {{formGet.llegada}}</span></li>
+                           <li class="mb-0 mx-3" ><span  id="salida"> {{formGet.salida}}</span></li>
+                        </div>
                     </ul>
                   </div>
+
                   <div class="text-block pt-3 pb-0">
                     <table class="w-100">
                       <tbody>
@@ -152,23 +109,13 @@
                     </table>
                   </div>
                 </div>
-                <div class="card-footer bg-primary-light py-4 border-0">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="text-primary">Flexible – free cancellation</h6>
-                      <p class="text-sm text-primary opacity-8 mb-0">Cancel within 48 hours of booking to get a full refund. <a href="#" class="text-reset ms-3">More details</a></p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
- 
           </div>
-        </div>
-      </div>
+          
     </div>
   </section>
-  {{form_end(form)}}
+ 
  
  
 
@@ -195,6 +142,7 @@ let fechallegada=document.getElementById("reservas_form_llegada");
 let fechaSalida=document.getElementById("reservas_form_salida");
 let huespedes=document.getElementById("reservas_form_huespedes");
 let days=document.getElementById("dias");
+
 fechallegada.setAttribute('min',fecha_minimo);
 
 
@@ -234,13 +182,15 @@ huespedes.addEventListener('blur',function(){
 
 function cambiarDias(fechallegada,fechaSalida){
   
+
 var fecha_1 = new Date(fechallegada);
 var fecha_2 = new Date(fechaSalida);
 
 var day_as_milliseconds = 86400000;
 var diff_in_millisenconds = fecha_2 - fecha_1;
 var dias = diff_in_millisenconds / day_as_milliseconds;
-
+let noches=document.getElementById("noches");
+noches.textContent=dias;
 days.textContent=dias;
 
 cambiarPrecio(dias);

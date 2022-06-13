@@ -13,7 +13,10 @@ use App\Entity\Hotel;
 use App\Entity\Reserva;
 use App\Entity\Persona;
 use App\Entity\PedidoReserva;
+use App\Entity\Regiones;
+use App\Entity\Ubicaciones;
 use App\Controller\SesionCesta;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 
@@ -23,18 +26,29 @@ class AlojamientoController extends AbstractController
      * @Route("/alojamiento/{nombre}", name="alojamiento" ,methods={"GET","HEAD"})
      * 
      */
-    public function index(Request $request,EntityManagerInterface $entityManager,ManagerRegistry $doctrine,string $nombre): Response
+    public function index(Request $request,EntityManagerInterface $entityManager,ManagerRegistry $doctrine,string $nombre,SerializerInterface $serializer): Response
     {
        
          $hotel=$doctrine->getRepository(Hotel::class)->findOneBy(array('Nombre'=> $nombre));
+         $alojamientos=[];
+        $region=$doctrine->getRepository(Regiones::class)->findOneBy(array('nombre' => $hotel->getubicacion()->getRegion()->getNombre()));
        
+        $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy(array('region' => $region));
+
+        foreach($ubicaciones as $ubicacion){
+
+            $alojamiento=$doctrine->getRepository(Hotel::class)->find($ubicacion);
+            
+            array_push($alojamientos,$alojamiento);
+        }
+        shuffle($alojamientos);
          
          $form = $this->createForm(ReservasFormType::class);
          
-        
+         /*self::alojamiento($hotel, $serializer);*/
 
         return $this->render('alojamiento/index.html.twig', [
-            'alojamiento' => $hotel, 'form' => $form->createView()
+            'alojamiento' => $hotel,'alojamientos'=> $alojamientos, 'form' => $form->createView()
         ]);
     }
 
