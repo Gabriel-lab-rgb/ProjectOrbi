@@ -584,3 +584,21 @@ text-decoration: none;
       opacity:1
     }
   }
+
+  #sugerencias{
+    border: solid 1px black;
+    width: 375px;
+    display: none;
+    position: absolute;
+    top:40px;
+}
+#sugerencias a{
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #aaa;
+}
+#sugerencias a:hover{
+    background-color: #003366;
+    color: white;
+}

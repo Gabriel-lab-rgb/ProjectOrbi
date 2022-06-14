@@ -43,15 +43,29 @@
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{path('explore')}}">Explorar</a>
           </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Regiones
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{path('RegionExplore',{'name':'Asturias'})}}">Asturias</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
           
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{path('app_contact')}}">Contacto</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto ">
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{path('carrito')}}">Carrito</a>
-          </li>
+        <form class="d-flex">
+        <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" id="buscar"  type="button">Search</button>
+        <div id="sugerencias">
+        </div>
+      </form>
 		    {% if  app.user %}
          
 		  <div class="flex-shrink-0 dropdown" style="">
