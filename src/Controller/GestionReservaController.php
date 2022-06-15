@@ -14,6 +14,8 @@ use App\Entity\PedidoReserva;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 
 class GestionReservaController extends AbstractController
 {
@@ -79,16 +81,24 @@ class GestionReservaController extends AbstractController
      */
     public function aceptar(ManagerRegistry $doctrine,Request $request,EntityManagerInterface $entityManager,MailerInterface $mailer,int $id): Response
     {
-        $pedido=$doctrine->getRepository(Reserva::class)->find($id);
-        $pedido->setStatus('aceptado');
+        $reserva=$doctrine->getRepository(Reserva::class)->find($id);
+        $reserva->setStatus('aceptado');
+        $pedidos=$doctrine->getRepository(PedidoReserva::class)->findBy(array('pedido'=>$reserva->getId()));
 
         $entityManager->flush();
 
-        $email=(new Email())
-        ->from('grivote615@iesmartinezm.es')
-        ->to($pedido->getUsuario()->getEmail())
-        ->text('Reserva aceptada');
-        $mailer->send($email);
+       
+        $email = (new TemplatedEmail())
+        ->from(new Address('grivote615@iesmartinezm.es', 'Orbi'))
+        ->to($reserva->getUsuario()->getEmail())
+        ->subject('Tu reserva a sido '. $reserva->getStatus() )
+        ->htmlTemplate('reset_password/emailC.html.twig')
+        ->context([
+            'pedidos' => $pedidos,
+        ])
+    ;
+
+    $mailer->send($email);
 
         return $this->redirectToRoute('app_gestion_reserva');
 

@@ -33,10 +33,10 @@ var xhttp = new XMLHttpRequest();
 
     const buscador = document.querySelector('#search')
     const sugerencias = document.querySelector('#sugerencias')
-    const boton=document.querySelector('#buscar');
+    const boton2=document.querySelector('#buscar');
 
    
-    boton.addEventListener("click",function(){
+    boton2.addEventListener("click",function(){
 
         for (let i = 0; i < alojamientos.length; i++) {
         if(buscador.value=="" || buscador.value !=alojamientos[i]){
