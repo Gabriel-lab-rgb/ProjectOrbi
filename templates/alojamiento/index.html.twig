@@ -15,13 +15,11 @@
             <h1>{{alojamiento.getNombre()}}</h1>
             <p class="text-muted text-uppercase mb-4">{{alojamiento.getActividad().getNombre()}} </p>
             <ul class="list-inline text-sm mb-4">
-              <li class="list-inline-item me-3"><i class="fa fa-users me-1 text-secondary"></i> 4 guests</li>
-              <li class="list-inline-item me-3"><i class="fa fa-door-open me-1 text-secondary"></i> 1 bedroom</li>
-              <li class="list-inline-item me-3"><i class="fa fa-bed me-1 text-secondary"></i> 3 beds</li>
-              <li class="list-inline-item me-3"><i class="fa fa-bath me-1 text-secondary"></i> 1 bath</li>
+              <li class="list-inline-item me-3"><i class="fa fa-users me-1 text-secondary"></i>{{alojamiento.getCaracteristicas()}} </li>
             </ul>
+            <p class=" mb-2">Dirección:{{alojamiento.getUbicacion().getDireccion()}} </p>
+                  <p class="text-muted  mb-4">Teléfono:{{alojamiento.getTelefono()}} </p>
 
-           
               <div class="text-block">
               
                 <div class="row gallery mb-3 ms-n1 me-n1">
@@ -37,22 +35,12 @@
                   
                 </div>
               </div>
+              <div>
+                     <h5 class="mb-4">Descripción</h5>
+             <p class="text-muted fw-light"> {{alojamiento.getDescripcion()}}</p>
+              </div>
 
-            <p class="text-muted fw-light">Our garden basement apartment is fully equipped with everything you need to enjoy your stay. Very comfortable for a couple but plenty of space for a small family. Close to many wonderful Brooklyn attractions and quick trip to Manhattan. </p>
-            <h6 class="mb-3">The space</h6>
-            <p class="text-muted fw-light">Welcome to Brooklyn! We are excited to share our wonderful neighborhood with you. Our modern apartment has a private entrance, fully equipped kitchen, and a very comfortable queen size bed. We are happy to accommodate additional guests with a single bed in the living room, another comfy mattress on the floor and can make arrangements for small children with a portable crib and highchair if requested. </p>
-            <p class="text-muted fw-light">Also in the apartment:</p>
-            <ul class="text-muted fw-light"> 
-              <li>TV with Netflix and DirectTVNow</li>
-              <li>Free WiFi</li>
-              <li>Gourmet Coffee/Tea making supplies</li>
-              <li>Fresh Sheets and Towels</li>
-              <li>Toaster, microwave, pots and pans and basic cooking needs like salt, pepper, sugar, and olive oil.</li>
-              <li>Air Conditioning to keep you cool all summer!</li>
-            </ul>
-            <p class="text-muted fw-light">The apartment is surprisingly quiet for being in the heart of a vibrant, bustling neighborhood.</p>
-            <h6 class="mb-3">Interaction with guests</h6>
-            <p class="text-muted fw-light">We live in the two floors above the garden apartment so we are usually available to answer questions. The garden apartment is separate from our living space. We are happy to provide advice on local attractions, restaurants and transportation around the city. If there's anything you need please don't hesitate to ask!</p>
+            
           </div>
           <section>
 
@@ -64,11 +52,6 @@
               </div>
             </div>
           </section>
-
-
-          
-
-
         </div>
       </div>
 
@@ -99,9 +82,7 @@
               <button class="btn btn-primary" type="submit">Pedir reserva</button>
             </div>
         {{form_end(form)}}
-         
-         
-         
+ 
         </div>
 
       </div>
@@ -133,12 +114,7 @@
                 <div class="row g-4  row-cols-xl-4  row-cols-sm-2 row-cols-1 " style="padding-bottom: 50px;">
 
                                 {% for alojamiento in alojamientos|slice(0,4) %}
-
-
-                   
-                
-                
-                
+              
                                     <div class="col">
                                         <div class="packege__item">
                                             <div class="packege__inner">
@@ -156,7 +132,7 @@
                                                         <p class="gx-2 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
   <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>{{alojamiento.getUbicacion().getComunidad()}}</p>
                                                          
-                                                            <span class="rating">{{alojamiento.getCaracteristicas()}}</span>
+                                                           
                                                                  
                                                         </div>
                                                         <div class="right">
@@ -168,14 +144,6 @@
                                         </div>
                                     </div>
                                                     {% endfor %}
-
-
-                  
-
-                   
-
-
-                    
 
                 </div>
             </div>

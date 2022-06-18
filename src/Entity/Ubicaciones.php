@@ -162,7 +162,7 @@ class Ubicaciones
 
         return $this;
     }
-/*
+
     public function getRegion(): ?regiones
     {
         return $this->region;
@@ -174,19 +174,7 @@ class Ubicaciones
 
         return $this;
     }
-*/
 
-public function getRegion(): ?regiones
-{
-    return $this->region;
-}
-
-public function setRegion(?regiones $region): self
-{
-    $this->region = $region;
-
-    return $this;
-}
    
 public function __toString(){
 

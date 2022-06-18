@@ -13,6 +13,8 @@ use App\Form\ProfileFormType;
 use App\Controller\CartManager;
 use App\Entity\User;
 use App\Entity\Persona;
+use App\Entity\Reserva;
+use App\Entity\PedidoReserva;
 use App\Form\ReservaType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Form\Model\ChangePassword;
@@ -29,6 +31,7 @@ class ProfileController extends AbstractController
         $persona=$doctrine->getRepository(Persona::class)->findOneBy(array('user'=> $this->getUser()));
         $form = $this->createForm(ProfileFormType::class);
         $form->handleRequest($request);
+        $reservas=$doctrine->getRepository(Reserva::class)->findBy(array('usuario'=> $this->getUser()));
         
         if ($form->isSubmitted() && $form->isValid()) {
             $p=$form['Persona'];
@@ -48,7 +51,7 @@ class ProfileController extends AbstractController
 
 
         return $this->render('profile/index.html.twig', [
-            'form' => $form->createView(),'persona'=> $persona
+            'form' => $form->createView(),'reservas' => $reservas,'persona'=> $persona
         ]);
     }
 
@@ -107,16 +110,16 @@ class ProfileController extends AbstractController
 
 
      /**
-     * @Route("/carrito", name="carrito")
+     * @Route("/reservas/{id}", name="carrito")
      */
 
-    public function reservas(Request $request,ManagerRegistry $doctrine,CartManager $cartManager): Response
+    public function reservas(Request $request,ManagerRegistry $doctrine,CartManager $cartManager,int $id): Response
     {
       
        
+        $pedidos=$doctrine->getRepository(PedidoReserva::class)->findBy(array('pedido'=>$id));
 
-
- 
+ /*
             $cart = $cartManager->getCurrentCart();
             $form = $this->createForm(ReservaType::class, $cart);
             $form->handleRequest($request);
@@ -127,38 +130,48 @@ class ProfileController extends AbstractController
                 
             
         }
-    
-        return $this->render('profile/reservas.html.twig', [
-            'cart' => $cart,
-            'form' => $form->createView(),
-           /*'cesta'=> $cesta->getAlojamientos()*/
-        
-        ]);
-
-
-    }
-
-    /**
-     * @Route("/eliminar", name="eliminar")
-     */
-
-    public function eliminar(Request $request,ManagerRegistry $doctrine,UserPasswordHasherInterface $userPasswordHasher ,SessionCesta $cesta): Response
-    {
-      
-
-        
-
+    */
         return $this->render('profile/reservas.html.twig', [
             /*'cart' => $cart,*/
-           /* 'form' => $form->createView()*/
-           'cesta'=> $cesta->getAlojamientos()
+           /* 'form' => $form->createView(),*/
+           /*'cesta'=> $cesta->getAlojamientos()*/
+           'pedidos' => $pedidos
         
         ]);
 
 
     }
 
+  
 
+     /**
+     * @Route("changeImage", name="imagen")
+     */
+
+    public function Image(Request $request,ManagerRegistry $doctrine): Response
+    {
+      
+        $imagen=$_FILES['imagen'];
+  
+
+        $user = $this->getUser(); 
+            $newFilename = md5(uniqid()).'.'.$imagen->guessExtension();
+
+            $imagen->move(
+                $this->getParameter('images_directory'),
+                $newFilename);
+
+                $user->setImages($newFilename);
+              
+
+                $entityManager=$this->getDoctrine()->getManager();
+             
+            $entityManager->persist($user);
+            $entityManager->flush();
+        
+                return $this->redirectToRoute('app_profile');  
+
+    }
 
 
 }

@@ -13,7 +13,7 @@
             <p class="subtitle text-primary">Esta es la pagina de pago</p>
             <h1 class="h2 mb-5"> Reserva y Pagar</h1>
             <div class="text-block mb-4">
-                <h5 class="mb-4"><span id="noches">1</span> noches en London</h5>
+                <h5 class="mb-4"><span id="noches">1</span> noches en {{alojamiento.getUbicacion().getProvincia()}}</h5>
                     <div class="row mb-3">
                           
                        <p class="text-sm mb-0">Fecha de llegada<br>{{ form_widget(form.llegada,{'value': formGet.llegada}) }}
@@ -21,8 +21,6 @@
                     </div>
               
                 <p class="text-sm mb-0">Fecha de salida<br>{{ form_widget(form.salida,{'value': formGet.salida}) }}</p>
-
-
             </div>
                 <div class="text-block mb-1">
                     <label class="h5" for="form_guests">Huespedes</label>
@@ -67,7 +65,7 @@
                             <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
                             </div>
                       </div>
-                     <img class="ms-auto  rounded " src="{{asset('/img/alojamientos/'  ~ alojamiento.Images[0].ImageName)}}" alt="" width="200px">
+                     <img class="ms-auto rounded" src="{{asset('/img/alojamientos/'  ~ alojamiento.Images[0].ImageName)}}" alt="" width="200px">
                     </div>
                   </div>
 

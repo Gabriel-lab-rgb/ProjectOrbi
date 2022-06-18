@@ -51,4 +51,30 @@ public function configureFilters(Filters $filters): Filters
         ->add('isVerified');
         
 }
+
+/*
+public function updateEntity($entity)
+    {
+        $this->hashPassWord($entity);
+        parent::updateEntity($entity);
+    }
+
+public function persistEntity($entity)
+    {
+        $this->hashPassWord($entity);
+        parent::persistEntity($entity);
+    }
+
+public function hashPassWord(BeforeEntityPersistedEvent $event)
+{
+    $entity = $event->getEntityInstance();
+
+// comprobamos si se trata de una entidad User para continuar
+    if (!($entity instanceof User)) {
+        return;
+    }
+
+    $entity->setPassword($this->userPasswordHasher->hashPassword($entity, $entity->getPlainPassword()));
+}*/
+
 }

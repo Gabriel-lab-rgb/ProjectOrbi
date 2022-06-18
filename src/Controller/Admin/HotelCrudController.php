@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 
 use App\Form\ImageFormType;
@@ -38,7 +39,7 @@ class HotelCrudController extends AbstractCrudController
             TextField::new('nombre'),
             AssociationField::new('actividad'),
             TextField::new('caracteristicas'),
-            TextField::new('descripcion'),
+            TextareaField::new('descripcion'),
             TextField::new('telefono'),
             IntegerField::new('precio'),
             AssociationField::new('ubicacion'),

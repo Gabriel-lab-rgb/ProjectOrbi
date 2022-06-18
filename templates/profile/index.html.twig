@@ -5,27 +5,21 @@
 {% block body %}
 
 
-
-
-
-
-
-
 <section class="py-5 mb-5">
     <div class="container">
         <div class="row">
            <div class="col-lg-3  ">
                 <div class="card border-0 shadow mb-3 ">
-                    <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block"
-                            href="#"><img class="d-block avatar avatar-xxl p-2 mb-2"
+                    <div class="card-header bg-gray-100 py-4 border-0 text-center">
+                            <img class="d-block avatar avatar-xxl p-2 mb-2"
                                 src="{{asset('/img/usuarios/' ~ persona.getUser().getImages())}}"
-                                alt=""></a>
+                                alt="">
                         <h5>{{persona.getNombre()}} {{persona.getApellidos()}}</h5>
                         <span>{{persona.getUser().getEmail()}}</span>
                       <ul class="list-group list-group-flush mt-5">
                             <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
                             <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
-                        
+                            <a href="{{path('logout')}}" class="list-group-item bg-gray-100">Cerrar Sesión</a>
                       </ul>
                     </div>
                 </div>
@@ -35,10 +29,20 @@
 
 
             <section class="col-lg-9 py-5">
+<h1 class="hero-heading mb-0">Cambiar Imagen</h1>
+            <form action="{{path('imagen')}}" method="POST" class="d-flex" enctype="multipart/form-data">
+            <input type='file' name="imagen">
+            <button class="btn btn-primary" type="submit">Cambiar imagen</button>
+            </form>
+
+
+
                   <h1 class="hero-heading mb-0">info</h1>
                   <p class="text-muted mb-5">Administre su información personal y su configuración aquí.</p>
                   <div class="row">
                     <div class="col-lg-12 mb-5 mb-lg-0">
+                         
+   
                       <div class="text-block"> 
                         <div class="row mb-3">
                           <div class="col-sm-9">
@@ -78,43 +82,61 @@
                          {{form_end(form)}}
                         </div>
                       </div>
+                       <h1 class="hero-heading mb-5">Mis reservas</h1>
 
+                   <div class="list-group shadow mb-5"><div class="list-group-item list-group-item-action p-4">
+          
+         
+       {% for reserva in reservas %}
+
+          <div class="row">
+            <div class="col-lg-4 align-self-center mb-4 mb-lg-0">
+              <div class="d-flex align-items-center mb-3">
+            <img class="img-fluid"
+                  src="{{asset('/img/alojamientos/' ~ reserva.Items[0].getAlojamiento().getImages[0].getImageName())}}">
+              </div>
+              
+            </div>
+            <div class="col-lg-8">
+              <div class="row">
+                <div class="col-6 col-md-4 col-lg-3 py-3 mb-3 mb-lg-0">
+                  <h6 class="label-heading">Estado</h6>
+                  <p class="text-sm fw-bold">{{reserva.getStatus()}}</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 py-3">
+                  <h6 class="label-heading">Total</h6>
+                  <p class="text-sm fw-bold mb-0">{{reserva.getTotal()}} €</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 py-3">
+                  <h6 class="label-heading">Creado en </h6>
+                  <p class="text-sm fw-bold">{{reserva.CreateAt()| date('Y-m-d')}}</p>
+                  <h6 class="label-heading">Actualizado el</h6>
+                  <p class="text-sm fw-bold mb-0">{{reserva.UpdateAt()|date('Y-m-d')}}</p>
+                </div>
+                <div class="col-12 col-lg-3 align-self-center">
+                 {% if reserva.getStatus =='aceptado' %}
+    
+    <p>Reserva ya aceptada</p>
+      <a href="{{path('deleteItem',{'id':reserva.getId()})}}" class="text-danger text-sm text-uppercase me-4 me-lg-0">Cancelar</a>
+    {%  elseif reserva.getStatus =='cancelado' %}
+     <p>Reserva cancelada</p>
+     {% else %}
+                  {% endif  %} 
+                 <a href="{{path('carrito',{'id':reserva.getId()})}}" class="text-primary text-sm text-uppercase">detalles</a>   
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+            {% endfor %}
+        </div>
+     
+      </div>
              
                     
                   </div>
                 </div>
-<!--
-                <div class="text-block"> 
-                  <h3 class="mb-4">Login</h3>
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <h6>Password</h6>
-                      <p class="text-sm text-muted">Last updated 3 years ago</p>
-                    </div>
-                    <div class="col text-end">
-                      <button class="btn btn-link ps-0 text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#updatePassword" aria-expanded="true" aria-controls="updatePassword">Update</button>
-                    </div>
-                  </div>
-                  <div class="collapse show" id="updatePassword" style="">
-                    <div class="row mt-4">
-                      <div class="mb-4 col-12">
-                        <label class="form-label" for="password-current">Current Password</label>
-                        <input class="form-control" type="password" name="password-current" id="password-current">
-                      </div>
-                      <div class="mb-4 col-md-6">
-                        <label class="form-label" for="password-new">New Password</label>
-                        <input class="form-control" type="password" name="password-new" id="password-new">
-                      </div>
-                      <div class="mb-4 col-md-6">
-                        <label class="form-label" for="password-confirm">Confirm Password</label>
-                        <input class="form-control" type="password" name="password-confirm" id="password-confirm">
-                      </div>
-                    </div>
-                    <button class="btn btn-outline-primary">Update Password</button>
-                  </div>
-                </div>
 
--->
                 
               </section>
 

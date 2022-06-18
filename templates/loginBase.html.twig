@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+     <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="{{asset('/img/Orbi.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -15,7 +17,13 @@
 <body>
       
 {% block body %}{% endblock %}
+
+{% block javascripts %} 
+       {{encore_entry_script_tags('app')}}
+       <script src="{{asset('registro.js')}}"></script>
+       <!-- El script asincrónico se ejecuta inmediatamente y debe estar después de cualquier elemento DOM utilizado en la devolución de llamada. -->
+        {% endblock %}
     
-    </body>
+</body>
 
 </html>

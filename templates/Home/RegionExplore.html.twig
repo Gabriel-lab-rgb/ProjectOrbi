@@ -13,7 +13,7 @@
 {% block body %}
 <main>
  <div id="infoHoteles" data-hotels="{{alojamientos|serialize('json', { groups: 'hotel'})}}" style="display:none"></div>
- <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:80px">
+ <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:72px">
 
     <label class="rad-label">
       <input type="radio"  id="all" class="rad-input" name="rad" checked>
@@ -61,39 +61,7 @@
             </div>
           </div>
           <div class="row p-2" id="hijo">
-          <div class="col-sm-6">
-            <div class="packege__item">
-                <div class="packege__inner">
-
-                    <div class="packege__thumb">
-                        <a href="tour-single.html"><img
-                                src="https://template.labartisan.net/demos/explore/assets/images/packege/03.jpg"
-                                alt="Travel Thumb"></a>
-                        <div class="cart-right">
-                            <button tabindex="0" class="addcart-box" title="Quick shop"><i
-                                    class="ti-shopping-cart"></i></button>
-
-                        </div>
-                    </div>
-
-                    <div class="packege__content">
-                        <a href="tour-single.html">
-                            <h5 style="color:#222">Enjoy the Beauty place in Bhutan City</h5>
-                        </a>
-                        <div class="packege__rivew">
-                            <div class="left">
-                                <span class="rating">Si crees que estÃ¡s en peligro, tienes acceso
-                                    prioritario a un equipo especializado que te atenderÃ¡ sea la hora que
-                                    sea</span>
-                            </div>
-                            <div class="right">
-                                <span class="packege__price">746 â‚¬ por noche</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+          
            
           </div>
 
@@ -131,6 +99,7 @@
   let hoteles=document.querySelector("#infoHoteles");
   let info=hoteles.dataset.hotels;
   var array=JSON.parse(info);
+  console.log(array);
 
 
  var cambio=new Array();
@@ -159,6 +128,7 @@ todos.addEventListener('click',function(){
 sessionStorage.removeItem('Regionactividad'); 
 mostrarAlojamientos(array);
 mostrarTodos();
+
 
 })
 
@@ -224,8 +194,7 @@ function mostrarAlojamientos(array){
 
 
 
-let result=document.getElementById('result');
-result.contentText=array.length;
+
   let div=document.getElementById('alojamiento');
   let hijo=document.getElementById('hijo');
   div.removeChild(hijo);
@@ -301,6 +270,9 @@ principal.appendChild(item);
   }
 
 div.appendChild(divhijo);
+
+let result=document.getElementById('result');
+result.textContent=cambio.length;
   }
   
 
@@ -378,7 +350,8 @@ gmarkers.push(markers[i])
 }
 
  function mostrarTodos(){
-
+let result=document.getElementById('result');
+result.textContent=array.length;
   for(let i=0;i<gmarkers.length;i++){
 
 gmarkers[i].setVisible();

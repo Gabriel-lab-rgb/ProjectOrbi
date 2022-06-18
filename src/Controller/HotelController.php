@@ -116,10 +116,6 @@ class HotelController extends AbstractController
             
             array_push($alojamientos,$alojamiento);
         }
-      
-        
-       // $jsonContent = $serializer->serialize($hoteles, 'json',['groups' => 'hotel']);
-       // echo $jsonContent;
         return $this->render('Home/RegionExplore.html.twig',
     array('alojamientos' => $alojamientos,'region'=> $region));
     }

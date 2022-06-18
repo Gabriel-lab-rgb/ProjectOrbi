@@ -31,24 +31,24 @@ class AlojamientoController extends AbstractController
        
          $hotel=$doctrine->getRepository(Hotel::class)->findOneBy(array('Nombre'=> $nombre));
          $alojamientos=[];
-        $region=$doctrine->getRepository(Regiones::class)->findOneBy(array('nombre' => $hotel->getubicacion()->getRegion()->getNombre()));
+         $region=$doctrine->getRepository(Regiones::class)->findOneBy(array('nombre' => $hotel->getUbicacion()->getRegion()->getNombre()));
        
         $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy(array('region' => $region));
 
         foreach($ubicaciones as $ubicacion){
 
             $alojamiento=$doctrine->getRepository(Hotel::class)->find($ubicacion);
-            
+         
             array_push($alojamientos,$alojamiento);
         }
         shuffle($alojamientos);
          
          $form = $this->createForm(ReservasFormType::class);
          
-         /*self::alojamiento($hotel, $serializer);*/
+  
 
         return $this->render('alojamiento/index.html.twig', [
-            'alojamiento' => $hotel,'alojamientos'=> $alojamientos, 'form' => $form->createView()
+            'alojamiento' => $hotel, 'alojamientos' => $alojamientos, 'form' => $form->createView()
         ]);
     }
 

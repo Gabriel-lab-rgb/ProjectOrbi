@@ -26,8 +26,9 @@ security:
              default_target_path: app_home
 
             logout:
-              path: logout
+              path: logout 
             provider: app_user_provider
+            
             
 
             # activate different ways to authenticate
@@ -40,7 +41,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:

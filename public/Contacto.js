@@ -37,7 +37,7 @@ function verificarMensaje(mensaje){
 function verificarFormulario() {
   verificarAsunto(asunto.value);
   verificarMensaje(mensaje.value);
-  if (AsuntoCorrecto  === true &&  MensajeCorrecto === true) {
+  if (AsuntoCorrecto  == true &&  MensajeCorrecto == true) {
       return true;
   } else {
       return false;

@@ -7,8 +7,6 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
- 
-
 
 
 <div class="container-fluid px-3">
@@ -24,38 +22,43 @@
    <div class="col-lg-7 d-flex  flex-column justify-content-center p-3">
    <h1 class="h2 mt-5 text-center" style="float:bottom">Registro</h1>
   
- {{ form_start(registrationForm,{'attr': {'class': 'row p-5 '}}) }}
+ {{form_start(registrationForm,{'attr': {'onsubmit': 'return verificarFormulario()','class': 'row p-5 '}})}}
  
 
   <div class="col-md-6">
     <label for="validationCustom03" class="form-label">Email</label>
     {{ form_widget(registrationForm.user.email) }}
+    <div id="email">
+    </div>
    
   </div>
   <div class="col-md-6">
     <label for="validationCustomUsername" class="form-label">Username</label>
-    <div class="input-group has-validation">
-
       {{ form_widget(registrationForm.user.username) }}
+      <div id="username">
+       </div>
     
-    </div>
+   
   </div>
 
   <div class="col-md-4">
     <label for="validationCustomUsername" class="form-label">Contraseña</label>
-    <div class="input-group has-validation">
-
+   
       {{ form_widget(registrationForm.user.plainPassword, {
             label: 'Password'
         }) }}
+        <div id="contrasena">
+        </div>
      
-    </div>
+    
   </div>
 
 <h3 class="mt-3">Datos Personales</h3>
   <div class="col-md-6">
     <label for="validationCustom01" class="form-label">Nombre</label>
    {{ form_widget(registrationForm.persona.nombre) }}
+   <div id="nombre">
+   </div>
   
   </div>
 
@@ -63,35 +66,41 @@
   <div class="col-md-6">
     <label for="validationCustom02" class="form-label">Apellidos</label>
    {{ form_widget(registrationForm.persona.apellidos) }}
+   <div id="apellidos">
+                   </div>
   </div>
 
 
    <div class="col-md-4">
     <label for="validationCustomUsername" class="form-label">Dni</label>
-    <div class="input-group has-validation">
+   
 
        {{ form_widget(registrationForm.persona.dni) }}
+       <div id="dni">
+                   </div>
      
-    </div>
+
   </div>
 
    <div class="col-md-4">
     <label for="validationCustomUsername" class="form-label">Fecha de Nacimiento</label>
-    <div class="input-group has-validation">
+   
 
        {{ form_widget(registrationForm.persona.FechaNacimiento) }}
-      
-    </div>
+      <div id="fecha">
+                   </div>
+   
   </div>
 
 
    <div class="col-md-4">
     <label for="validationCustomUsername" class="form-label">Telefono</label>
-    <div class="input-group has-validation">
+    
 
        {{ form_widget(registrationForm.persona.telefono) }}
-      
-    </div>
+      <div id="telefono">
+                   </div>
+    
   </div>
 
   <div class="pt-3">
@@ -110,4 +119,9 @@
  </div>
  </div>
  </div>
+
+
+
+
 {% endblock %}
+
