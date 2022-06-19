@@ -19,6 +19,10 @@ use App\Form\ReservaType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Form\Model\ChangePassword;
 use App\Form\Type\ChangePasswordType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 
 
 class ProfileController extends AbstractController
@@ -151,14 +155,13 @@ class ProfileController extends AbstractController
     public function Image(Request $request,ManagerRegistry $doctrine): Response
     {
       
-        $imagen=$_FILES['imagen'];
-  
+        $imagen=$request->files->get('imagen');
 
         $user = $this->getUser(); 
             $newFilename = md5(uniqid()).'.'.$imagen->guessExtension();
 
             $imagen->move(
-                $this->getParameter('images_directory'),
+                $this->getParameter('images_usuarios'),
                 $newFilename);
 
                 $user->setImages($newFilename);
@@ -172,6 +175,30 @@ class ProfileController extends AbstractController
                 return $this->redirectToRoute('app_profile');  
 
     }
+
+
+    /**
+     * @Route("/reservaDelete/{id}", name="deleteItem2")
+     */
+    public function eliminar(ManagerRegistry $doctrine,Request $request,MailerInterface $mailer,EntityManagerInterface $entityManager,int $id): Response
+    {
+        $pedido=$doctrine->getRepository(Reserva::class)->find($id);
+        $pedido->setStatus('cancelado');
+        $entityManager->flush();
+
+        $email=(new Email())
+        ->from('grivote615@iesmartinezm.es')
+        ->to($pedido->getUsuario()->getEmail())
+        ->text('Reserva cancelada');
+        $mailer->send($email);
+
+      
+
+        return $this->redirectToRoute('app_profile');
+
+       
+    }
+
 
 
 }

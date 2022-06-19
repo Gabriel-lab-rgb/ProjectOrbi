@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-       <link rel="icon" href="{{asset('/img/Orbi.png')}}">
+        <link rel="icon" href="{{asset('/img/Orbi.png')}}">
          
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+<nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
     <div class="container-fluid">
     <img src="{{asset('/img/Orbi.png')}}" width="30px" height="30px">
       <a class="navbar-brand" href="{{path('app_home')}}"><strong>Orbi</strong></a>
@@ -101,9 +101,37 @@
     </div>
   </nav>
 
+  <section class="py-5 mb-5">
+    <div class="container">
+        <div class="row">
+           <div class="col-lg-3">
+                <div class="card border-0 shadow mb-3 ">
+                    <div class="card-header bg-gray-100 py-4 border-0 text-center">
+                                 {% if  not app.user.images %}
+              <img class="d-block avatar avatar-xxl p-2 mb-2 "
+                                src="{{asset('/img/user.png')}}"
+                                alt="">
+                        {% else %}
+ <img class="d-block avatar avatar-xxl p-2 mb-2"
+                                src="{{asset('/img/usuarios/' ~ persona.getUser().getImages())}}"
+                                alt="">
+                         {% endif %}
+                        <h5>{{persona.getNombre()}} {{persona.getApellidos()}}</h5>
+                        <span>{{persona.getUser().getEmail()}}</span>
+                      <ul class="list-group list-group-flush mt-5">
+                            <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
+                            <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
+                            <a href="{{path('logout')}}" class="list-group-item bg-gray-100">Cerrar Sesión</a>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+
        {% block body %}{% endblock %}
     
-      
+              </div>
+            </div>
+      </section>
 		
             <section class=" w-100" style="bottom:0; left:0;  ">
                 <div class="py-4 fw-light bg-gray-800 text-gray-300">

@@ -13,7 +13,7 @@
 {% block body %}
 <main>
  <div id="infoHoteles" data-hotels="{{alojamientos|serialize('json', { groups: 'hotel'})}}" style="display:none"></div>
- <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:72px">
+ <section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:72px; z-index:1;">
 
     <label class="rad-label">
       <input type="radio"  id="all" class="rad-input" name="rad" checked>

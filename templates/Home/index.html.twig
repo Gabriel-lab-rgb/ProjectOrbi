@@ -116,12 +116,12 @@
                         <div class=" h-auto px-2 "
                         style="width: 227px; margin-right: 15px;" data-swiper-slide-index="0">
                         <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a
-                                class="tile-link" href="category.html"></a><img class="bg-image"
-                                src="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/photo/barcelona.jpg"
-                                alt="Card image">
+                                class="tile-link" href="{{path('RegionExplore',{'name':'Castilla-LaMancha'})}}"><img class="bg-image"
+                                src="https://i.pinimg.com/originals/31/45/7f/31457fbba297c94229e10a7cfd5dfb37.jpg"
+                                alt="Card image"></a>
                             <div class="card-body overlay-content " style="position: relative;
                             z-index: 20;">
-                                <h6 class="card-title text-shadow text-uppercase">New York</h6>
+                                <h6 class="card-title text-shadow text-uppercase">CASTILLA-LA MANCHA</h6>
                                 <p class="card-text text-sm">The big apple</p>
                             </div>
                         </div>
@@ -223,6 +223,7 @@
                                                     </a>
                                                     <div class="packege__rivew">
                                                         <div class="left ">
+                                                        <p>{{alojamiento.getCaracteristicas()}}</p>
                                                         <p class="gx-2 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
   <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>{{alojamiento.getUbicacion().getComunidad()}}</p>
                                                          

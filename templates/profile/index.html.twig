@@ -1,31 +1,8 @@
-{% extends 'password.html.twig' %}
+{% extends 'profile.html.twig' %}
 
 {% block title %}Orbi|Profile{% endblock %}
 
 {% block body %}
-
-
-<section class="py-5 mb-5">
-    <div class="container">
-        <div class="row">
-           <div class="col-lg-3  ">
-                <div class="card border-0 shadow mb-3 ">
-                    <div class="card-header bg-gray-100 py-4 border-0 text-center">
-                            <img class="d-block avatar avatar-xxl p-2 mb-2"
-                                src="{{asset('/img/usuarios/' ~ persona.getUser().getImages())}}"
-                                alt="">
-                        <h5>{{persona.getNombre()}} {{persona.getApellidos()}}</h5>
-                        <span>{{persona.getUser().getEmail()}}</span>
-                      <ul class="list-group list-group-flush mt-5">
-                            <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
-                            <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
-                            <a href="{{path('logout')}}" class="list-group-item bg-gray-100">Cerrar Sesión</a>
-                      </ul>
-                    </div>
-                </div>
-            </div>
-
-
 
 
             <section class="col-lg-9 py-5">
@@ -86,6 +63,9 @@
 
                    <div class="list-group shadow mb-5"><div class="list-group-item list-group-item-action p-4">
           
+          {% if not reservas %}
+            <p>Todavia no has realizado ninguna reserva</p>
+          {% else %}
          
        {% for reserva in reservas %}
 
@@ -117,10 +97,11 @@
                  {% if reserva.getStatus =='aceptado' %}
     
     <p>Reserva ya aceptada</p>
-      <a href="{{path('deleteItem',{'id':reserva.getId()})}}" class="text-danger text-sm text-uppercase me-4 me-lg-0">Cancelar</a>
+      <a href="{{path('deleteItem2',{'id':reserva.getId()})}}" class="text-danger text-sm text-uppercase me-4 me-lg-0">Cancelar</a>
     {%  elseif reserva.getStatus =='cancelado' %}
      <p>Reserva cancelada</p>
      {% else %}
+      <a href="{{path('deleteItem2',{'id':reserva.getId()})}}" class="text-danger text-sm text-uppercase me-4 me-lg-0">Cancelar</a>
                   {% endif  %} 
                  <a href="{{path('carrito',{'id':reserva.getId()})}}" class="text-primary text-sm text-uppercase">detalles</a>   
                 </div>
@@ -129,6 +110,7 @@
           </div>
           <hr>
             {% endfor %}
+            {% endif %}
         </div>
      
       </div>
@@ -144,9 +126,8 @@
 
 
               
-        </div>
-    </div>
-</section>
+  
+
 
 
 <script>

@@ -54,10 +54,6 @@ class Images
     private $alojamiento;
 
   
-
-
-   
-
     public function getId(): ?int
     {
         return $this->id;
@@ -68,7 +64,7 @@ class Images
         return $this->imageName;
     }
 
-    public function setImageName(string $imageName): self
+    public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
 

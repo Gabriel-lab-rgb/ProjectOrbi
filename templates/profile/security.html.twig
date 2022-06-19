@@ -1,35 +1,9 @@
-{% extends 'password.html.twig' %}
+{% extends 'profile.html.twig' %}
 
 {% block title %}Orbi|Security{% endblock %}
 
 {% block body %}
 
-
-
-
-
-
-
-
-<section class="py-5 mb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3  ">
-                <div class="card border-0 shadow mb-3 ">
-                    <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block"
-                            href="#"><img class="d-block avatar avatar-xxl p-2 mb-2"
-                                src="{{asset('/img/usuarios/' ~ persona.getUser().getImages())}}"
-                                alt=""></a>
-                        <h5>{{persona.getNombre()}} {{persona.getApellidos()}}</h5>
-                        <span>{{persona.getUser().getEmail()}}</span>
-                      <ul class="list-group list-group-flush mt-5">
-                            <a href="{{path('app_profile')}}" class="list-group-item bg-gray-100">Perfil</a>
-                            <a href="{{path('security')}}" class="list-group-item bg-gray-100">Seguridad</a>
-                             <a href="{{path('logout')}}" class="list-group-item bg-gray-100">Cerrar Sesión</a>
-                      </ul>
-                    </div>
-                </div>
-            </div>
 
 <section class="col-lg-9 py-5  ">
     
@@ -69,9 +43,7 @@
 </section>
                 
                   
-        </div>
-    </div>
-</section>
+    
 
 
 

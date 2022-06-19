@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:72px">
+<section class="d-flex justify-content-center fixed-top items-center py-16 bg-gray-100" style="top:72px; z-index:1;">
     <label class="rad-label">
       <input type="radio"  id="all" class="rad-input" name="rad"  checked>
       <div class="rad-design"></div>
@@ -53,16 +53,6 @@
 </section>
 
 
-
-
-<!-- Button trigger modal -->
-
-
-
-<div class="dropdown-content">
-
-<a href="{{path('RegionExplore',{'name':'Asturias'})}}">Asturias</a>
-</div>
 
   <script>
   

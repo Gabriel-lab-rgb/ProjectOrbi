@@ -24,12 +24,12 @@ function verificarFormulario() {
  verificarContrasena(contrasena.value);
  verificarNombre(nombre.value);
  verificarApellido(apellidos.value);
- /*verificarDni(dni.value);*/
+ verificarDni(dni.value);
  verificarFecha(fecha.value);
  verificarTelefono(telefono.value);
 
   if (UsernameCorrecto  === true &&  EmailCorrecto === true && contrasenaCorrecto === true && dniCorrecto === true && nombreCorrecto === true && apellidosCorrecto === true  && telefonoCorrecto === true && fechaCorrecto === true) {
-      return false;
+      return true;
   } else {
       return false;
   }
@@ -50,24 +50,24 @@ function verificarEmail(email){
 
 function verificarUsername(username){
 
-  let re = new RegExp("^(?!.* $)[A-Za-z0-9]+$");
+  let re = new RegExp("^(?!.* $)[A-Za-z0-9]{5,30}$");
 
   if(!re.test(username)){
      UsernameCorrecto = false;
-     mensajeError("Nombre de usuario no valido", "username")
+     mensajeError("El username debe tener al entre 5 y 30 caracteres", "username")
   }else{
      UsernameCorrecto = true;
   }
 }
 
 function verificarContrasena(contrasena){
-
-  let re = new RegExp("");
+console.log(contrasena);
+  let re = new RegExp("^(?!.* $)[A-Za-z0-9]{8,16}$");
 
   if(!re.test(contrasena)){
      contrasenaCorrecto = false;
-     console.log('error');
-     mensajeError("La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula. Puede tener otros símbolos.", "contrasena")
+ 
+     mensajeError("La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.", "contrasena")
   }else{
      contrasenaCorrecto = true;
   }
@@ -87,7 +87,7 @@ function verificarNombre(nombre){
 
 function verificarApellido(apellidos){
 
-  let re = new RegExp("^(?=.{3,36}$)[a-zñA-ZÑ](\s?[a-zñA-ZÑ])*$");
+  let re = new RegExp("^(?=.{3,15}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$");
 
   if(!re.test(apellidos)){
      apellidosCorrecto = false;
@@ -99,24 +99,28 @@ function verificarApellido(apellidos){
 
 function verificarDni(dni){
 
-  var validChars = 'TRWAGMYFPDXBNJZSQVHLCKET';
-  let re = new RegExp("/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i");
-
-  if(!re.test(dni)){
-
-     var letter = str.substr(-1);
-     var charIndex = parseInt(re.substr(0, 8)) % 23;
-     dniCorrecto = false;
-     if (validChars.charAt(charIndex) === letter){
-
- dniCorrecto = true;
-     }else{
-  dniCorrecto = false;
-  mensajeError("Dni no es valido", "dni");
-     } 
-
+   let numero,letr,letra;
   
-}
+  
+  let re = /^\d{8}[a-zA-Z]$/;
+  
+   if(re.test(dni)){
+      numero = dni.substr(0,dni.length-1);
+      letr = dni.substr(dni.length-1,1);
+      numero = numero % 23;
+      letra='TRWAGMYFPDXBNJZSQVHLCKET';
+      letra=letra.substring(numero,numero+1);
+     if (letra!=letr.toUpperCase()) {
+      dniCorrecto = false;
+      mensajeError("El dni introducido no es valido", "dni");
+      }else{
+         dniCorrecto = true;
+      }
+   }else{
+      dniCorrecto = false;
+      mensajeError("El dni introducido no es valido", "dni");
+     
+    }
 }
 
 function verificarFecha(fecha){

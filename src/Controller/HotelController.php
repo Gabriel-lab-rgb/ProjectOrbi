@@ -107,7 +107,7 @@ class HotelController extends AbstractController
     {
         $alojamientos=[];
         $region=$doctrine->getRepository(Regiones::class)->findOneBy(array('nombre' => $name));
-       
+  
         $ubicaciones=$doctrine->getRepository(Ubicaciones::class)->findBy(array('region' => $region));
 
         foreach($ubicaciones as $ubicacion){
