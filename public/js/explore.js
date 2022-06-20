@@ -1,7 +1,7 @@
 /*variables*/
 let hotel=document.querySelector('#Hotel');
 let hostal=document.querySelector('#Hostal');
-let albergue=document.querySelector('#Albergue');
+let albergue=document.querySelector('#albergue');
 let casaRural=document.querySelector('#CasaRural');
 let todos=document.querySelector('#all');
 
@@ -169,13 +169,13 @@ rivew.classList="packege__rivew";
 let left=document.createElement('div')
 left.classList="left";
 let span1=document.createElement('span');
-span1.textContent='lugar';
+span1.textContent=array[i]['ubicacion']['provincia'];
 let span2=document.createElement('span');
-span2.textContent='jiio';
+span2.textContent=array[i]['caracteristicas'] ;
 let right=document.createElement('div');
 right.classList="right";
 let span3=document.createElement('span');
-span3.textContent="fdfdfd";
+span3.textContent=array[i]['precio'] + '€ por noche';
 left.appendChild(span1);
 left.appendChild(span2)
 right.appendChild(span3);

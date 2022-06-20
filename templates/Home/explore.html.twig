@@ -26,7 +26,7 @@
     </label>
 
     <label class="rad-label">
-      <input type="radio" id="Albergue" class="rad-input" name="rad">
+      <input type="radio" id="albergue" class="rad-input" name="rad">
       <div class="rad-design"></div>
       <div class="rad-text">Albergue</div>
     </label>
@@ -53,14 +53,14 @@
 </section>
 
 
-      {% block javascripts %}
+      
+
+{% endblock %}
+
+  {% block javascripts %}
 {{parent()}}
 <script src="{{asset('js/explore.js')}}"></script>
 
 
       
 {% endblock %}
-
-{% endblock %}
-
-  

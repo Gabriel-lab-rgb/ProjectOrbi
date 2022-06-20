@@ -34,24 +34,24 @@
                           {{form_start(form)}}
                             <div class="row pt-4">
                               <div class="mb-4 col-md-6">
-                                <label class="form-label" for="name">Name</label>
+                                <label class="form-label" for="name">nombre</label>
                               {{form_widget(form.Persona.nombre,{'attr': {'value': persona.getNombre()}})}}
                               </div>
                                <div class="mb-4 col-md-6">
-                                <label class="form-label" for="name">Name</label>
+                                <label class="form-label" for="name">apellidos</label>
                               {{form_widget(form.Persona.apellidos,{'attr': {'value': persona.getApellidos()}})}}
                               </div>
                               <div class="mb-4 col-md-6">
-                                <label class="form-label" for="date">Date of birth</label>
+                                <label class="form-label" for="date">Fecha de Nacimiento</label>
                                 {{form_widget(form.Persona.FechaNacimiento,{'attr': {'value': persona.getFechaNacimiento()|date('Y-m-d')}})}}
                               </div>
                             
                               <div class="mb-4 col-md-6">
-                                <label class="form-label" for="phone">Phone number</label>
+                                <label class="form-label" for="phone">Teléfono</label>
                                 {{form_widget(form.Persona.telefono,{'attr': {'value': persona.getTelefono()}})}}
                               </div>
                                <div class="mb-4 col-md-6">
-                                <label class="form-label" for="phone">Phone number</label>
+                                <label class="form-label" for="phone">Dni</label>
                                 {{form_widget(form.Persona.dni,{'attr': {'value': persona.getDni()}})}}
                               </div>
                             </div>

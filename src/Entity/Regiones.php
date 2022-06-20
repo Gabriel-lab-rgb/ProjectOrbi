@@ -22,25 +22,25 @@ class Regiones
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string",length=255, nullable=true)
      * @Groups({"hotel", "list_hotel"})
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="decimal", precision=11, scale=8, nullable=true)
+     * @ORM\Column(type="decimal",precision=11, scale=8, nullable=true)
      * @Groups({"hotel", "list_hotel"})
      */
     private $longitud;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=8, nullable=true)
+     * @ORM\Column(type="decimal",precision=10, scale=8, nullable=true)
      * @Groups({"hotel", "list_hotel"})
      */
     private $latitud;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text",nullable=true)
      * @Groups({"hotel", "list_hotel"})
      */
     private $descripcion;

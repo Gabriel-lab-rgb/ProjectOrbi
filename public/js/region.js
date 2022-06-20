@@ -5,7 +5,7 @@
 
  let hotel=document.querySelector('#Hotel');
  let hostal=document.querySelector('#Hostal');
- let albergue=document.querySelector('#Albergue');
+ let albergue=document.querySelector('#albergue');
  let casaRural=document.querySelector('#CasaRural');
  let todos=document.querySelector('#all');
 
