@@ -25,7 +25,7 @@
             				<h2>¡Felicidades!</h2>
             				<h3>Tu reserva acaba de ser aceptada</h3>
             			</div>
-                        <div style="display:flex ; justify-content:center;">
+                        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center">
                          {% for pedido in pedidos %}
                           <img src="{{asset('/img/alojamientos/'  ~ pedido.getAlojamiento().Images[0].ImageName)}}" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
                           <h3>{{pedido.getAlojamiento().getNombre()}}</h3>
